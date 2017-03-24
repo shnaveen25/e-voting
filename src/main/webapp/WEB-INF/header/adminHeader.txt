@@ -44,7 +44,7 @@
       <li><a class="drop" href="#">Party</a>
         <ul>
           <li><a href="/addParty">Add Party</a></li>
-          <li><a href="/viewParty">View Party</a></li>
+          <li><a href="/viewParties">View Party</a></li>
       </ul>
     </li>
       <li><a class="drop" href="#">Participants</a>

@@ -26,6 +26,7 @@ public class ParticipantsDto implements Serializable {
 	private long adhaar;
 	private String address;
 	private Date createdDate;
+	private String partyName;
 	@Override
 	public String toString() {
 		return "ParticipantsDto [id=" + id + ", partyId=" + partyId + ", name=" + name + ", email=" + email + ", post="
@@ -231,6 +232,12 @@ public class ParticipantsDto implements Serializable {
 	}
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+	public String getPartyName() {
+		return partyName;
+	}
+	public void setPartyName(String partyName) {
+		this.partyName = partyName;
 	}
 	
 	
