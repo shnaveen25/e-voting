@@ -17,18 +17,18 @@ public class ParticipantsDto implements Serializable {
 	private String post;
 	private String participatingPlace;
 	private String participatingState;
-	private int mobile;
-	private Date dob;
+	private long mobile;
+	private String dob;
 	private String gender;
 	private String education;
 	private String property;
 	private String policeRecord;
-	private int adhaar;
+	private long adhaar;
 	private String address;
 	private Date createdDate;
 	@Override
 	public String toString() {
-		return "ParticipantsDto [id=" + id + ", partyId=" + partyId + ", name=" + name + ", emai=" + email + ", post="
+		return "ParticipantsDto [id=" + id + ", partyId=" + partyId + ", name=" + name + ", email=" + email + ", post="
 				+ post + ", participatingPlace=" + participatingPlace + ", participatingState=" + participatingState
 				+ ", mobile=" + mobile + ", dob=" + dob + ", gender=" + gender + ", education=" + education
 				+ ", property=" + property + ", policeRecord=" + policeRecord + ", adhaar=" + adhaar + ", address="
@@ -39,14 +39,14 @@ public class ParticipantsDto implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + adhaar;
+		result = prime * result + (int) (adhaar ^ (adhaar >>> 32));
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
 		result = prime * result + ((education == null) ? 0 : education.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + mobile;
+		result = prime * result + (int) (mobile ^ (mobile >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((participatingPlace == null) ? 0 : participatingPlace.hashCode());
 		result = prime * result + ((participatingState == null) ? 0 : participatingState.hashCode());
@@ -156,8 +156,8 @@ public class ParticipantsDto implements Serializable {
 	public String getEmail() {
 		return email;
 	}
-	public void setEmail(String emai) {
-		this.email = emai;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getPost() {
 		return post;
@@ -177,16 +177,17 @@ public class ParticipantsDto implements Serializable {
 	public void setParticipatingState(String participatingState) {
 		this.participatingState = participatingState;
 	}
-	public int getMobile() {
+	public long getMobile() {
 		return mobile;
 	}
-	public void setMobile(int mobile) {
+	public void setMobile(long mobile) {
 		this.mobile = mobile;
+		System.out.println("Mobile : "+mobile);
 	}
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 	public String getGender() {
@@ -213,10 +214,10 @@ public class ParticipantsDto implements Serializable {
 	public void setPoliceRecord(String policeRecord) {
 		this.policeRecord = policeRecord;
 	}
-	public int getAdhaar() {
+	public long getAdhaar() {
 		return adhaar;
 	}
-	public void setAdhaar(int adhaar) {
+	public void setAdhaar(long adhaar) {
 		this.adhaar = adhaar;
 	}
 	public String getAddress() {
@@ -232,5 +233,6 @@ public class ParticipantsDto implements Serializable {
 		this.createdDate = createdDate;
 	}
 	
-
+	
+	
 }

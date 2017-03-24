@@ -22,8 +22,6 @@ public class PartyDescriptionServiceImpl implements PartyDescriptionService{
 	
 	@Autowired
 	private PartyDescriptionDAO partyDescriptionDao;
-	
-	List<PartyDto> responsePartyData = new ArrayList<PartyDto>();
 
 	@Override
 	public boolean addParty(PartyDescription addPartyBean) {
@@ -39,17 +37,37 @@ public class PartyDescriptionServiceImpl implements PartyDescriptionService{
 
 	@Override
 	public List<PartyDto> getParty() {
-		
+		List<PartyDto> responsePartyData = new ArrayList<PartyDto>();
 		List<PartyDescription> partyFromDb = partyDescriptionDao.getPartyName();
 		
 		for(PartyDescription indudivalParty : partyFromDb){
-			System.out.println("Indudival Parties from getParty() of PartyDescriptionServiceImpl: "+ indudivalParty);
+			//System.out.println("Indudival Parties from getParty() of PartyDescriptionServiceImpl: "+ indudivalParty);
 			PartyDto partyList = new PartyDto();
 			partyList.setPartyName(indudivalParty.getPartyName());
 			partyList.setId(indudivalParty.getId());
 			responsePartyData.add(partyList);
 		}
 		
+		return responsePartyData;
+	}
+
+	@Override
+	public List<PartyDto> viewAllParties() {
+		List<PartyDto> responsePartyData = new ArrayList<PartyDto>();
+		List<PartyDescription> partiesFromDb = partyDescriptionDao.findAll();
+		System.out.println("Orginal List of partied : "+partiesFromDb);
+		for(PartyDescription indudivalParty  : partiesFromDb){
+			PartyDto party = new PartyDto();
+			party.setPartyName(indudivalParty.getPartyName());
+			party.setPartyEmail(indudivalParty.getEmail());
+			party.setPartyDescription(indudivalParty.getPartyDescription());
+			party.setId(indudivalParty.getId());
+			party.setMpMembers(indudivalParty.getMpMembers());
+			party.setMlaMembers(indudivalParty.getMlaMembers());
+			
+			responsePartyData.add(party);
+		}
+		System.out.println("List of Parties from DB : "+responsePartyData);
 		return responsePartyData;
 	}
 }

@@ -99,8 +99,9 @@ public class PartyDto implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "AddPartyDto [partyName=" + partyName + ", partyDescription=" + partyDescription + ", mpMembers="
-				+ mpMembers + ", mlaMembers=" + mlaMembers + ", partyEmail=" + partyEmail + "]";
+		return "PartyDto [id=" + id + ", partyName=" + partyName + ", partyDescription=" + partyDescription
+				+ ", mpMembers=" + mpMembers + ", mlaMembers=" + mlaMembers + ", partyEmail=" + partyEmail
+				+ ", createdDate=" + createdDate + "]";
 	}
 
 	public String getPartyEmail() {

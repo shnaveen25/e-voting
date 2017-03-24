@@ -39,8 +39,8 @@ public class AdminController {
 		
 		System.out.println("Inside processAdminLogin() of AdminController");
 		
-		String email = request.getParameter("uname");
-		String password = request.getParameter("pswd");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
 		
 		System.out.println("Username : "+email+" Password : "+password);
 		
@@ -51,5 +51,16 @@ public class AdminController {
 			return  new ModelAndView("login");
 		}
 	
+	}
+	
+	@RequestMapping("/adminHome")
+	public String showAdminHome(){
+		return "adminViews/adminHome";
+	}
+	
+	@RequestMapping("/logout")
+	public ModelAndView processLogout(Model model){
+		model.addAttribute("errMsg", "Thank you..!! Visit Again");
+		return new ModelAndView("login");
 	}
 }

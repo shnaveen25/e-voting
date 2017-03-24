@@ -33,4 +33,19 @@ public class MainController {
 	public String showRegisterView(){
 		return "register";
 	}
+	
+	@RequestMapping("/showPresentElections")
+	public String showPresentElectionsView(){
+		return "presentElections";
+	}
+	
+	@RequestMapping("/showPastElections")
+	public String showPastElectionsView(){
+		return "pastElections";
+	}
+	
+	@RequestMapping("/showFutureElections")
+	public String showFutureElectionsView() {
+		return "futureElections";
+	}
 }

@@ -1,5 +1,9 @@
 package com.pesit.eVoting.service;
 
-public interface ElectionParticipantsService {
+import com.pesit.eVoting.dto.ParticipantsDto;
 
+public interface ElectionParticipantsService {
+	
+	public void addParticipant(ParticipantsDto participant);
+	
 }

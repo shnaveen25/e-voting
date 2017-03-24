@@ -48,7 +48,7 @@ public class PartyDescriptionController {
 		PartyDescription partyDescription = new PartyDescription();
 		partyDescription.setPartyName(addPartyDto.getPartyName());
 		partyDescription.setPartyDescription(addPartyDto.getPartyDescription());
-		partyDescription.setEmail("sh.naveen16@gmail.com");
+		partyDescription.setEmail(addPartyDto.getPartyEmail());
 		partyDescription.setMpMembers(addPartyDto.getMpMembers());
 		partyDescription.setMlaMembers(addPartyDto.getMlaMembers());
 
@@ -68,9 +68,9 @@ public class PartyDescriptionController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/addParticipantSelectParty")
+	@RequestMapping("/showAddParticipantView")
 	public ModelAndView showSelectPartyView(Model model) {
-		ModelAndView view = new ModelAndView("adminViews/memberDesc2");
+		ModelAndView view = new ModelAndView("adminViews/addParticipant");
 		ParticipantsDto participantsrDto = new ParticipantsDto();
 		List<PartyDto> partyName = paertyDescriptionService.getParty();
 		if (partyName.size() > 0)
@@ -79,25 +79,16 @@ public class PartyDescriptionController {
 		return view;
 	}
 
-	
-	/**
-	 * 
-	 * @return
-	 */
-	/*
-	@RequestMapping("/addParticipantDetails")
-	public ModelAndView showAddPaericipantView(@ModelAttribute("addParticipantDetails") @Valid PartyDto selectedParty,
-			BindingResult result, Model model) {
-		System.out.println("Selected party list form PartyDescriptionController : "+selectedParty);
-		if(result.hasErrors())
-			return new ModelAndView("adminViews/memberDesc");
+	@RequestMapping("/viewParties")
+	public ModelAndView showListOfParties(Model model) {
+		ModelAndView view = new ModelAndView("adminViews/viewParties");
+		List<PartyDto> parties = paertyDescriptionService.viewAllParties();
 		
-		ParticipantsDto participantsrDto = new ParticipantsDto();
-		participantsrDto.setPartyId(selectedParty.getId());
-		
-		model.addAttribute("participantsrDto" , participantsrDto);
-		
-		return new ModelAndView("adminViews/memberDesc2");
+		if(parties.size() > 0) {
+			view.addObject("listOfparties", parties);
+		} else {
+			model.addAttribute("errMsg", "No Parties Found to display");
+		}
+		return view;
 	}
-	*/
 }

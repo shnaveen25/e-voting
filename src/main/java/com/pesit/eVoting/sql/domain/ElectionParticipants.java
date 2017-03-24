@@ -27,11 +27,162 @@ public class ElectionParticipants {
 	private long id;
 	
 	@Column(name="party_id")
-	private String partyId;
+	private long partyId;
 	
 	@Column(name="name")
 	private String name;
 	
+	@Column(name="email")
+	private String email;
+	
+	@Column(name="post")
+	private String post;
+	
+	@Column(name="participating_place")
+	private String participatingPlace;
+	
+	@Column(name="participating_state")
+	private String participatingState;
+	
+	@Column(name="mobile")
+	private long mobile;
+	
+	@Column(name="dob")
+	private Date dob;
+	
+	@Column(name="gender")
+	private String gender;
+	
+	@Column(name="education")
+	private String education;
+	
+	@Column(name="property")
+	private String property;
+	
+	@Column(name="police_record")
+	private String policeRecord;
+	
+	@Column(name="adhaar_num")
+	private long adhaar;
+	
+	@Column(name="address")
+	private String address;
+	
+	@Column(name="created_date")
+	private Date createdDate;
+
+	@Override
+	public String toString() {
+		return "ElectionParticipants [id=" + id + ", partyId=" + partyId + ", name=" + name + ", email=" + email
+				+ ", post=" + post + ", participatingPlace=" + participatingPlace + ", participatingState="
+				+ participatingState + ", mobile=" + mobile + ", dob=" + dob + ", gender=" + gender + ", education="
+				+ education + ", property=" + property + ", policeRecord=" + policeRecord + ", adhaar=" + adhaar
+				+ ", address=" + address + ", createdDate=" + createdDate + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + (int) (adhaar ^ (adhaar >>> 32));
+		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
+		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
+		result = prime * result + ((education == null) ? 0 : education.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + (int) (mobile ^ (mobile >>> 32));
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((participatingPlace == null) ? 0 : participatingPlace.hashCode());
+		result = prime * result + ((participatingState == null) ? 0 : participatingState.hashCode());
+		result = prime * result + (int) (partyId ^ (partyId >>> 32));
+		result = prime * result + ((policeRecord == null) ? 0 : policeRecord.hashCode());
+		result = prime * result + ((post == null) ? 0 : post.hashCode());
+		result = prime * result + ((property == null) ? 0 : property.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ElectionParticipants other = (ElectionParticipants) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (adhaar != other.adhaar)
+			return false;
+		if (createdDate == null) {
+			if (other.createdDate != null)
+				return false;
+		} else if (!createdDate.equals(other.createdDate))
+			return false;
+		if (dob == null) {
+			if (other.dob != null)
+				return false;
+		} else if (!dob.equals(other.dob))
+			return false;
+		if (education == null) {
+			if (other.education != null)
+				return false;
+		} else if (!education.equals(other.education))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (gender == null) {
+			if (other.gender != null)
+				return false;
+		} else if (!gender.equals(other.gender))
+			return false;
+		if (id != other.id)
+			return false;
+		if (mobile != other.mobile)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (participatingPlace == null) {
+			if (other.participatingPlace != null)
+				return false;
+		} else if (!participatingPlace.equals(other.participatingPlace))
+			return false;
+		if (participatingState == null) {
+			if (other.participatingState != null)
+				return false;
+		} else if (!participatingState.equals(other.participatingState))
+			return false;
+		if (partyId != other.partyId)
+			return false;
+		if (policeRecord == null) {
+			if (other.policeRecord != null)
+				return false;
+		} else if (!policeRecord.equals(other.policeRecord))
+			return false;
+		if (post == null) {
+			if (other.post != null)
+				return false;
+		} else if (!post.equals(other.post))
+			return false;
+		if (property == null) {
+			if (other.property != null)
+				return false;
+		} else if (!property.equals(other.property))
+			return false;
+		return true;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -40,11 +191,11 @@ public class ElectionParticipants {
 		this.id = id;
 	}
 
-	public String getPartyId() {
+	public long getPartyId() {
 		return partyId;
 	}
 
-	public void setPartyId(String partyId) {
+	public void setPartyId(long partyId) {
 		this.partyId = partyId;
 	}
 
@@ -88,11 +239,11 @@ public class ElectionParticipants {
 		this.participatingState = participatingState;
 	}
 
-	public String getMobile() {
+	public long getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(String mobile) {
+	public void setMobile(long mobile) {
 		this.mobile = mobile;
 	}
 
@@ -136,11 +287,11 @@ public class ElectionParticipants {
 		this.policeRecord = policeRecord;
 	}
 
-	public String getAdhaar() {
+	public long getAdhaar() {
 		return adhaar;
 	}
 
-	public void setAdhaar(String adhaar) {
+	public void setAdhaar(long adhaar) {
 		this.adhaar = adhaar;
 	}
 
@@ -159,165 +310,6 @@ public class ElectionParticipants {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((adhaar == null) ? 0 : adhaar.hashCode());
-		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
-		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
-		result = prime * result + ((education == null) ? 0 : education.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((participatingPlace == null) ? 0 : participatingPlace.hashCode());
-		result = prime * result + ((participatingState == null) ? 0 : participatingState.hashCode());
-		result = prime * result + ((partyId == null) ? 0 : partyId.hashCode());
-		result = prime * result + ((policeRecord == null) ? 0 : policeRecord.hashCode());
-		result = prime * result + ((post == null) ? 0 : post.hashCode());
-		result = prime * result + ((property == null) ? 0 : property.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ElectionParticipants other = (ElectionParticipants) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (adhaar == null) {
-			if (other.adhaar != null)
-				return false;
-		} else if (!adhaar.equals(other.adhaar))
-			return false;
-		if (createdDate == null) {
-			if (other.createdDate != null)
-				return false;
-		} else if (!createdDate.equals(other.createdDate))
-			return false;
-		if (dob == null) {
-			if (other.dob != null)
-				return false;
-		} else if (!dob.equals(other.dob))
-			return false;
-		if (education == null) {
-			if (other.education != null)
-				return false;
-		} else if (!education.equals(other.education))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (gender == null) {
-			if (other.gender != null)
-				return false;
-		} else if (!gender.equals(other.gender))
-			return false;
-		if (id != other.id)
-			return false;
-		if (mobile == null) {
-			if (other.mobile != null)
-				return false;
-		} else if (!mobile.equals(other.mobile))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (participatingPlace == null) {
-			if (other.participatingPlace != null)
-				return false;
-		} else if (!participatingPlace.equals(other.participatingPlace))
-			return false;
-		if (participatingState == null) {
-			if (other.participatingState != null)
-				return false;
-		} else if (!participatingState.equals(other.participatingState))
-			return false;
-		if (partyId == null) {
-			if (other.partyId != null)
-				return false;
-		} else if (!partyId.equals(other.partyId))
-			return false;
-		if (policeRecord == null) {
-			if (other.policeRecord != null)
-				return false;
-		} else if (!policeRecord.equals(other.policeRecord))
-			return false;
-		if (post == null) {
-			if (other.post != null)
-				return false;
-		} else if (!post.equals(other.post))
-			return false;
-		if (property == null) {
-			if (other.property != null)
-				return false;
-		} else if (!property.equals(other.property))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "ElectionParticipants [id=" + id + ", partyId=" + partyId + ", name=" + name + ", email=" + email
-				+ ", post=" + post + ", participatingPlace=" + participatingPlace + ", participatingState="
-				+ participatingState + ", mobile=" + mobile + ", dob=" + dob + ", gender=" + gender + ", education="
-				+ education + ", property=" + property + ", policeRecord=" + policeRecord + ", adhaar=" + adhaar
-				+ ", address=" + address + ", createdDate=" + createdDate + "]";
-	}
-
-	@Column(name="email")
-	private String email;
 	
-	@Column(name="post")
-	private String post;
-	
-	@Column(name="participating_place")
-	private String participatingPlace;
-	
-	@Column(name="participating_state")
-	private String participatingState;
-	
-	@Column(name="mobile")
-	private String mobile;
-	
-	@Column(name="dob")
-	private Date dob;
-	
-	@Column(name="gender")
-	private String gender;
-	
-	@Column(name="education")
-	private String education;
-	
-	@Column(name="property")
-	private String property;
-	
-	@Column(name="police_record")
-	private String policeRecord;
-	
-	@Column(name="adhaar_num")
-	private String adhaar;
-	
-	@Column(name="address")
-	private String address;
-	
-	@Column(name="created_date")
-	private Date createdDate;
 
 }

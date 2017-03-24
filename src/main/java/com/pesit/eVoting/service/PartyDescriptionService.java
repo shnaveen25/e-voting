@@ -10,4 +10,6 @@ public interface PartyDescriptionService {
 	public boolean addParty(PartyDescription addPartyBean);
 	
 	public List<PartyDto> getParty();
+	
+	public List<PartyDto> viewAllParties();
 }
