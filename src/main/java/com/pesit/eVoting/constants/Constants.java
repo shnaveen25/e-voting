@@ -10,5 +10,6 @@ package com.pesit.eVoting.constants;
 public interface Constants {
 
 	public String LOGIN_FAILED = "login_failed";
+	public String SUCCESS = "success";
 }
 

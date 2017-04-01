@@ -4,8 +4,14 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.catalina.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.pesit.eVoting.dto.UserDto;
+import com.pesit.eVoting.sql.domain.Users;
 
 /**
  * 
@@ -25,13 +31,14 @@ public class MainController {
 	
 	@RequestMapping("/login")
 	public String showLoginView(){
-		System.out.println("Forwording to login");
 		return "login";
 	}
 	
 	@RequestMapping("/register")
-	public String showRegisterView(){
-		return "register";
+	public ModelAndView showRegisterView(Model model){
+		UserDto userDto = new UserDto();
+		model.addAttribute("userDto", userDto);
+		return new ModelAndView("register");
 	}
 	
 	@RequestMapping("/showPresentElections")

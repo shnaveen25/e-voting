@@ -1,3 +1,5 @@
+
+
 <!-- Include Header -->
 <%@ include file="../header/defaultHeader.txt"%>
 
@@ -31,7 +33,7 @@
 				<div class="text-center">
 					<div class="form-group">
 						<div class="col-lg-offset-2 col-lg-8">
-							<a href="#/hr/forgotPassword"> Forgot Password ? </a> <br />
+							<a href="forgotPassword"> Forgot Password ? </a> <br />
 							<a href="register"> New User? Create Login </a> <br /> <br />
 							<button type="submit" class="btn btn-danger">Sign in</button>
 						</div>
@@ -45,3 +47,6 @@
 
 <!-- Include Footer -->
 <%@ include file="../footer/defaultFooter.txt"%>
+
+</body>
+</html>

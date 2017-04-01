@@ -6,16 +6,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<link href="static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" type="text/css">
-<link rel="stylesheet"  href="static/css/font-awesome.min.css" >
-<link rel="stylesheet"  href="static/css/framework.css" >
-<link rel="stylesheet"  href="static/css/style.css">
-<link rel="stylesheet"  href="static/css/animate.css" >
-<link rel="stylesheet"  href="static/css/bootstrap.css" >
+<link href="css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" type="text/css">
+<link rel="stylesheet"  href="css/font-awesome.min.css" >
+<link rel="stylesheet"  href="css/framework.css" >
+<link rel="stylesheet"  href="css/style.css">
+<link rel="stylesheet"  href="css/animate.css" >
+<link rel="stylesheet"  href="css/bootstrap.css" >
 <!-- JAVASCRIPTS -->
-<script src="static/js/jquery.min.js"></script>
-<script src="static/js/jquery.backtotop.js"></script>
-<script src="static/js/jquery.mobilemenu.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.backtotop.js"></script>
+<script src="js/jquery.mobilemenu.js"></script>
 
 </head>
 <body id="top">

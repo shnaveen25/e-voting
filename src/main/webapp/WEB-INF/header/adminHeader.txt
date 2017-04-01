@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" type="text/css" media="screen">
-<link href="static/css/font-awesome.min.css" rel="stylesheet">
-<link href="static/css/framework.css" rel="stylesheet">
-<link href="static/css/bootstrap.css" rel="stylesheet">
+<link href="css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" type="text/css" media="screen">
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/framework.css" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
 <style>
 .container{
   height: 450px;
@@ -18,7 +18,7 @@
   <div id="topbar" class="hoc clear"> 
 <div class="fl_right">
       <ul>
-        <li><a href=""><img src="static/images/demo/logout.jpg"></a></li>
+        <li><a href=""><img src="images/demo/logout.jpg"></a></li>
         <li><a href="logout">Log Out</a></li>
       </ul>
     </div>
