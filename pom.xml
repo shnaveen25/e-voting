@@ -44,6 +44,10 @@
 		    <artifactId>hibernate-core</artifactId>
 		    <version>5.0.4.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>eVoting</finalName>

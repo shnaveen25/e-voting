@@ -30,7 +30,7 @@
     <div class="fl_right">
       <ul>
         <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-        <li><a href="/login">Login</a></li>
+        <li><a href="/userLogin">Login</a></li>
         <li><a href="/register">Register</a></li>
       </ul>
     </div>

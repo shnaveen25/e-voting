@@ -1,11 +1,9 @@
 <!-- Header -->
-<%@ include file="../../header/adminHeader.txt" %>
+<%@ include file="../../header/adminHeader.txt"%>
 
-<div class="container text-center" >
-
-        	<font color="Red"> ${message}</font>
-
+<div class="container text-center">
+	<font color="Red"> ${message}</font>
 </div>
 
 <!-- Footer -->
-<%@ include file="../../footer/adminFooter.txt" %>
+<%@ include file="../../footer/adminFooter.txt"%>

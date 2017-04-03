@@ -29,9 +29,14 @@ public class MainController {
 		return "index";
 	}
 	
-	@RequestMapping("/login")
+	@RequestMapping({"/login"})
 	public String showLoginView(){
 		return "login";
+	}
+	
+	@RequestMapping("/userLogin")
+	public String showUserLoginView(){
+		return "usersView/userLogin";
 	}
 	
 	@RequestMapping("/register")

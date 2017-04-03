@@ -3,7 +3,7 @@
 
 
 <!-- Include Header -->
-<%@ include file="../header/defaultHeader.txt"%>
+<%@ include file="../../header/defaultHeader.txt"%>
 
 <div class="wrapper row3">
 	<main class="hoc container clear">
@@ -16,7 +16,7 @@
 			</header>
 			<div class="panel-body"></div>
 			<font color="Red"> ${errMsg}</font>
-				<form class="form-horizontal" role="form" action="processLogin"
+				<form class="form-horizontal" role="form" action="processUserLogin"
 					method="post">
 					<div class="form-group">
 						<label class="col-lg-2 col-sm-2 control-label"> Email </label>
@@ -48,7 +48,7 @@
 </div>
 
 <!-- Include Footer -->
-<%@ include file="../footer/defaultFooter.txt"%>
+<%@ include file="../../footer/defaultFooter.txt"%>
 
 </body>
 </html>

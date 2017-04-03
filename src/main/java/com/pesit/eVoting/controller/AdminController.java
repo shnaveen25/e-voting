@@ -36,13 +36,9 @@ public class AdminController {
 	
 	@RequestMapping("/processLogin")
 	public ModelAndView processAdminLogin(Model model) {
-		
-		System.out.println("Inside processAdminLogin() of AdminController");
-		
+	
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
-		System.out.println("Username : "+email+" Password : "+password);
 		
 		if(!adminService.loginAdmin(email , password).equals(Constants.LOGIN_FAILED)) {
 			return  new ModelAndView("adminViews/adminHome");

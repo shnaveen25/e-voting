@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" type="text/css" media="screen">
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="css/framework.css" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
+<style>
+.container{
+  height: 450px;
+  width: auto;
+}
+</style>
+</head>
+<body id="top"><div class="wrapper row0">
+  <div id="topbar" class="hoc clear"> 
+<div class="fl_right">
+      <ul>
+        <li><a href="#"><img src="images/demo/logout.jpg"></a></li>
+        <li><a href="logout">Log Out</a></li>
+      </ul>
+    </div>
+</div>
+</div>
+<div class="wrapper row1">
+  <header id="header" class="hoc clear"> 
+    <div id="logo" class="fl_left">
+      <h1><a href="/">e-voting</a></h1>
+      <!--<p>Quisque congue diam</p>-->
+    </div>
+</header>
+  <nav id="mainav" class="hoc clear"> 
+    <ul class="clear">
+      <li class="active"><a href="userHome">Home</a></li>
+      <li><a class="drop" href="#">Submitted Application</a>
+        <ul>
+          <li><a href="#">Including Your Name in Electoral Roll</a></li>
+          <li><a href="#">Deleting Your Name From Electoral Roll</a></li>
+          <li><a href="#">Modifying Your Name in Electoral Roll</a></li>
+          <li><a href="#">Transposing Your Name in Electoral Roll</a></li> 	 	 	 	
+        </ul>
+      </li>
+      </li>
+      <li><a href="#">Application Status</a>
+      <li><a href="#">Change Password</a>
+      <li><a href="#">Vote</a></li>
+      <li><a href=""></a></li>
+    </li>
+    </ul>
+     </nav>
+</div>

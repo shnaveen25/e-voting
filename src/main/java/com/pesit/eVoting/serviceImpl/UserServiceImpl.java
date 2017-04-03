@@ -1,6 +1,7 @@
 package com.pesit.eVoting.serviceImpl;
 
 
+import org.apache.tomcat.util.bcel.classfile.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String registerUser(UserDto user) {
-		System.out.println("Uesr "+user);
 		Users userDetail = new Users();
 		userDetail.setName(user.getName());
 		userDetail.setEmail(user.getEmail());
@@ -29,6 +29,17 @@ public class UserServiceImpl implements UserService {
 			userDao.save(userDetail);
 		} catch (Exception e) {
 			return e.getMessage();
+		}
+		return Constants.SUCCESS;
+	}
+
+	@Override
+	public String authonticateUser(String email, String password) {
+		
+		Users isExistingUser =userDao.findByEmailAndPassword(email, password);
+		
+		if(isExistingUser == null) {
+			return Constants.LOGIN_FAILED;
 		}
 		return Constants.SUCCESS;
 	}
