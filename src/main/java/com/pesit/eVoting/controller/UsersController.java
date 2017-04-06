@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.pesit.eVoting.constants.Constants;
@@ -153,16 +155,26 @@ public class UsersController {
 		return view;
 	}
 	
-	@RequestMapping("/gerUserApplications")
-	public ModelAndView getUserApplications(HttpSession session) {
+	@RequestMapping({"/getUserApplications"})
+	public ModelAndView getUserApplications(HttpSession session , Model model,
+			@RequestParam(value="id" , required = false) Long id) {
 		
 		System.out.println("Getting application lists "+session.getAttribute("userId"));
 		long userId = (long) session.getAttribute("userId");
 		
 		List<VotersApplicationsDto>  applicationList= voterApplicationService.getUserAppliedApplications(userId);		
-			ModelAndView view = new ModelAndView("usersView/userHome");
-			
-			System.out.println("Applicatons......"+applicationList);
+		ModelAndView view = new ModelAndView("usersView/userApplications");
+		view.addObject("applicationList", applicationList);
+		
+		if(id != null){
+			for(VotersApplicationsDto indudivalApplication : applicationList){
+				if(indudivalApplication.getId() == id)
+					view.addObject("ApplicationDetails", indudivalApplication);
+			}
+		}
+		
+		model.addAttribute("applicationType", "pendng");
+			//System.out.println("Applicatons......"+applicationList);
 		return view;
 	}
 	
