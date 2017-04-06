@@ -147,6 +147,7 @@ public class VotersApplicationsDto implements Serializable {
 	}
 	public void setDistrictId(long districtId) {
 		this.districtId = districtId;
+		
 	}
 	public long getAssemblyId() {
 		return assemblyId;
@@ -154,6 +155,7 @@ public class VotersApplicationsDto implements Serializable {
 	public void setAssemblyId(long assemblyId) {
 		this.assemblyId = assemblyId;
 	}
+	
 	public String getName() {
 		return name;
 	}

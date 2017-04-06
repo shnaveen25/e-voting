@@ -85,7 +85,8 @@
 	<main class="hoc clear">
 	<div class="content">
 		<div id="comments">
-			<x:form modelAttribute="voterApplicationDto" action="registerVoterApplication">
+			<x:form modelAttribute="voterApplicationDto"
+				action="registerVoterApplication">
 				<h4 class="text-center">Application for inclusion of name in
 					Electoral Roll</h4>
 				<ul>
@@ -111,11 +112,11 @@
 									</div>
 								</div>
 
-								<div class="form-group" id="states">
+								<div class="form-group">
 									<div id="districts"></div>
 								</div>
 
-								<div class="form-group" id="states">
+								<div class="form-group">
 									<div id="assembly"></div>
 								</div>
 								<br /> <br />
@@ -173,12 +174,11 @@
 									</div>
 								</div>
 							</div>
-							<br /> <br /> <br /> <br /> <br /> <br /> <br /> 
-							<br />
+							<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 						</article>
 
 					</li>
-					
+
 					<li>
 						<article>
 							<header>
@@ -186,17 +186,20 @@
 							</header>
 							<div class="comcont">
 								<div class="form-group">
-									<label class="col-lg-2 col-sm-2 control-label"> Aadhar Number </label>
+									<label class="col-lg-2 col-sm-2 control-label"> Aadhar
+										Number </label>
 									<div class="col-lg-10">
 										<input type="text" class="form-control" name="aadhar"
 											placeholder="Please Enter Aadhar Number." />
 									</div>
 								</div>
 							</div>
-							<br/><br/><br/>	
+							<br />
+							<br />
+							<br />
 						</article>
 					</li>
-					
+
 					<li>
 						<article>
 							<header>
@@ -208,8 +211,7 @@
 									<label class="col-lg-2 col-sm-2 control-label">
 										Area/Street 1 </label>
 									<div class="col-lg-4">
-										<textarea rows="4" cols="50" class="form-control"
-											name="area"
+										<textarea rows="4" cols="50" class="form-control" name="area"
 											placeholder="Please Enter details of your place of residence."></textarea>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label">
@@ -221,24 +223,26 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-lg-2 col-sm-2 control-label"> Land Mark </label>
+									<label class="col-lg-2 col-sm-2 control-label"> Land
+										Mark </label>
 									<div class="col-lg-4 ">
 										<input type="text" class="form-control" name="landMark"
 											placeholder="Enter Land Mark." />
 									</div>
-									<label class="col-lg-2 col-sm-2 control-label">  Pin Code </label>
+									<label class="col-lg-2 col-sm-2 control-label"> Pin
+										Code </label>
 									<div class="col-lg-4">
 										<input type="password" class="form-control" name="pinCode"
 											placeholder="Enter Pin" />
 									</div>
 								</div>
 								<div class="form-group">
-									<input type="button" value="Submit" name="submit"> <br/>
-									<input type="button" value="Back" name="back"> 
+									<input type="submit" value="Submit" name="submit"> <br />
+									<input type="button" value="Back" name="back">
 								</div>
 							</div>
-								<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-								<br />
+							<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+							<br /> <br />
 						</article>
 					</li>
 				</ul>

@@ -21,7 +21,7 @@ public class VotersApplications implements Serializable {
 	@Column(name="id")
 	private long id;
 	
-	@Column(name="added_by")
+	@Column(name="applied_by")
 	private long addedBy;
 	
 	@Column(name="state_id")
@@ -60,15 +60,19 @@ public class VotersApplications implements Serializable {
 	@Column(name="pin_code")
 	private String pinCode;
 	
+	@Column(name="application_status")
+	private String applicationStatus;
+	
 	@Column(name="created_date")
 	private Date createdDate;
 
 	@Override
 	public String toString() {
-		return "Voters_Applications [id=" + id + ", addedBy=" + addedBy + ", stateId=" + stateId + ", districtId="
+		return "VotersApplications [id=" + id + ", addedBy=" + addedBy + ", stateId=" + stateId + ", districtId="
 				+ districtId + ", assemblyId=" + assemblyId + ", name=" + name + ", dob=" + dob + ", gender=" + gender
 				+ ", mobile=" + mobile + ", email=" + email + ", aadhar=" + aadhar + ", address=" + address
-				+ ", landMark=" + landMark + ", pinCode=" + pinCode + ", createdDate=" + createdDate + "]";
+				+ ", landMark=" + landMark + ", pinCode=" + pinCode + ", applicationStatus=" + applicationStatus
+				+ ", createdDate=" + createdDate + "]";
 	}
 
 	@Override
@@ -278,7 +282,13 @@ public class VotersApplications implements Serializable {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-	
-	
-	
+
+	public String getApplicationStatus() {
+		return applicationStatus;
+	}
+
+	public void setApplicationStatus(String applicationStatus) {
+		this.applicationStatus = applicationStatus;
+	}
+
 }

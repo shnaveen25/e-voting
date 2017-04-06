@@ -27,6 +27,7 @@ import com.pesit.eVoting.service.AssemblyDistrictService;
 import com.pesit.eVoting.service.AssemblyStatesService;
 import com.pesit.eVoting.service.ElectionParticipantsService;
 import com.pesit.eVoting.service.UserService;
+import com.pesit.eVoting.service.VotersApplicationsService;
 import com.pesit.eVoting.sql.dao.AssemblyDistrictDAO;
 import com.pesit.eVoting.sql.domain.AssemblyDistrict;
 
@@ -35,27 +36,30 @@ public class UsersController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private HttpServletRequest request;
-	
+
 	@Autowired
 	private AssemblyStatesService assemblyStatesService;
-	
+
 	@Autowired
 	private AssemblyDistrictService assemblyDistrictSerivce;
-	
+
 	@Autowired
 	private AssemblyConstituencyService assemblyConstituencyService;
+	
+	@Autowired
+	private VotersApplicationsService voterApplicationService;
 
 	@RequestMapping("/processUserRegistration")
 	public ModelAndView RegisterUser(@ModelAttribute("userDto") @Valid UserDto user, BindingResult result,
 			Model model) {
-		System.out.println("User from ontroller " +user);
-		
-		if(result.hasErrors())
+		System.out.println("User from ontroller " + user);
+
+		if (result.hasErrors())
 			return new ModelAndView("register");
-		
+
 		// Validate user input
 
 		String msg = userService.registerUser(user);
@@ -67,57 +71,56 @@ public class UsersController {
 			return new ModelAndView("register");
 		}
 	}
-	
+
 	@RequestMapping("/processUserLogin")
 	public ModelAndView userLogin(Model model) {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
-		System.out.println("Username : "+email+" Password : "+password);
-		
-		if(userService.authonticateUser(email , password).equals(Constants.SUCCESS)) {
-			//Store User in session
-			return  new ModelAndView("usersView/userHome");
+
+		System.out.println("Username : " + email + " Password : " + password);
+
+		if (userService.authonticateUser(email, password).equals(Constants.SUCCESS)) {
+			// Store User in session
+			return new ModelAndView("usersView/userHome");
 		} else {
-			model.addAttribute("errMsg","Invalide Username/Password");
-			return  new ModelAndView("usersView/userLogin");
+			model.addAttribute("errMsg", "Invalide Username/Password");
+			return new ModelAndView("usersView/userLogin");
 		}
-	
+
 	}
-	
+
 	@RequestMapping("/userHome")
-	public String showUserHome(){
-		//Check Session
+	public String showUserHome() {
+		// Check Session
 		return "usersView/userHome";
 	}
-	
+
 	@RequestMapping("/includeName")
-	public ModelAndView showIncludeNameView(Model model){
+	public ModelAndView showIncludeNameView(Model model) {
 		ModelAndView view = new ModelAndView("usersView/includeName");
-		
+
 		List<AssemblyStatesDto> assemblyStateDto = assemblyStatesService.getAllStates();
 		view.addObject("assemblyStateDto", assemblyStateDto);
-		
+
 		return view;
 	}
 
 	@RequestMapping("/getDistricts")
-	public @ResponseBody List<AssemblyDistrictDto> getDistricts(HttpServletRequest request , Model model){
+	public @ResponseBody List<AssemblyDistrictDto> getDistricts(HttpServletRequest request, Model model) {
 		long stateId = Long.parseLong(request.getParameter("stateId"));
-		//System.out.println("StateID : "+stateId);
+		// System.out.println("StateID : "+stateId);
 		ModelAndView view = new ModelAndView("usersView/includeName");
 		VotersApplicationsDto voterApplicationDto = new VotersApplicationsDto();
-		
+
 		List<AssemblyDistrictDto> districts = assemblyDistrictSerivce.getDistrictsFromStates(stateId);
-		//System.out.println("Districts :"+districts);
-		
+		// System.out.println("Districts :"+districts);
+
 		view.addObject("assemblyDistrictsDto", districts);
 		view.addObject("voterApplicationDto", voterApplicationDto);
-		
+
 		return districts;
 	}
-	
-	
+
 	@RequestMapping("/getAssemblies")
 	public @ResponseBody List<AssemblyConstituencyDto> getAssemblies(HttpServletRequest request){
 		long districtId = Long.parseLong(request.getParameter("districtId"));
@@ -128,6 +131,20 @@ public class UsersController {
 		
 		
 		return assemblies;
+	}
+
+	@RequestMapping("/registerVoterApplication")
+	public ModelAndView addVoterApplication(@ModelAttribute("voterApplicationDto") 
+			VotersApplicationsDto votersApplicationsDto, Model model){
+		System.out.println("voterApplicationDto : "+votersApplicationsDto);
+		
+		ModelAndView view = new ModelAndView("usersView/userHome");
+		
+		String msg = voterApplicationService.registerForVoterApplication(votersApplicationsDto);
+		
+		model.addAttribute("message", msg);
+		
+		return view;
 	}
 	
 	
@@ -185,4 +202,3 @@ public class UsersController {
 	
 	
 }
-
