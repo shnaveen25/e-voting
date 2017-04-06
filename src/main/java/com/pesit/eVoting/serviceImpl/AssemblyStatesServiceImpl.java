@@ -22,7 +22,7 @@ public class AssemblyStatesServiceImpl implements AssemblyStatesService {
 		
 		List<AssemblyStatesDto> responseStates = new ArrayList<AssemblyStatesDto>();
 		
-		List<AssemblyStates> statesFormDb = assemblyStatesDao.findAll();
+		List<AssemblyStates> statesFormDb = assemblyStatesDao.getAllStates();
 		
 		for(AssemblyStates indudivalState : statesFormDb) {
 			AssemblyStatesDto states = new AssemblyStatesDto();
@@ -31,7 +31,6 @@ public class AssemblyStatesServiceImpl implements AssemblyStatesService {
 			
 			responseStates.add(states);
 		}
-		
 		return responseStates;
 	}
 

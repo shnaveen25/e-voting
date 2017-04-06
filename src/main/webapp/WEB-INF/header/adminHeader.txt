@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
+<title>e voting | Admin</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" type="text/css" media="screen">
@@ -27,7 +28,7 @@
 <div class="wrapper row1">
   <header id="header" class="hoc clear"> 
     <div id="logo" class="fl_left">
-      <h1><a href="adminhome.html">e-voting</a></h1>
+      <h1><a href="/" target="_blank">e-voting</a></h1>
       <!--<p>Quisque congue diam</p>-->
     </div>
 </header>

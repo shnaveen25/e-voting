@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.pesit.eVoting.dto.AssemblyConstituencyDto;
 import com.pesit.eVoting.service.AssemblyConstituencyService;
 import com.pesit.eVoting.sql.dao.AssemblyConstituencyDAO;
 import com.pesit.eVoting.sql.domain.AssemblyConstituency;
 
+@Service("AssemblyConstituencyService")
 public class AssemblyConstituencyServiceImpl implements AssemblyConstituencyService {
 
 	@Autowired

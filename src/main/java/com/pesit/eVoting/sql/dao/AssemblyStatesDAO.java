@@ -1,7 +1,12 @@
 package com.pesit.eVoting.sql.dao;
 
-import org.springframework.stereotype.Component;
+import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.springframework.stereotype.Component;
 import com.pesit.eVoting.sql.domain.AssemblyStates;
 
 /**
@@ -12,4 +17,12 @@ import com.pesit.eVoting.sql.domain.AssemblyStates;
 @Component
 public class AssemblyStatesDAO extends BaseDao<AssemblyStates> {
 
+	@Transactional
+	public List<AssemblyStates> getAllStates(){
+		
+		Criteria crit = getCurrentSession().createCriteria(AssemblyStates.class);
+		crit.addOrder(Order.asc("stateName"));
+		
+		return (List<AssemblyStates>) crit.list();
+	}
 }

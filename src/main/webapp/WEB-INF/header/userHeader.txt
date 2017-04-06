@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
+<title>E-Voting | User</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" type="text/css" media="screen">
@@ -13,6 +14,9 @@
   width: auto;
 }
 </style>
+
+
+
 </head>
 <body id="top"><div class="wrapper row0">
   <div id="topbar" class="hoc clear"> 
@@ -27,7 +31,7 @@
 <div class="wrapper row1">
   <header id="header" class="hoc clear"> 
     <div id="logo" class="fl_left">
-      <h1><a href="/">e-voting</a></h1>
+      <h1><a href="/" target="_blank">e-voting</a></h1>
       <!--<p>Quisque congue diam</p>-->
     </div>
 </header>
