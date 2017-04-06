@@ -6,6 +6,8 @@ import com.pesit.eVoting.dto.AssemblyStatesDto;
 
 public interface AssemblyStatesService {
 	
+	String getAssemblyStatesById(long id);
+	
 	List<AssemblyStatesDto> getAllStates();
 
 }

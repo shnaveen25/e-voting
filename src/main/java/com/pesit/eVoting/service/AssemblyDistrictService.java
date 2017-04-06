@@ -6,6 +6,8 @@ import com.pesit.eVoting.dto.AssemblyDistrictDto;
 
 public interface AssemblyDistrictService {
 	
+	String getAssemblyDistrictById(long id);
+	
 	List<AssemblyDistrictDto> getDistrictsFromStates(long id);
 
 }

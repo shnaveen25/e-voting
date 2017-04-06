@@ -6,5 +6,5 @@ public interface UserService {
 
 	public String registerUser(UserDto user);
 
-	public String authonticateUser(String email, String password);
+	public UserDto authonticateUser(String email, String password);
 }

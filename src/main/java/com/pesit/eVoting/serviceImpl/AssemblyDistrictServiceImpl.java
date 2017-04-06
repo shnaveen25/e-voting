@@ -49,4 +49,12 @@ public class AssemblyDistrictServiceImpl implements AssemblyDistrictService {
 		return responseDistricts;
 	}
 
+	@Override
+	public String getAssemblyDistrictById(long id) {
+		
+		AssemblyDistrict district = assemblyDistrictDao.findById(id);
+		
+		return district.getDistrictName();
+	}
+
 }

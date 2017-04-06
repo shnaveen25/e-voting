@@ -40,7 +40,7 @@
       <li class="active"><a href="userHome">Home</a></li>
       <li><a class="drop" href="#">Submitted Application</a>
         <ul>
-          <li><a href="#">Including Your Name in Electoral Roll</a></li>
+          <li><a href="gerUserApplications">Including Your Name in Electoral Roll</a></li>
           <li><a href="#">Deleting Your Name From Electoral Roll</a></li>
           <li><a href="#">Modifying Your Name in Electoral Roll</a></li>
           <li><a href="#">Transposing Your Name in Electoral Roll</a></li> 	 	 	 	

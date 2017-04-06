@@ -39,4 +39,13 @@ public class AssemblyConstituencyServiceImpl implements AssemblyConstituencyServ
 		return responseAssemblies;
 	}
 
+	@Override
+	public String getAssemblysById(long id) {
+		
+		AssemblyConstituency assembliesFroDb = assemblyConstituencyDAO.findById(id);
+		
+		return assembliesFroDb.getAssembly();
+		
+	}
+
 }

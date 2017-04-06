@@ -31,8 +31,7 @@
 -->
 		<section class="hoc container clear"> 
     <div class="sectiontitle">
-      <h6 class="heading">Welcome</h6>
-      <p>Name of the user</p>
+      <h6 class="heading">Welcome ${userName}</h6>
     </div>
     <ul class="nospace group services">
       <li class="one_quarter first">

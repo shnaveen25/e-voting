@@ -1,11 +1,12 @@
 package com.pesit.eVoting.sql.dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
-
 import com.pesit.eVoting.sql.domain.VotersApplications;
 
 @Component
@@ -19,5 +20,14 @@ public class VotersApplicationsDAO extends BaseDao<VotersApplications>{
 		
 		return (VotersApplications)criteria.uniqueResult();
 		
+	}
+	
+	@Transactional
+	public List<VotersApplications> findByUserId(long id) {
+		
+		Criteria criteria = getCurrentSession().createCriteria(VotersApplications.class);
+		criteria.add(Restrictions.eq("addedBy", id));
+		
+		return (List<VotersApplications>)criteria.list();
 	}
 }

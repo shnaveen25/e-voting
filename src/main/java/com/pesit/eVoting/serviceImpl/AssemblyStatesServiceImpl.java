@@ -34,4 +34,13 @@ public class AssemblyStatesServiceImpl implements AssemblyStatesService {
 		return responseStates;
 	}
 
+	@Override
+	public String getAssemblyStatesById(long id) {
+		
+		AssemblyStates state = assemblyStatesDao.findById(id);
+		
+		return state.getStateName();
+		
+	}
+
 }

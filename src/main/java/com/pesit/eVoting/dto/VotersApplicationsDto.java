@@ -3,6 +3,13 @@ package com.pesit.eVoting.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.pesit.eVoting.sql.domain.VotersApplications;
+
+/**
+ * 
+ * @author 
+ *
+ */
 public class VotersApplicationsDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -25,12 +32,43 @@ public class VotersApplicationsDto implements Serializable {
 	private String pinCode;
 	private Date createdDate;
 	
+	//extras
+	private String stateName;
+	private String districtName;
+	private String assemblyName;
+	
+	
+	public VotersApplicationsDto() {
+		
+	}
+	
+	public VotersApplicationsDto(VotersApplications application) {
+		id = application.getId();
+		addedBy = application.getAddedBy();
+		stateId = application.getStateId();
+		districtId = application.getDistrictId();
+		assemblyId = application.getAssemblyId();
+		name = application.getName();
+		//dob = application.getDob();
+		gender = application.getGender();
+		mobile = application.getMobile();
+		email = application.getEmail();
+		aadhar = application.getAadhar();
+		area = application.getAddress();
+		landMark = application.getLandMark();
+		pinCode = application.getPinCode();
+		createdDate = application.getCreatedDate();
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "VotersApplicationsDto [id=" + id + ", addedBy=" + addedBy + ", stateId=" + stateId + ", districtId="
 				+ districtId + ", assemblyId=" + assemblyId + ", name=" + name + ", surName=" + surName + ", dob=" + dob
 				+ ", gender=" + gender + ", mobile=" + mobile + ", email=" + email + ", aadhar=" + aadhar + ", area="
-				+ area + ", street=" + street + ", landMark=" + landMark + ", pinCode=" + pinCode + "]";
+				+ area + ", street=" + street + ", landMark=" + landMark + ", pinCode=" + pinCode + ", createdDate="
+				+ createdDate + ", stateName=" + stateName + ", districtName=" + districtName + ", assemblyName="
+				+ assemblyName + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -228,9 +266,30 @@ public class VotersApplicationsDto implements Serializable {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-	
-	
-	
+
+	public String getStateName() {
+		return stateName;
+	}
+
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
+	}
+
+	public String getDistrictName() {
+		return districtName;
+	}
+
+	public void setDistrictName(String districtName) {
+		this.districtName = districtName;
+	}
+
+	public String getAssemblyName() {
+		return assemblyName;
+	}
+
+	public void setAssemblyName(String assemblyName) {
+		this.assemblyName = assemblyName;
+	}
 	
 
 }
