@@ -1,6 +1,8 @@
 package com.pesit.eVoting.serviceImpl;
 
+//import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,6 @@ import com.pesit.eVoting.service.AssemblyDistrictService;
 import com.pesit.eVoting.service.AssemblyStatesService;
 import com.pesit.eVoting.service.VotersApplicationsService;
 import com.pesit.eVoting.sql.dao.VotersApplicationsDAO;
-import com.pesit.eVoting.sql.domain.AssemblyDistrict;
-import com.pesit.eVoting.sql.domain.AssemblyStates;
 import com.pesit.eVoting.sql.domain.VotersApplications;
 
 @Service("VotersApplications")
@@ -38,6 +38,8 @@ public class VotersApplicationsServiceImpl implements VotersApplicationsService 
 		VotersApplications isApplicationExists = voterApplicationDao.findByAadhar(voterApplicationDto.getAadhar());
 
 		if (isApplicationExists == null) {
+			
+			//Timestamp currentDate = new Timestamp(new Date().getTime());
 			isApplicationExists = new VotersApplications();
 			isApplicationExists.setStateId(voterApplicationDto.getStateId());
 			isApplicationExists.setDistrictId(voterApplicationDto.getDistrictId());
@@ -53,7 +55,7 @@ public class VotersApplicationsServiceImpl implements VotersApplicationsService 
 			isApplicationExists.setPinCode(voterApplicationDto.getPinCode());
 			isApplicationExists.setApplicationStatus("pending");
 			isApplicationExists.setAddedBy(appliedBy);
-			// isApplicationExists.setCreatedDate(createdDate);
+			//isApplicationExists.setCreatedDate(currentDate);
 
 			voterApplicationDao.save(isApplicationExists);
 

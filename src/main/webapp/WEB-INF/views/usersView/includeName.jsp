@@ -140,7 +140,7 @@
 									<label class="col-lg-2 col-sm-2 control-label"> Surname
 										(if any)</label>
 									<div class="col-lg-4">
-										<input type="password" class="form-control" name="surName"
+										<input type="text" class="form-control" name="surName"
 											placeholder="Your Surname / Lastname. Special Character/ numbers not allowed." />
 									</div>
 								</div>
@@ -172,6 +172,8 @@
 										<input type="text" class="form-control" name="email"
 											placeholder="Enter Your Email" />
 									</div>
+									<input type="hidden" class="form-control" name="appliedFor"
+											value="including" />
 								</div>
 							</div>
 							<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
@@ -232,14 +234,14 @@
 									<label class="col-lg-2 col-sm-2 control-label"> Pin
 										Code </label>
 									<div class="col-lg-4">
-										<input type="password" class="form-control" name="pinCode"
+										<input type="text" class="form-control" name="pinCode"
 											placeholder="Enter Pin" />
 									</div>
 								</div>
 								<div class="form-group">
 									<input type="submit" value="Submit" name="submit"> <br />
 									<input type="button" value="Back" name="back">
-								</div>
+								</div>								
 							</div>
 							<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 							<br /> <br />

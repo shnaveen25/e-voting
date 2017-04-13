@@ -1,6 +1,83 @@
 <%@taglib prefix="j" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="x"%>
 
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#stateId').change(function() {
+			console.log('Getting Districts');
+			$.ajax({
+				url : 'getDistricts',
+				data : {
+					stateId : $('#stateId').val()
+				},
+				success : function(responseText) {
+					$('#assemblyDistrictsDto').text(responseText);
+					console.log(responseText);
+					showDistrics(responseText);
+				}
+			});
+		});
+	});
+
+	$(document).ready(function() {
+		$('#districts').change(function() {
+			console.log('Getting Assemblies');
+			$.ajax({
+				url : 'getAssemblies',
+				data : {
+					districtId : $('#districtId').val()
+				},
+				success : function(assemblies) {
+					$('#assemblies').text(assemblies);
+					console.log(assemblies);
+					showAssimblies(assemblies);
+				}
+			});
+		});
+	});
+
+	function showDistrics(responseText) {
+		var selection = '<label class="col-lg-3 col-sm-2 control-label">District</label>';
+		selection += '<div class="col-lg-6">';
+
+		selection += '<select name="districtId" id="districtId" class="form-control" title="Select District in order to proceed">';
+		selection += '<option value="0">Select District</option>';
+		$(responseText).each(
+				function(i, item) {
+					console.log('Iterating ', item.districtName, item.id);
+					selection = selection + '<option value='+ item.id+'>'
+							+ item.districtName + '</option>';
+
+				});
+		selection = selection + '</select>'
+		selection += '</div><br /> <br />'
+		$("#districts").html(selection);
+	}
+
+	function showAssimblies(assemblies) {
+		var selection = '<label class="col-lg-3 col-sm-2 control-label">Assembly</label>';
+		selection += '<div class="col-lg-6">';
+
+		selection += '<select name="assemblyId" id="assemblyId" class="form-control" title="Select Assembly in order to proceed">';
+		selection += '<option value=0>Select Assembly Constituency</option>';
+		$(assemblies).each(
+				function(i, item) {
+					console.log('Iterating ', item.assembly);
+					selection = selection + '<option value='+ item.id+'>'
+							+ item.assembly + '</option>';
+
+				});
+		selection = selection + '</select>'
+		selection += '</div><br /> <br />'
+		$("#assembly").html(selection);
+	}
+</script>
+
+
+
 <!-- Header -->
 <%@ include file="../../header/adminHeader.txt"%>
 
@@ -16,10 +93,11 @@
 		<x:form class="form-horizontal animate" action="addParticipant"
 			modelAttribute="participant">
 			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Select Party
+				<label class="col-lg-3 col-sm-2 control-label"> Party
 				</label>
 				<div class="col-lg-6">
 					<select name="partyId" class="form-control">
+						<option value="0">Select Party</option>
 						<j:forEach items="${partyList}" var="party">
 							<option value=<j:out value="${party.id}"/>>
 								<j:out value="${party.partyName}" />
@@ -29,17 +107,26 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Select State
+				<label class="col-lg-3 col-sm-2 control-label">State
 				</label>
 				<div class="col-lg-6">
-					<select name="participatingState" class="form-control">
-						<option value="Select State">Select State</option>
-						<option value="Andra Pradesh">Andra Pradesh</option>
-						<option value="Maharashtra">Maharashtra</option>
-						<option value="Karnataka">Karnataka</option>
-						<option value="Assam">Assam</option>
+					<select name="stateId" id="stateId" class="form-control"
+						title="Select State in order to proceed">
+						<option value="0">Select State</option>
+						<j:forEach items="${assemblyStateDto}" var="state">
+							<option value=<j:out value="${state.id}"/>>
+								<j:out value="${state.stateName}" />
+							</option>
+						</j:forEach>
 					</select>
 				</div>
+			</div>
+			<div class="form-group">
+				<div id="districts"></div>
+			</div>
+
+			<div class="form-group">
+				<div id="assembly"></div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-3 col-sm-2 control-label"> Full Name </label>
@@ -136,8 +223,8 @@
 			<div class="form-group">
 				<label class="col-lg-3 col-sm-2 control-label"> Address </label>
 				<div class="col-lg-6">
-					<textarea rows="4" cols="50"  class="form-control" name="address"
-						placeholder="Enter Address" title="Please enter address" ></textarea>
+					<textarea rows="4" cols="50" class="form-control" name="address"
+						placeholder="Enter Address" title="Please enter address"></textarea>
 				</div>
 			</div>
 			<div class="text-center">

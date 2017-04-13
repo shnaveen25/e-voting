@@ -77,3 +77,23 @@ CREATE TABLE `party_description` (
  UNIQUE KEY `party_name` (`party_name`,`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1
 
+CREATE TABLE `voters_applications` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `applied_by` int(11) NOT NULL,
+ `state_id` int(11) NOT NULL,
+ `district_id` int(11) NOT NULL,
+ `assembly_id` int(11) NOT NULL,
+ `name` varchar(45) NOT NULL,
+ `dob` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ `gender` varchar(10) NOT NULL,
+ `mobile` varchar(45) NOT NULL,
+ `email` varchar(45) NOT NULL,
+ `aadhar` varchar(45) NOT NULL,
+ `address` varchar(100) NOT NULL,
+ `land_mark` varchar(45) NOT NULL,
+ `pin_code` varchar(15) NOT NULL,
+ `application_status` varchar(45) NOT NULL,
+ `created_date` timestamp NULL DEFAULT NULL,
+ `applied_for` varchar(45) NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1

@@ -3,7 +3,8 @@
  */
 package com.pesit.eVoting.sql.domain;
 
-import java.security.Timestamp;
+import java.io.Serializable;
+//import java.security.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -22,8 +23,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="party_description")
-public class PartyDescription {
+public class PartyDescription implements Serializable{
 		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")

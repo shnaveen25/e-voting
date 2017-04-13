@@ -28,7 +28,7 @@ public class BaseDao<T> {
 	/**
 	 * This constructor sets the child class type
 	 */
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	public BaseDao() {
 		Type t = getClass().getGenericSuperclass();
 		ParameterizedType pt = (ParameterizedType) t;
@@ -64,7 +64,7 @@ public class BaseDao<T> {
 	 *            is primary key for object
 	 * @return object(row of table) of which matched identity
 	 */
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	public T findById(Long id) {
 		return (T) getCurrentSession().get(type, id);
 	}
@@ -73,7 +73,7 @@ public class BaseDao<T> {
 	 * 
 	 * @return all the (rows of table) object (list)
 	 */
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	public List<T> findAll() {
 		Criteria criteria = getCurrentSession().createCriteria(type);
 		return (List<T>) criteria.list();

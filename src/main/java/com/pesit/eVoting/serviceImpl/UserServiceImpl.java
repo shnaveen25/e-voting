@@ -1,5 +1,8 @@
 package com.pesit.eVoting.serviceImpl;
 
+//import java.sql.Timestamp;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +20,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String registerUser(UserDto user) {
+		
+		//Timestamp currentDate = new Timestamp(new Date().getTime());
 		Users userDetail = new Users();
 		userDetail.setName(user.getName());
 		userDetail.setEmail(user.getEmail());
 		userDetail.setPassword(user.getPassword());
 		userDetail.setMobile(user.getMobile());
-		// userDetail.setCreatedDate(createdDate);
+		//userDetail.setCreatedDate(currentDate);
 		try {
 			userDao.save(userDetail);
 		} catch (Exception e) {

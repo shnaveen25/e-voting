@@ -2,7 +2,7 @@ package com.pesit.eVoting.sql.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-
+//import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -65,6 +65,9 @@ public class VotersApplications implements Serializable {
 	
 	@Column(name="created_date")
 	private Date createdDate;
+	
+	@Column(name="applied_for")
+	private String appliedFor;
 
 	@Override
 	public String toString() {
@@ -72,7 +75,7 @@ public class VotersApplications implements Serializable {
 				+ districtId + ", assemblyId=" + assemblyId + ", name=" + name + ", dob=" + dob + ", gender=" + gender
 				+ ", mobile=" + mobile + ", email=" + email + ", aadhar=" + aadhar + ", address=" + address
 				+ ", landMark=" + landMark + ", pinCode=" + pinCode + ", applicationStatus=" + applicationStatus
-				+ ", createdDate=" + createdDate + "]";
+				+ ", createdDate=" + createdDate + ", appliedFor=" + appliedFor + "]";
 	}
 
 	@Override
@@ -290,5 +293,15 @@ public class VotersApplications implements Serializable {
 	public void setApplicationStatus(String applicationStatus) {
 		this.applicationStatus = applicationStatus;
 	}
+
+	public String getAppliedFor() {
+		return appliedFor;
+	}
+
+	public void setAppliedFor(String appliedFor) {
+		this.appliedFor = appliedFor;
+	}
+	
+	
 
 }

@@ -31,6 +31,7 @@ public class VotersApplicationsDto implements Serializable {
 	private String landMark;
 	private String pinCode;
 	private Date createdDate;
+	private String appliedFor;
 	
 	//extras
 	private String stateName;
@@ -67,8 +68,8 @@ public class VotersApplicationsDto implements Serializable {
 				+ districtId + ", assemblyId=" + assemblyId + ", name=" + name + ", surName=" + surName + ", dob=" + dob
 				+ ", gender=" + gender + ", mobile=" + mobile + ", email=" + email + ", aadhar=" + aadhar + ", area="
 				+ area + ", street=" + street + ", landMark=" + landMark + ", pinCode=" + pinCode + ", createdDate="
-				+ createdDate + ", stateName=" + stateName + ", districtName=" + districtName + ", assemblyName="
-				+ assemblyName + "]";
+				+ createdDate + ", appliedFor=" + appliedFor + ", stateName=" + stateName + ", districtName="
+				+ districtName + ", assemblyName=" + assemblyName + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -289,6 +290,14 @@ public class VotersApplicationsDto implements Serializable {
 
 	public void setAssemblyName(String assemblyName) {
 		this.assemblyName = assemblyName;
+	}
+
+	public String getAppliedFor() {
+		return appliedFor;
+	}
+
+	public void setAppliedFor(String appliedFor) {
+		this.appliedFor = appliedFor;
 	}
 	
 

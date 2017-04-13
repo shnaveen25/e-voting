@@ -2,7 +2,7 @@ package com.pesit.eVoting.sql.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,13 +42,13 @@ public class Users implements Serializable{
 	private long mobile;
 	
 	@Column(name="created_date")
-	private Date createdDate;
+	private Timestamp createdDate;
 
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 

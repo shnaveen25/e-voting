@@ -2,6 +2,7 @@ package com.pesit.eVoting.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.Date;
+//import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,23 +27,24 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 	@Override
 	public void addParticipant(ParticipantsDto participant) {
 
-		Date date = new Date();
+		//Timestamp currentDate = new Timestamp(new Date().getTime());
 		ElectionParticipants electionParticipant = new ElectionParticipants();
 		electionParticipant.setName(participant.getName());
 		electionParticipant.setPartyId(participant.getPartyId());
-		electionParticipant.setParticipatingState(participant.getParticipatingState());
+		electionParticipant.setStateId(participant.getStateId());
+		electionParticipant.setDistrictId(participant.getStateId());
+		electionParticipant.setAssemblyId(participant.getAssemblyId());
 		electionParticipant.setEmail(participant.getEmail());
 		//electionParticipant.setDob(new Date(participant.getDob()));
 		electionParticipant.setGender(participant.getGender());
 		electionParticipant.setPost(participant.getPost());
-		electionParticipant.setParticipatingPlace(participant.getParticipatingPlace());
 		electionParticipant.setEducation(participant.getEducation());
 		electionParticipant.setProperty(participant.getProperty());
 		electionParticipant.setPoliceRecord(participant.getPoliceRecord());
 		electionParticipant.setAdhaar(participant.getAdhaar());
 		electionParticipant.setAddress(participant.getAddress());
 		electionParticipant.setMobile(participant.getMobile());
-		//electionParticipant.setCreatedDate();
+		//electionParticipant.setCreatedDate(currentDate);
 		electionParticipantDao.save(electionParticipant);
 		
 	}
