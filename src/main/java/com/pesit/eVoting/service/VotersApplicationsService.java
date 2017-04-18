@@ -9,4 +9,10 @@ public interface VotersApplicationsService {
 	public String registerForVoterApplication(VotersApplicationsDto voterApplicationDto , long appliedBy); 
 	
 	public List<VotersApplicationsDto> getUserAppliedApplications(long Id);
+	
+	public String deleteUserApplication(long id);
+
+	public List<VotersApplicationsDto> getAllPendingApplications();
+	
+	public void  updateApplicationStatus(long id, String comment, String status);
 }

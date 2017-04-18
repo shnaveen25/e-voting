@@ -32,6 +32,7 @@ public class VotersApplicationsDto implements Serializable {
 	private String pinCode;
 	private Date createdDate;
 	private String appliedFor;
+	private String applicationStatus;
 	
 	//extras
 	private String stateName;
@@ -58,6 +59,7 @@ public class VotersApplicationsDto implements Serializable {
 		area = application.getAddress();
 		landMark = application.getLandMark();
 		pinCode = application.getPinCode();
+		applicationStatus = application.getApplicationStatus();
 		createdDate = application.getCreatedDate();
 	}
 	
@@ -298,6 +300,14 @@ public class VotersApplicationsDto implements Serializable {
 
 	public void setAppliedFor(String appliedFor) {
 		this.appliedFor = appliedFor;
+	}
+
+	public String getApplicationStatus() {
+		return applicationStatus;
+	}
+
+	public void setApplicationStatus(String applicationStatus) {
+		this.applicationStatus = applicationStatus;
 	}
 	
 

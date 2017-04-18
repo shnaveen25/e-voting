@@ -90,41 +90,41 @@
 				<h4 class="text-center">Application for inclusion of name in
 					Electoral Roll</h4>
 				<ul>
-					<li>
-						<article>
-							<header>
-								<address>I. Select Your AC (Assembly Constituency)</address>
-							</header>
-							<div class="comcont">
-								<div class="form-group">
-									<p class="col-lg-3 col-sm-2 control-label">Select your
-										State</p>
-									<div class="col-lg-6">
-										<select name="stateId" id="stateId" class="form-control"
-											title="Select State in order to proceed">
-											<option value="0">Select State</option>
-											<j:forEach items="${assemblyStateDto}" var="state">
-												<option value=<j:out value="${state.id}"/>>
-													<j:out value="${state.stateName}" />
-												</option>
-											</j:forEach>
-										</select>
+					<j:if test="${voterApplicationDto.id == null}">
+						<li>
+							<article>
+								<header>
+									<address>I. Select Your AC (Assembly Constituency)</address>
+								</header>
+								<div class="comcont">
+									<div class="form-group">
+										<p class="col-lg-3 col-sm-2 control-label">Select your
+											State</p>
+										<div class="col-lg-6">
+											<select name="stateId" id="stateId" class="form-control"
+												title="Select State in order to proceed">
+												<option value="0">Select State</option>
+												<j:forEach items="${assemblyStateDto}" var="state">
+													<option value=<j:out value="${state.id}"/>>
+														<j:out value="${state.stateName}" />
+													</option>
+												</j:forEach>
+											</select>
+										</div>
 									</div>
+	
+									<div class="form-group">
+										<div id="districts"></div>
+									</div>
+	
+									<div class="form-group">
+										<div id="assembly"></div>
+									</div>
+									<br /> <br />
 								</div>
-
-								<div class="form-group">
-									<div id="districts"></div>
-								</div>
-
-								<div class="form-group">
-									<div id="assembly"></div>
-								</div>
-								<br /> <br />
-							</div>
-						</article>
-					</li>
-
-
+							</article>
+						</li>
+					</j:if>
 					<li>
 						<article>
 							<header>
@@ -135,7 +135,8 @@
 									<label class="col-lg-2 col-sm-2 control-label"> Name </label>
 									<div class="col-lg-4 ">
 										<input type="text" class="form-control" name="name"
-											placeholder="Enter Your First Name. Special Character/ numbers not allowed." />
+											placeholder="Enter Your First Name. Special Character/ numbers not allowed." 
+											value="<j:out value="${ApplicationDetails.name}" />"/>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label"> Surname
 										(if any)</label>
@@ -148,12 +149,12 @@
 									<label class="col-lg-2 col-sm-2 control-label"> Date of
 										Birth </label>
 									<div class="col-lg-4">
-										<input type="date" class="form-control" name="dob"
+										<input type="date" class="form-control" name="dob" value="<j:out value="${ApplicationDetails.dob}" />"
 											title="Please select DOB." />
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label"> Gender</label>
 									<div class="col-lg-4">
-										<select name="gender" class="form-control">
+										<select name="gender" class="form-control" value="<j:out value="${ApplicationDetails.gender}" />">
 											<option value="male">Male</option>
 											<option value="female">Female</option>
 											<option value="other">Other</option>
@@ -165,15 +166,19 @@
 									</label>
 									<div class="col-lg-4">
 										<input type="text" class="form-control" name="mobile"
-											placeholder="Enter Your Mobile Number" />
+											placeholder="Enter Your Mobile Number" 
+											value="<j:out value="${ApplicationDetails.mobile}" />"/>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label"> Email </label>
 									<div class="col-lg-4">
 										<input type="text" class="form-control" name="email"
-											placeholder="Enter Your Email" />
+											placeholder="Enter Your Email"
+											value="<j:out value="${ApplicationDetails.email}" />" />
 									</div>
 									<input type="hidden" class="form-control" name="appliedFor"
 											value="including" />
+									<input type="hidden" class="form-control" name="id"
+											value="<j:out value="${ApplicationDetails.id}" />" />
 								</div>
 							</div>
 							<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
@@ -192,7 +197,8 @@
 										Number </label>
 									<div class="col-lg-10">
 										<input type="text" class="form-control" name="aadhar"
-											placeholder="Please Enter Aadhar Number." />
+											placeholder="Please Enter Aadhar Number." 
+											value="<j:out value="${ApplicationDetails.aadhar}" />"/>
 									</div>
 								</div>
 							</div>
@@ -214,7 +220,8 @@
 										Area/Street 1 </label>
 									<div class="col-lg-4">
 										<textarea rows="4" cols="50" class="form-control" name="area"
-											placeholder="Please Enter details of your place of residence."></textarea>
+											placeholder="Please Enter details of your place of residence."
+											value="<j:out value="${ApplicationDetails.area}" />"></textarea>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label">
 										Area/Street 2 </label>
@@ -229,15 +236,18 @@
 										Mark </label>
 									<div class="col-lg-4 ">
 										<input type="text" class="form-control" name="landMark"
-											placeholder="Enter Land Mark." />
+											placeholder="Enter Land Mark." 
+											value="<j:out value="${ApplicationDetails.landMark}" />"/>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label"> Pin
 										Code </label>
 									<div class="col-lg-4">
 										<input type="text" class="form-control" name="pinCode"
-											placeholder="Enter Pin" />
+											placeholder="Enter Pin"
+											value="<j:out value="${ApplicationDetails.pinCode}" />"/>
 									</div>
 								</div>
+								<input type="hidden" value="including" name="appliedFor"/>
 								<div class="form-group">
 									<input type="submit" value="Submit" name="submit"> <br />
 									<input type="button" value="Back" name="back">

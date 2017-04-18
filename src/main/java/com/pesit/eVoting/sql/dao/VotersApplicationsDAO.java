@@ -30,4 +30,13 @@ public class VotersApplicationsDAO extends BaseDao<VotersApplications>{
 		
 		return (List<VotersApplications>)criteria.list();
 	}
+	
+	@Transactional
+	public List<VotersApplications> findPendingApplications() {
+		
+		Criteria criteria = getCurrentSession().createCriteria(VotersApplications.class);
+		criteria.add(Restrictions.eq("applicationStatus", "pending"));
+		
+		return (List<VotersApplications>)criteria.list();
+	}
 }

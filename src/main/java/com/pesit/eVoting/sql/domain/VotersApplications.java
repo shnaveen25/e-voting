@@ -68,6 +68,9 @@ public class VotersApplications implements Serializable {
 	
 	@Column(name="applied_for")
 	private String appliedFor;
+	
+	@Column(name="comment")
+	private String comment;
 
 	@Override
 	public String toString() {
@@ -75,7 +78,7 @@ public class VotersApplications implements Serializable {
 				+ districtId + ", assemblyId=" + assemblyId + ", name=" + name + ", dob=" + dob + ", gender=" + gender
 				+ ", mobile=" + mobile + ", email=" + email + ", aadhar=" + aadhar + ", address=" + address
 				+ ", landMark=" + landMark + ", pinCode=" + pinCode + ", applicationStatus=" + applicationStatus
-				+ ", createdDate=" + createdDate + ", appliedFor=" + appliedFor + "]";
+				+ ", createdDate=" + createdDate + ", appliedFor=" + appliedFor + ", comment=" + comment + "]";
 	}
 
 	@Override
@@ -300,6 +303,14 @@ public class VotersApplications implements Serializable {
 
 	public void setAppliedFor(String appliedFor) {
 		this.appliedFor = appliedFor;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 	

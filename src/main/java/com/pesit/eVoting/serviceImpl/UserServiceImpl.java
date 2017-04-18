@@ -46,7 +46,8 @@ public class UserServiceImpl implements UserService {
 			user.setId(isExistingUser.getId());
 			user.setName(isExistingUser.getName());
 			user.setPassword(isExistingUser.getPassword());
+			return user;
 		}
-		return user;
+		return null;
 	}
 }

@@ -35,17 +35,15 @@ public class VotersApplicationsServiceImpl implements VotersApplicationsService 
 	@Override
 	public String registerForVoterApplication(VotersApplicationsDto voterApplicationDto, long appliedBy) {
 
-		VotersApplications isApplicationExists = voterApplicationDao.findByAadhar(voterApplicationDto.getAadhar());
-
-		if (isApplicationExists == null) {
-			
+		VotersApplications isApplicationExists = voterApplicationDao.findById(voterApplicationDto.getId());
+		
 			//Timestamp currentDate = new Timestamp(new Date().getTime());
-			isApplicationExists = new VotersApplications();
+			//isApplicationExists = new VotersApplications();
 			isApplicationExists.setStateId(voterApplicationDto.getStateId());
 			isApplicationExists.setDistrictId(voterApplicationDto.getDistrictId());
 			isApplicationExists.setAssemblyId(voterApplicationDto.getAssemblyId());
 			isApplicationExists.setName(voterApplicationDto.getName() + " " + voterApplicationDto.getSurName());
-			// isApplicationExists.setDob(voterApplicationDto.getDob());
+			//isApplicationExists.setDob(voterApplicationDto.getDob());
 			isApplicationExists.setGender(voterApplicationDto.getGender());
 			isApplicationExists.setMobile(voterApplicationDto.getMobile());
 			isApplicationExists.setEmail(voterApplicationDto.getEmail());
@@ -55,14 +53,13 @@ public class VotersApplicationsServiceImpl implements VotersApplicationsService 
 			isApplicationExists.setPinCode(voterApplicationDto.getPinCode());
 			isApplicationExists.setApplicationStatus("pending");
 			isApplicationExists.setAddedBy(appliedBy);
+			isApplicationExists.setAppliedFor(voterApplicationDto.getAppliedFor());
 			//isApplicationExists.setCreatedDate(currentDate);
 
-			voterApplicationDao.save(isApplicationExists);
+			voterApplicationDao.saveOrUpdate(isApplicationExists);
 
 			return Constants.SUCCESS;
-		} else {
-			return "Application Already exists...!!";
-		}
+		
 	}
 
 	@Override
@@ -90,4 +87,52 @@ public class VotersApplicationsServiceImpl implements VotersApplicationsService 
 		return responseUserApplications;
 	}
 
+	@Override
+	public String deleteUserApplication(long id) {
+		
+		VotersApplications applicationFromDb = voterApplicationDao.findById(id);
+		
+		if(applicationFromDb != null){
+			voterApplicationDao.delete(applicationFromDb);
+			return Constants.SUCCESS;
+		} else{
+			return "Applicaion Not Found";
+		}
+		
+	}
+
+	@Override
+	public List<VotersApplicationsDto> getAllPendingApplications() {
+		List<VotersApplicationsDto> responseApplications = new ArrayList<VotersApplicationsDto>();
+		List<VotersApplications> userApplicationsFromDb = voterApplicationDao.findPendingApplications();
+		System.out.println("User Application : " +userApplicationsFromDb);
+		if (userApplicationsFromDb != null) {
+			for (VotersApplications indudivalApplication : userApplicationsFromDb) {
+				String stateName = assemblyStateService.getAssemblyStatesById(indudivalApplication.getStateId());
+				String districtName = assemblyDistrictService.getAssemblyDistrictById(indudivalApplication.getDistrictId());
+				String assemblyName = assemblyConstituencyService.getAssemblysById(indudivalApplication.getAssemblyId());
+				// AssemblyDistrict district
+				VotersApplicationsDto application = new VotersApplicationsDto(indudivalApplication);
+				application.setStateName(stateName);
+				application.setDistrictName(districtName);
+				application.setAssemblyName(assemblyName);
+				
+				responseApplications.add(application);
+			}
+		}
+		
+		return responseApplications;
+	}
+
+	@Override
+	public void updateApplicationStatus(long id, String comment, String status) {
+		
+		VotersApplications applicationFromDb = voterApplicationDao.findById(id);
+		
+		applicationFromDb.setApplicationStatus(status);
+		applicationFromDb.setComment(comment);
+		System.out.println("ssssssssssssssssssssssssss :"+applicationFromDb);
+		voterApplicationDao.saveOrUpdate(applicationFromDb);
+
+	}
 }

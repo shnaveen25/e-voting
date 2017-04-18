@@ -68,7 +68,7 @@ public class UsersController {
 
 		//System.out.println("Username : " + email + " Password : " + password);
 		UserDto loggedInUser = userService.authonticateUser(email, password);
-		
+		System.out.println("LoggedInUser :"+loggedInUser);
 		if (loggedInUser != null) {
 			session.setAttribute("userId", loggedInUser.getId());
 			session.setAttribute("userName", loggedInUser.getName());
