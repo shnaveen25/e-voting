@@ -1,17 +1,24 @@
 package com.pesit.eVoting.serviceImpl;
 
 import java.util.ArrayList;
-import java.util.Date;
-//import java.sql.Timestamp;
 import java.util.List;
+
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pesit.eVoting.constants.Constants;
 import com.pesit.eVoting.dto.ParticipantsDto;
+import com.pesit.eVoting.notification.MailService;
+import com.pesit.eVoting.service.AssemblyConstituencyService;
+import com.pesit.eVoting.service.AssemblyDistrictService;
+import com.pesit.eVoting.service.AssemblyStatesService;
 import com.pesit.eVoting.service.ElectionParticipantsService;
 import com.pesit.eVoting.sql.dao.ElectionParticipantsDAO;
 import com.pesit.eVoting.sql.dao.PartyDescriptionDAO;
+import com.pesit.eVoting.sql.dao.VotersApplicationsDAO;
+import com.pesit.eVoting.sql.domain.AssemblyConstituency;
 import com.pesit.eVoting.sql.domain.ElectionParticipants;
 import com.pesit.eVoting.sql.domain.PartyDescription;
 
@@ -23,6 +30,18 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 	
 	@Autowired
 	private PartyDescriptionDAO partyDescriptionDao;
+	
+	@Autowired
+	private AssemblyStatesService assemblyStateService;
+	
+	@Autowired
+	private AssemblyDistrictService assemblyDistricte;
+	
+	@Autowired
+	private AssemblyConstituencyService assemblyConstituency;
+	
+	@Autowired
+	private MailService mailService;
 	
 	@Override
 	public void addParticipant(ParticipantsDto participant) {
@@ -46,6 +65,22 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 		electionParticipant.setMobile(participant.getMobile());
 		//electionParticipant.setCreatedDate(currentDate);
 		electionParticipantDao.save(electionParticipant);
+		
+		String state = assemblyStateService.getAssemblyStatesById(participant.getStateId());
+		String district = assemblyDistricte.getAssemblyDistrictById(participant.getDistrictId());
+		String assembly = assemblyConstituency.getAssemblysById(participant.getAssemblyId());
+		
+		new Thread( () -> {
+			
+			try {
+				mailService.sendMailHtml("E-VOTING: Application Status", mailService.getParticipantRegisteredMail(participant.getPartyName(), 
+						participant.getName(), state, district, assembly , participant.getPost()), participant.getEmail(), Constants.FROM_MAIL);
+			} catch (MessagingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+			
+		}).start();
 		
 	}
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pesit.eVoting.Util.ElectorIdGenerator;
+import com.pesit.eVoting.Util.PasswordUtil;
 import com.pesit.eVoting.constants.Constants;
 import com.pesit.eVoting.notification.MailService;
 import com.pesit.eVoting.service.AssemblyDistrictService;
@@ -46,9 +47,10 @@ public class ElectorServiceImpl implements ElectorService{
 			
 			if(electorToBeSaved == null){
 				String state = assemblyStateService.getAssemblyStatesById(applicationDetails.getStateId());
-				String district = assemblyDistricte.getAssemblyDistrictById(applicationDetails.getDistrictId());
-						
+				String district = assemblyDistricte.getAssemblyDistrictById(applicationDetails.getDistrictId());		
 				String electorID = ElectorIdGenerator.generateElectorId(state, district, applicationDetails.getAadhar());		
+				String password = PasswordUtil.randomAplhaNumGen(6);
+				
 				
 				electorToBeSaved = new Elector();		
 				electorToBeSaved.setApplicationid(id);
@@ -65,18 +67,21 @@ public class ElectorServiceImpl implements ElectorService{
 				electorToBeSaved.setAddress(applicationDetails.getAddress());
 				electorToBeSaved.setLandMark(applicationDetails.getLandMark());
 				electorToBeSaved.setPinCode(applicationDetails.getPinCode());
+				electorToBeSaved.setPassword(password);
 				
 				electorDao.save(electorToBeSaved);
-			/*
-				try {
-					mailService.sendMailHtml("Registered successfully",
-							mailService.getElectorRegisteredMail(applicationDetails.getName(), electorID),
-							applicationDetails.getEmail() , "evoting.pes@gmail.com");
-				} catch (MessagingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			*/
+				
+				new Thread( () -> {
+					try {
+						mailService.sendMailHtml("E-VOTING: Application Status",
+								mailService.getElectorRegisteredMail(applicationDetails.getName(), electorID, password),
+								applicationDetails.getEmail() , Constants.FROM_MAIL);
+					} catch (MessagingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}).start();
+				
 				return Constants.SUCCESS;
 			}else{
 				return "You are already registered";

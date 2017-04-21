@@ -65,6 +65,9 @@ public class Elector implements Serializable{
 	
 	@Column(name="created_date")
 	private Date createdDate;
+	
+	@Column(name="password")
+	private String password;
 
 	public long getId() {
 		return id;
@@ -192,6 +195,14 @@ public class Elector implements Serializable{
 
 	public void setApplicationid(long applicationid) {
 		this.applicationid = applicationid;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

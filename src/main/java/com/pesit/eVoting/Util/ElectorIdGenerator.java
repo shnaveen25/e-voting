@@ -1,8 +1,7 @@
 package com.pesit.eVoting.Util;
 
+import java.util.Calendar;
 import java.util.Date;
-
-import com.pesit.eVoting.sql.domain.VotersApplications;
 
 public class ElectorIdGenerator {
 
@@ -10,10 +9,9 @@ public class ElectorIdGenerator {
 	
 	public static String generateElectorId(String state , String district , long aadhar){
 		
-		Date currentDate =  new Date();
-		int year = currentDate.getYear();
+		int year = Calendar.getInstance().get(Calendar.YEAR);
 		
-		electorId = (state.substring(0 , 3) + year + district.substring(0 , 3)  + aadhar).toUpperCase() ;
+		electorId = (state.substring(0 , 2) + year + district.substring(0 , 2)  + aadhar).toUpperCase() ;
 		
 		return electorId;
 	}

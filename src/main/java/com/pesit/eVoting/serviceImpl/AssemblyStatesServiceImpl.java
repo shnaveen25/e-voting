@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.pesit.eVoting.dto.AssemblyStatesDto;
 import com.pesit.eVoting.service.AssemblyStatesService;
 import com.pesit.eVoting.sql.dao.AssemblyStatesDAO;

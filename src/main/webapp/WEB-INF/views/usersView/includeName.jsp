@@ -175,7 +175,7 @@
 											placeholder="Enter Your Email"
 											value="<j:out value="${ApplicationDetails.email}" />" />
 									</div>
-									<input type="hidden" class="form-control" name="appliedFor"
+									<input type="hidden" name="appliedFor"
 											value="including" />
 									<input type="hidden" class="form-control" name="id"
 											value="<j:out value="${ApplicationDetails.id}" />" />
@@ -247,7 +247,7 @@
 											value="<j:out value="${ApplicationDetails.pinCode}" />"/>
 									</div>
 								</div>
-								<input type="hidden" value="including" name="appliedFor"/>
+								
 								<div class="form-group">
 									<input type="submit" value="Submit" name="submit"> <br />
 									<input type="button" value="Back" name="back">

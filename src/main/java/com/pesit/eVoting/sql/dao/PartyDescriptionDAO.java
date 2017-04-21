@@ -1,13 +1,13 @@
 package com.pesit.eVoting.sql.dao;
 
-import java.util.List;import javax.servlet.http.Part;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
-import com.pesit.eVoting.dto.PartyDto;
 import com.pesit.eVoting.sql.domain.PartyDescription;
 
 @Component

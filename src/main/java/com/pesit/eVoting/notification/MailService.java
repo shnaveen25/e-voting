@@ -2,6 +2,7 @@ package com.pesit.eVoting.notification;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
@@ -78,28 +79,77 @@ public class MailService {
 		
 		builder.append("Your username: "+email+"<br>");
 		
-		builder.append("Link: <a href='http://localhost:3000'>Click here to Login.</a><br>");
+		builder.append("Link: <a href='http://localhost:9000'>Click here to Login.</a><br>");
 		
 		return builder.toString();
 		
 	}  // End method
 	
-	public String getElectorRegisteredMail(String name, String electorId){
+	/**
+	 * 
+	 * This Service composes the body for accepted applications
+	 * 
+	 * @param name
+	 * @param electorId
+	 * @return
+	 */
+	public String getElectorRegisteredMail(String name, String electorId, String password){
 		StringBuilder builder = new StringBuilder();
 		
 		builder.append("<html><body style='max-width: 1024px; margin: 11px auto; width:90%'>");
 
 		builder.append("<div style='border:2px solid #4285f4; padding:10px;'>");
 		
-		builder.append("<p><i>Dear "+name);
+		builder.append("<p>Dear <b>"+name+"</b>");
 		
-		builder.append(" ,<br>Your are registered as Elector");
+		builder.append(" ,<br>Your application has been accepted for elector.");
 		
 		builder.append("<br>");
 		
-		builder.append("Your Elector id : "+electorId+"<br>");
+		builder.append("Elector id : <b>"+electorId+"</b>");
 		
-		builder.append("Link: <a href='http://localhost:3000'>Click here to Login.</a><br>");
+		builder.append("<br>Password : <b>"+password+"</b>");
+		
+		builder.append("<br>Please keep elector id number and password for voting ");
+		
+		builder.append("<br>Thank you and Regards,");
+		
+		builder.append("<br>Team eVoting");
+		
+		builder.append("Link: <a href='http://localhost:9000'>Click here to Login.</a><br>");
+		
+		return builder.toString();
+	}
+	
+	public String getParticipantRegisteredMail(String partyName, String name, 
+			String state, String district, String assembly, String post){
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append("<html><body style='max-width: 1024px; margin: 11px auto; width:90%'>");
+
+		builder.append("<div style='border:2px solid #4285f4; padding:10px;'>");
+		
+		builder.append("<p>Dear <b>"+partyName+"</b>");
+		
+		builder.append(" ,<br>As per your recent application, We have registered the participant with a bellow details");
+		
+		builder.append("<br>");
+		
+		builder.append("Name : <b>"+name+"</b><br>");
+		
+		builder.append("State : <b>"+state+"</b><br>");
+		
+		builder.append("District : <b>"+district+"</b><br>");
+		
+		builder.append("Assembly : <b>"+assembly+"</b><br>");
+		
+		builder.append("Post : <b>"+post+"</b><br>");
+		
+		builder.append("<br>Thank you and Regards,");
+		
+		builder.append("<br>Team eVoting");
+		
+		builder.append("Link: <a href='http://localhost:3000'>E-Voting</a><br>");
 		
 		return builder.toString();
 	}

@@ -3,6 +3,8 @@ package com.pesit.eVoting.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.Null;
+
 import com.pesit.eVoting.sql.domain.VotersApplications;
 
 /**
@@ -14,7 +16,9 @@ public class VotersApplicationsDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	
 	private long id;
+	@Null
 	private long addedBy;
 	private long stateId;
 	private long districtId;
@@ -35,8 +39,11 @@ public class VotersApplicationsDto implements Serializable {
 	private String applicationStatus;
 	
 	//extras
+	@Null
 	private String stateName;
+	@Null
 	private String districtName;
+	@Null
 	private String assemblyName;
 	
 	
@@ -73,108 +80,19 @@ public class VotersApplicationsDto implements Serializable {
 				+ createdDate + ", appliedFor=" + appliedFor + ", stateName=" + stateName + ", districtName="
 				+ districtName + ", assemblyName=" + assemblyName + "]";
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (aadhar ^ (aadhar >>> 32));
-		result = prime * result + (int) (addedBy ^ (addedBy >>> 32));
-		result = prime * result + ((area == null) ? 0 : area.hashCode());
-		result = prime * result + (int) (assemblyId ^ (assemblyId >>> 32));
-		result = prime * result + (int) (districtId ^ (districtId >>> 32));
-		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((landMark == null) ? 0 : landMark.hashCode());
-		result = prime * result + (int) (mobile ^ (mobile >>> 32));
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((pinCode == null) ? 0 : pinCode.hashCode());
-		result = prime * result + (int) (stateId ^ (stateId >>> 32));
-		result = prime * result + ((street == null) ? 0 : street.hashCode());
-		result = prime * result + ((surName == null) ? 0 : surName.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		VotersApplicationsDto other = (VotersApplicationsDto) obj;
-		if (aadhar != other.aadhar)
-			return false;
-		if (addedBy != other.addedBy)
-			return false;
-		if (area == null) {
-			if (other.area != null)
-				return false;
-		} else if (!area.equals(other.area))
-			return false;
-		if (assemblyId != other.assemblyId)
-			return false;
-		if (districtId != other.districtId)
-			return false;
-		if (dob == null) {
-			if (other.dob != null)
-				return false;
-		} else if (!dob.equals(other.dob))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (gender == null) {
-			if (other.gender != null)
-				return false;
-		} else if (!gender.equals(other.gender))
-			return false;
-		if (id != other.id)
-			return false;
-		if (landMark == null) {
-			if (other.landMark != null)
-				return false;
-		} else if (!landMark.equals(other.landMark))
-			return false;
-		if (mobile != other.mobile)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (pinCode == null) {
-			if (other.pinCode != null)
-				return false;
-		} else if (!pinCode.equals(other.pinCode))
-			return false;
-		if (stateId != other.stateId)
-			return false;
-		if (street == null) {
-			if (other.street != null)
-				return false;
-		} else if (!street.equals(other.street))
-			return false;
-		if (surName == null) {
-			if (other.surName != null)
-				return false;
-		} else if (!surName.equals(other.surName))
-			return false;
-		return true;
-	}
+	
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
+		System.out.println("id" +id);
 	}
 	public long getAddedBy() {
 		return addedBy;
 	}
 	public void setAddedBy(long addedBy) {
+		System.out.println("addedBy"+addedBy);
 		this.addedBy = addedBy;
 	}
 	public long getStateId() {
@@ -182,12 +100,14 @@ public class VotersApplicationsDto implements Serializable {
 	}
 	public void setStateId(long stateId) {
 		this.stateId = stateId;
+		System.out.println("statId"+stateId);
 	}
 	public long getDistrictId() {
 		return districtId;
 	}
 	public void setDistrictId(long districtId) {
 		this.districtId = districtId;
+		System.out.println("distId"+districtId);
 		
 	}
 	public long getAssemblyId() {
@@ -195,73 +115,85 @@ public class VotersApplicationsDto implements Serializable {
 	}
 	public void setAssemblyId(long assemblyId) {
 		this.assemblyId = assemblyId;
+		System.out.println("assId"+assemblyId);
 	}
 	
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
+	public void setName(String name) {	
 		this.name = name;
+		System.out.println("name"+name);
 	}
 	public String getSurName() {
 		return surName;
 	}
 	public void setSurName(String surName) {
 		this.surName = surName;
+		System.out.println("surname"+surName);
 	}
 	public String getDob() {
 		return dob;
 	}
 	public void setDob(String dob) {
 		this.dob = dob;
+		System.out.println("dob"+dob);
 	}
 	public String getGender() {
 		return gender;
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
+		System.out.println("gender"+gender);
 	}
 	public long getMobile() {
 		return mobile;
 	}
 	public void setMobile(long mobile) {
 		this.mobile = mobile;
+		System.out.println("mobile"+mobile);
 	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+		System.out.println("email"+email);
 	}
 	public long getAadhar() {
 		return aadhar;
 	}
 	public void setAadhar(long aadhar) {
 		this.aadhar = aadhar;
+		System.out.println("adhar"+aadhar);
 	}
 	public String getArea() {
 		return area;
 	}
 	public void setArea(String area) {
 		this.area = area;
+		System.out.println("area"+area);
 	}
 	public String getStreet() {
 		return street;
 	}
 	public void setStreet(String street) {
 		this.street = street;
+		System.out.println("Street"+street);
 	}
 	public String getLandMark() {
 		return landMark;
 	}
 	public void setLandMark(String landMark) {
 		this.landMark = landMark;
+		System.out.println("landMark"+landMark);
 	}
 	public String getPinCode() {
 		return pinCode;
 	}
 	public void setPinCode(String pinCode) {
 		this.pinCode = pinCode;
+		System.out.println("poncode"+pinCode);
 	}
 	public Date getCreatedDate() {
 		return createdDate;
@@ -300,6 +232,7 @@ public class VotersApplicationsDto implements Serializable {
 
 	public void setAppliedFor(String appliedFor) {
 		this.appliedFor = appliedFor;
+		System.out.println("appliedfro"+appliedFor);
 	}
 
 	public String getApplicationStatus() {
