@@ -1,6 +1,7 @@
 package com.pesit.eVoting.dto;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.validation.constraints.Null;
@@ -34,7 +35,7 @@ public class VotersApplicationsDto implements Serializable {
 	private String street;
 	private String landMark;
 	private String pinCode;
-	private Date createdDate;
+	private Timestamp createdDate;
 	private String appliedFor;
 	private String applicationStatus;
 	
@@ -195,10 +196,10 @@ public class VotersApplicationsDto implements Serializable {
 		this.pinCode = pinCode;
 		System.out.println("poncode"+pinCode);
 	}
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 

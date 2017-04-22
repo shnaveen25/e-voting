@@ -1,6 +1,7 @@
 package com.pesit.eVoting.dto;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class ElectorDto implements Serializable {
@@ -22,7 +23,8 @@ public class ElectorDto implements Serializable {
 	private String street;
 	private String landMark;
 	private String pinCode;
-	private Date createdDate;
+	private Timestamp createdDate;
+	
 	@Override
 	public String toString() {
 		return "ElectorDto [id=" + id + ", electorId=" + electorId + ", stateId=" + stateId + ", districtId="
@@ -127,10 +129,10 @@ public class ElectorDto implements Serializable {
 	public void setPinCode(String pinCode) {
 		this.pinCode = pinCode;
 	}
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 	public long getApplicationid() {
@@ -139,8 +141,5 @@ public class ElectorDto implements Serializable {
 	public void setApplicationid(long applicationid) {
 		this.applicationid = applicationid;
 	}
-	
-	
-	
-	
+
 }

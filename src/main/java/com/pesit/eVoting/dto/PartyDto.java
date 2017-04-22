@@ -1,6 +1,7 @@
 package com.pesit.eVoting.dto;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -28,7 +29,7 @@ public class PartyDto implements Serializable {
 	
 	private String partyEmail;
 	
-	private Date createdDate;
+	private Timestamp createdDate;
 	
 	@Override
 	public int hashCode() {
@@ -120,11 +121,11 @@ public class PartyDto implements Serializable {
 		this.id = id;
 	}
 
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 

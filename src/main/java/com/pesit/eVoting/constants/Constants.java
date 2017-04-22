@@ -12,5 +12,6 @@ public interface Constants {
 	public String LOGIN_FAILED = "failed";
 	public String SUCCESS = "success";
 	public String FROM_MAIL = "evoting.pes@gmail.com";
+	public String UPCOMING_ELECTION = "upcoming_election";
 }
 

@@ -39,7 +39,7 @@
         <ul>
           <li><a href="">Present</a></li>
           <li><a href="">Past</a></li>
-          <li><a href="">Future</a></li>
+          <li><a href="/addFutureElections">Future</a></li>
         </ul>
       </li>
       <li><a class="drop" href="#">Party</a>

@@ -1,5 +1,8 @@
 package com.pesit.eVoting.serviceImpl;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +53,7 @@ public class ElectorServiceImpl implements ElectorService{
 				String district = assemblyDistricte.getAssemblyDistrictById(applicationDetails.getDistrictId());		
 				String electorID = ElectorIdGenerator.generateElectorId(state, district, applicationDetails.getAadhar());		
 				String password = PasswordUtil.randomAplhaNumGen(6);
-				
+				Timestamp currentDate = new Timestamp(new Date().getTime());
 				
 				electorToBeSaved = new Elector();		
 				electorToBeSaved.setApplicationid(id);
@@ -68,6 +71,8 @@ public class ElectorServiceImpl implements ElectorService{
 				electorToBeSaved.setLandMark(applicationDetails.getLandMark());
 				electorToBeSaved.setPinCode(applicationDetails.getPinCode());
 				electorToBeSaved.setPassword(password);
+				electorToBeSaved.setCreatedDate(currentDate);
+				electorToBeSaved.setStatus("active");
 				
 				electorDao.save(electorToBeSaved);
 				

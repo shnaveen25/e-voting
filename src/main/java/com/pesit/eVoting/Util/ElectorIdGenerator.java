@@ -1,7 +1,6 @@
 package com.pesit.eVoting.Util;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class ElectorIdGenerator {
 

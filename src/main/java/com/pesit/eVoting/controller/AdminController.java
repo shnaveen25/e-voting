@@ -54,4 +54,5 @@ public class AdminController {
 		model.addAttribute("errMsg", "Thank you..!! Visit Again");
 		return new ModelAndView("login");
 	}
+	
 }

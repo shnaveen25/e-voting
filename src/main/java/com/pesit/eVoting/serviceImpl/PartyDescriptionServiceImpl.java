@@ -1,7 +1,8 @@
 package com.pesit.eVoting.serviceImpl;
 
-//import java.sql.Timestamp;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +57,10 @@ public class PartyDescriptionServiceImpl implements PartyDescriptionService{
 	public List<PartyDto> viewAllParties() {
 		List<PartyDto> responsePartyData = new ArrayList<PartyDto>();
 		List<PartyDescription> partiesFromDb = partyDescriptionDao.findAll();
-		System.out.println("Orginal List of partied : "+partiesFromDb);
+		//System.out.println("Orginal List of partied : "+partiesFromDb);
 		for(PartyDescription indudivalParty  : partiesFromDb){
 			
-			//Timestamp currentDate = new Timestamp(new Date().getTime());
+			Timestamp currentDate = new Timestamp(new Date().getTime());
 			PartyDto party = new PartyDto();
 			party.setPartyName(indudivalParty.getPartyName());
 			party.setPartyEmail(indudivalParty.getEmail());
@@ -67,11 +68,11 @@ public class PartyDescriptionServiceImpl implements PartyDescriptionService{
 			party.setId(indudivalParty.getId());
 			party.setMpMembers(indudivalParty.getMpMembers());
 			party.setMlaMembers(indudivalParty.getMlaMembers());
-			//party.setCreatedDate(currentDate);
+			party.setCreatedDate(currentDate);
 			
 			responsePartyData.add(party);
 		}
-		System.out.println("List of Parties from DB : "+responsePartyData);
+		//System.out.println("List of Parties from DB : "+responsePartyData);
 		return responsePartyData;
 	}
 }

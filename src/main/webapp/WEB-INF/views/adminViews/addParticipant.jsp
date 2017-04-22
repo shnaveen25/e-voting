@@ -38,6 +38,23 @@
 			});
 		});
 	});
+	
+	$(document).ready(function() {
+		$('#assembly').change(function() {
+			console.log('Getting elections');
+			$.ajax({
+				url : 'getElectionDate',
+				data : {
+					stateId : $('#stateId').val()
+				},
+				success : function(elections) {
+					$('#electionDto').text(elections);
+					console.log(elections);
+					showElections(elections);
+				}
+			});
+		});
+	});
 
 	function showDistrics(responseText) {
 		var selection = '<label class="col-lg-3 col-sm-2 control-label">District</label>';
@@ -73,6 +90,24 @@
 		selection = selection + '</select>'
 		selection += '</div><br /> <br />'
 		$("#assembly").html(selection);
+	}
+	
+	function showElections(elections) {
+		var selection = '<label class="col-lg-3 col-sm-2 control-label">Election Date</label>';
+		selection += '<div class="col-lg-6">';
+
+		selection += '<select name="electionId" id="electionId" class="form-control" title="Select election date in order to proceed">';
+		selection += '<option value=0>Select Election Date</option>';
+		$(elections).each(
+				function(i, item) {
+					console.log('Iterating ', item.elections);
+					selection = selection + '<option value='+ item.id+'>'
+							+ item.electionDate+ '</option>';
+
+				});
+		selection = selection + '</select>'
+		selection += '</div><br /> <br />'
+		$("#elections").html(selection);
 	}
 </script>
 
@@ -128,6 +163,11 @@
 			<div class="form-group">
 				<div id="assembly"></div>
 			</div>
+			
+			<div class="form-group">
+				<div id="elections"></div>
+			</div>
+			
 			<div class="form-group">
 				<label class="col-lg-3 col-sm-2 control-label"> Full Name </label>
 				<div class="col-lg-6">

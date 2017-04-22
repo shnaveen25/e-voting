@@ -24,9 +24,8 @@ public class MailService {
 
 	/**
 	 * This method will send compose and send the message
-	 * */
-	public void sendMail(String subject, String body, String reciver,
-			String from) {
+	 */
+	public void sendMail(String subject, String body, String reciver, String from) {
 		try {
 			SimpleMailMessage message = new SimpleMailMessage();
 			message.setFrom(from);
@@ -41,8 +40,8 @@ public class MailService {
 	}
 
 	@Async
-	public void sendMailHtml(final String subject, final String body,
-			final String reciver, final String from) throws MessagingException {
+	public void sendMailHtml(final String subject, final String body, final String reciver, final String from)
+			throws MessagingException {
 
 		MimeMessage message = javaMailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -53,8 +52,7 @@ public class MailService {
 		javaMailSender.send(message);
 
 	}
-	
-	
+
 	/**
 	 * 
 	 * @param email
@@ -63,28 +61,51 @@ public class MailService {
 	 * @param name
 	 * @return
 	 */
-	public String getAccountCreatedMailBody(String email, String name)  {
-		
+	public String getAccountCreatedMailBody(String email, String name) {
+
 		StringBuilder builder = new StringBuilder();
-		
+
 		builder.append("<html><body style='max-width: 1024px; margin: 11px auto; width:90%'>");
 
 		builder.append("<div style='border:2px solid #4285f4; padding:10px;'>");
-		
-		builder.append("<p><i>Dear "+name);
-		
+
+		builder.append("<p><i>Dear " + name);
+
 		builder.append(" ,<br>Your registration is successiful");
-		
+
 		builder.append("<br>");
-		
-		builder.append("Your username: "+email+"<br>");
-		
+
+		builder.append("Your username: " + email + "<br>");
+
 		builder.append("Link: <a href='http://localhost:9000'>Click here to Login.</a><br>");
-		
+
 		return builder.toString();
-		
-	}  // End method
-	
+
+	} // End method
+
+	public String getNewApplicationMailBody(String name) {
+
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("<html><body style='max-width: 1024px; margin: 11px auto; width:90%'>");
+
+		builder.append("<div style='border:2px solid #4285f4; padding:10px;'>");
+
+		builder.append("<p><i>Dear <b>Admin</b>");
+
+		builder.append(
+				" ,<br>New Application has bee arrived for registration as a Elector with the fallowing details");
+
+		builder.append("<br>");
+
+		builder.append("Application Name:<b> " + name + "</b><br>");
+
+		builder.append("Link: <a href='http://localhost:9000'>Click here to Login.</a><br>");
+
+		return builder.toString();
+
+	} // End method
+
 	/**
 	 * 
 	 * This Service composes the body for accepted applications
@@ -93,64 +114,87 @@ public class MailService {
 	 * @param electorId
 	 * @return
 	 */
-	public String getElectorRegisteredMail(String name, String electorId, String password){
+	public String getElectorRegisteredMail(String name, String electorId, String password) {
 		StringBuilder builder = new StringBuilder();
-		
+
 		builder.append("<html><body style='max-width: 1024px; margin: 11px auto; width:90%'>");
 
 		builder.append("<div style='border:2px solid #4285f4; padding:10px;'>");
-		
-		builder.append("<p>Dear <b>"+name+"</b>");
-		
+
+		builder.append("<p>Dear <b>" + name + "</b>");
+
 		builder.append(" ,<br>Your application has been accepted for elector.");
-		
+
 		builder.append("<br>");
-		
-		builder.append("Elector id : <b>"+electorId+"</b>");
-		
-		builder.append("<br>Password : <b>"+password+"</b>");
-		
+
+		builder.append("Elector id : <b>" + electorId + "</b>");
+
+		builder.append("<br>Password : <b>" + password + "</b>");
+
 		builder.append("<br>Please keep elector id number and password for voting ");
-		
+
 		builder.append("<br>Thank you and Regards,");
-		
-		builder.append("<br>Team eVoting");
-		
-		builder.append("Link: <a href='http://localhost:9000'>Click here to Login.</a><br>");
-		
+
+		builder.append("<br><a href='http://localhost:3000'>Team eVoting</a><br>");
+
 		return builder.toString();
 	}
-	
-	public String getParticipantRegisteredMail(String partyName, String name, 
-			String state, String district, String assembly, String post){
+
+	public String getParticipantRegisteredMail(String name, String state, String district, String assembly,
+			String post , String date) {
 		StringBuilder builder = new StringBuilder();
-		
+
 		builder.append("<html><body style='max-width: 1024px; margin: 11px auto; width:90%'>");
 
 		builder.append("<div style='border:2px solid #4285f4; padding:10px;'>");
-		
-		builder.append("<p>Dear <b>"+partyName+"</b>");
-		
-		builder.append(" ,<br>As per your recent application, We have registered the participant with a bellow details");
-		
+
+		// builder.append("<p>Dear <b>"+partyName+"</b>");
+
+		builder.append("<br>As per your recent application, We have registered the participant with a bellow details");
+
 		builder.append("<br>");
+		builder.append("<br>");
+
+		builder.append("Name : <b>" + name.toUpperCase() + "</b><br>");
+
+		builder.append("State : <b>" + state.toUpperCase() + "</b><br>");
+
+		builder.append("District : <b>" + district.toUpperCase() + "</b><br>");
+
+		builder.append("Assembly : <b>" + assembly.toUpperCase() + "</b><br>");
+
+		builder.append("Post : <b>" + post.toUpperCase() + "</b><br>");
 		
-		builder.append("Name : <b>"+name+"</b><br>");
+		builder.append("Election Date : <b>" + date + "</b><br>");
+
+		builder.append("<br>Regards,");
+
+		builder.append("<br><a href='http://localhost:3000'>Team eVoting</a><br>");
+
+		return builder.toString();
+	}
+
+	public String getElectionAddedMail(String name, String date, String electionFor) {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("<html><body style='max-width: 1024px; margin: 11px auto; width:90%'>");
+
+		builder.append("<div style='border:2px solid #4285f4; padding:10px;'>");
+
+		builder.append("<p>Dear <b>" + name + "</b>");
+
+		builder.append(" ,<br>We Have added election for <b>" + electionFor);
 		
-		builder.append("State : <b>"+state+"</b><br>");
-		
-		builder.append("District : <b>"+district+"</b><br>");
-		
-		builder.append("Assembly : <b>"+assembly+"</b><br>");
-		
-		builder.append("Post : <b>"+post+"</b><br>");
-		
+		builder.append("</b> in your respected Assembly dated on <b>" + date + "</b>");
+
+		builder.append("<br>");
+
+		builder.append("<br>Please login with your credential to vote on " + date);
+
 		builder.append("<br>Thank you and Regards,");
-		
-		builder.append("<br>Team eVoting");
-		
-		builder.append("Link: <a href='http://localhost:3000'>E-Voting</a><br>");
-		
+
+		builder.append("<br><a href='http://localhost:3000'>Team eVoting</a><br>");
+
 		return builder.toString();
 	}
 }

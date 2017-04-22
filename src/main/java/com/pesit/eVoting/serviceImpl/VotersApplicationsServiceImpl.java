@@ -1,14 +1,19 @@
 package com.pesit.eVoting.serviceImpl;
 
+import java.sql.Timestamp;
 //import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pesit.eVoting.constants.Constants;
 import com.pesit.eVoting.dto.VotersApplicationsDto;
+import com.pesit.eVoting.notification.MailService;
 import com.pesit.eVoting.service.AssemblyConstituencyService;
 import com.pesit.eVoting.service.AssemblyDistrictService;
 import com.pesit.eVoting.service.AssemblyStatesService;
@@ -30,19 +35,22 @@ public class VotersApplicationsServiceImpl implements VotersApplicationsService 
 
 	@Autowired
 	private AssemblyConstituencyService assemblyConstituencyService;
+	
+	@Autowired
+	private MailService mailService;
 
 	@Override
 	public String registerForVoterApplication(VotersApplicationsDto voterApplicationDto, long appliedBy) {
 
 		VotersApplications isApplicationExists = voterApplicationDao.findById(voterApplicationDto.getId());
 		
-			//Timestamp currentDate = new Timestamp(new Date().getTime());
+			Timestamp currentDate = new Timestamp(new Date().getTime());
 			//isApplicationExists = new VotersApplications();
 			isApplicationExists.setStateId(voterApplicationDto.getStateId());
 			isApplicationExists.setDistrictId(voterApplicationDto.getDistrictId());
 			isApplicationExists.setAssemblyId(voterApplicationDto.getAssemblyId());
 			isApplicationExists.setName(voterApplicationDto.getName() + " " + voterApplicationDto.getSurName());
-			//isApplicationExists.setDob(voterApplicationDto.getDob());
+			isApplicationExists.setDob(voterApplicationDto.getDob());
 			isApplicationExists.setGender(voterApplicationDto.getGender());
 			isApplicationExists.setMobile(voterApplicationDto.getMobile());
 			isApplicationExists.setEmail(voterApplicationDto.getEmail());
@@ -53,9 +61,23 @@ public class VotersApplicationsServiceImpl implements VotersApplicationsService 
 			isApplicationExists.setApplicationStatus("pending");
 			isApplicationExists.setAddedBy(appliedBy);
 			isApplicationExists.setAppliedFor(voterApplicationDto.getAppliedFor());
-			//isApplicationExists.setCreatedDate(currentDate);
+			isApplicationExists.setCreatedDate(currentDate);
 
 			voterApplicationDao.saveOrUpdate(isApplicationExists);
+			
+			new Thread(() -> {
+
+				try {
+					mailService.sendMailHtml(
+							"E-VOTING: Application Status", mailService.getNewApplicationMailBody(
+									voterApplicationDto.getName()),
+							Constants.FROM_MAIL, Constants.FROM_MAIL);
+				} catch (MessagingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}).start();
 
 			return Constants.SUCCESS;
 		

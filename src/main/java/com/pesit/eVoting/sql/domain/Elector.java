@@ -1,6 +1,7 @@
 package com.pesit.eVoting.sql.domain;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,7 +15,6 @@ import javax.persistence.Table;
 @Table(name="elector")
 public class Elector implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -40,7 +40,7 @@ public class Elector implements Serializable{
 	private String name;
 	
 	@Column(name="dob")
-	private Date dob;
+	private String dob;
 	
 	@Column(name="gender")
 	private String gender;
@@ -64,10 +64,13 @@ public class Elector implements Serializable{
 	private String pinCode;
 	
 	@Column(name="created_date")
-	private Date createdDate;
+	private Timestamp createdDate;
 	
 	@Column(name="password")
 	private String password;
+	
+	@Column(name="status")
+	private String status;
 
 	public long getId() {
 		return id;
@@ -117,11 +120,11 @@ public class Elector implements Serializable{
 		this.name = name;
 	}
 
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 
@@ -181,11 +184,11 @@ public class Elector implements Serializable{
 		this.pinCode = pinCode;
 	}
 
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -203,6 +206,16 @@ public class Elector implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override

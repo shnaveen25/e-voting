@@ -26,4 +26,14 @@ public class AssemblyStatesController {
 
 		return view;
 	}
+	
+	@RequestMapping("/addFutureElections")
+	public ModelAndView showFutureElectionView(){
+		ModelAndView view = new ModelAndView("adminViews/election");
+		
+		List<AssemblyStatesDto> assemblyStateDto = assemblyStatesService.getAllStates();
+		view.addObject("assemblyStateDto", assemblyStateDto);
+		
+		return view;
+	}
 }

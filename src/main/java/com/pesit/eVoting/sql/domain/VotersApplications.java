@@ -1,6 +1,7 @@
 package com.pesit.eVoting.sql.domain;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 //import java.sql.Timestamp;
@@ -38,7 +39,7 @@ public class VotersApplications implements Serializable {
 	private String name;
 	
 	@Column(name="dob")
-	private Date dob;
+	private String dob;
 	
 	@Column(name="gender")
 	private String gender;
@@ -65,7 +66,7 @@ public class VotersApplications implements Serializable {
 	private String applicationStatus;
 	
 	@Column(name="created_date")
-	private Date createdDate;
+	private Timestamp createdDate;
 	
 	@Column(name="applied_for")
 	private String appliedFor;
@@ -218,11 +219,11 @@ public class VotersApplications implements Serializable {
 		this.name = name;
 	}
 
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 
@@ -282,11 +283,11 @@ public class VotersApplications implements Serializable {
 		this.pinCode = pinCode;
 	}
 
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 

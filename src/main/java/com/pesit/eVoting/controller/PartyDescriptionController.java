@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pesit.eVoting.dto.AssemblyStatesDto;
+import com.pesit.eVoting.dto.ElectionDto;
 import com.pesit.eVoting.dto.ParticipantsDto;
 import com.pesit.eVoting.dto.PartyDto;
 import com.pesit.eVoting.service.AssemblyStatesService;
+import com.pesit.eVoting.service.ElectionService;
 import com.pesit.eVoting.service.PartyDescriptionService;
 import com.pesit.eVoting.sql.domain.PartyDescription;
 
@@ -27,6 +29,9 @@ public class PartyDescriptionController {
 
 	@Autowired
 	private AssemblyStatesService assemblyStatesService;
+	
+	@Autowired
+	private ElectionService electionService;
 	
 	/**
 	 * 
@@ -78,14 +83,21 @@ public class PartyDescriptionController {
 	 */
 	@RequestMapping("/showAddParticipantView")
 	public ModelAndView showSelectPartyView(Model model) {
+		
 		ModelAndView view = new ModelAndView("adminViews/addParticipant");
+		
 		ParticipantsDto participantsrDto = new ParticipantsDto();
 		List<PartyDto> partyName = paertyDescriptionService.getParty();
 		List<AssemblyStatesDto> assemblyStateDto = assemblyStatesService.getAllStates();
+		List<ElectionDto> elections = electionService.getUpcomingElections();
+		
 		view.addObject("assemblyStateDto", assemblyStateDto);
 		view.addObject("partyList", partyName);
+		view.addObject("election" , elections);
+		
 		model.addAttribute("participant", participantsrDto);
 		return view;
+		
 	}
 
 	@RequestMapping("/viewParties")
