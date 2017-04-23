@@ -60,10 +60,9 @@
           <li><a href="showFutureElections">Future</a></li>
         </ul>
       </li>
-      <li><a href="">Voter</a></li>
-      <li><a href="#">Reports</a></li>
       <li><a href="">Party Description</a></li>
-      <li><a href="#">FAQs</a></li>
+     <li><a href="getCurrentElectionView">Cast Your Voter</a></li>
+      <li><a href="#">Reports</a></li>
     </ul>
     </nav>
 </div>

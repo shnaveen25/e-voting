@@ -31,4 +31,15 @@ public class ElectionDAO extends BaseDao<Election> {
 		
 		return (List<Election>) crit.list();
 	}
+	
+	@Transactional
+	public Election findByCurrentElection(long stateId , String date){
+		
+		Criteria crit = getCurrentSession().createCriteria(Election.class);
+		
+		crit.add(Restrictions.eq("stateId" , stateId));
+		crit.add(Restrictions.eq("electionDate" , date));
+		
+		return (Election) crit.uniqueResult();
+	}
 }

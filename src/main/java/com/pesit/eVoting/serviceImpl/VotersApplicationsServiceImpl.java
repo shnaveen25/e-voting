@@ -42,44 +42,48 @@ public class VotersApplicationsServiceImpl implements VotersApplicationsService 
 	@Override
 	public String registerForVoterApplication(VotersApplicationsDto voterApplicationDto, long appliedBy) {
 
-		VotersApplications isApplicationExists = voterApplicationDao.findById(voterApplicationDto.getId());
+		VotersApplications isApplicationExists = voterApplicationDao.findByAadhar(voterApplicationDto.getAadhar());
 		
-			Timestamp currentDate = new Timestamp(new Date().getTime());
-			//isApplicationExists = new VotersApplications();
-			isApplicationExists.setStateId(voterApplicationDto.getStateId());
-			isApplicationExists.setDistrictId(voterApplicationDto.getDistrictId());
-			isApplicationExists.setAssemblyId(voterApplicationDto.getAssemblyId());
-			isApplicationExists.setName(voterApplicationDto.getName() + " " + voterApplicationDto.getSurName());
-			isApplicationExists.setDob(voterApplicationDto.getDob());
-			isApplicationExists.setGender(voterApplicationDto.getGender());
-			isApplicationExists.setMobile(voterApplicationDto.getMobile());
-			isApplicationExists.setEmail(voterApplicationDto.getEmail());
-			isApplicationExists.setAadhar(voterApplicationDto.getAadhar());
-			isApplicationExists.setAddress(voterApplicationDto.getArea() + " , " + voterApplicationDto.getStreet());
-			isApplicationExists.setLandMark(voterApplicationDto.getLandMark());
-			isApplicationExists.setPinCode(voterApplicationDto.getPinCode());
-			isApplicationExists.setApplicationStatus("pending");
-			isApplicationExists.setAddedBy(appliedBy);
-			isApplicationExists.setAppliedFor(voterApplicationDto.getAppliedFor());
-			isApplicationExists.setCreatedDate(currentDate);
-
-			voterApplicationDao.saveOrUpdate(isApplicationExists);
-			
-			new Thread(() -> {
-
-				try {
-					mailService.sendMailHtml(
-							"E-VOTING: Application Status", mailService.getNewApplicationMailBody(
-									voterApplicationDto.getName()),
-							Constants.FROM_MAIL, Constants.FROM_MAIL);
-				} catch (MessagingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-			}).start();
-
-			return Constants.SUCCESS;
+			if(isApplicationExists == null){
+				Timestamp currentDate = new Timestamp(new Date().getTime());
+				isApplicationExists = new VotersApplications();
+				isApplicationExists.setStateId(voterApplicationDto.getStateId());
+				isApplicationExists.setDistrictId(voterApplicationDto.getDistrictId());
+				isApplicationExists.setAssemblyId(voterApplicationDto.getAssemblyId());
+				isApplicationExists.setName(voterApplicationDto.getName() + " " + voterApplicationDto.getSurName());
+				isApplicationExists.setDob(voterApplicationDto.getDob());
+				isApplicationExists.setGender(voterApplicationDto.getGender());
+				isApplicationExists.setMobile(voterApplicationDto.getMobile());
+				isApplicationExists.setEmail(voterApplicationDto.getEmail());
+				isApplicationExists.setAadhar(voterApplicationDto.getAadhar());
+				isApplicationExists.setAddress(voterApplicationDto.getArea() + " , " + voterApplicationDto.getStreet());
+				isApplicationExists.setLandMark(voterApplicationDto.getLandMark());
+				isApplicationExists.setPinCode(voterApplicationDto.getPinCode());
+				isApplicationExists.setApplicationStatus("pending");
+				isApplicationExists.setAddedBy(appliedBy);
+				isApplicationExists.setAppliedFor(voterApplicationDto.getAppliedFor());
+				isApplicationExists.setCreatedDate(currentDate);
+	
+				voterApplicationDao.saveOrUpdate(isApplicationExists);
+				
+				new Thread(() -> {
+	
+					try {
+						mailService.sendMailHtml(
+								"E-VOTING: Application Status", mailService.getNewApplicationMailBody(
+										voterApplicationDto.getName()),
+								Constants.FROM_MAIL, Constants.FROM_MAIL);
+					} catch (MessagingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	
+				}).start();
+		
+				return Constants.SUCCESS;
+			} else {
+				return "Applicaton already submitted";
+			}
 		
 	}
 

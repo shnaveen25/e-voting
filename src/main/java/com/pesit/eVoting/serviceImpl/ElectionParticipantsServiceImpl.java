@@ -1,6 +1,8 @@
 package com.pesit.eVoting.serviceImpl;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +47,7 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 	
 	@Autowired
 	private ElectionService electionService;
+	
 
 	@Autowired
 	private MailService mailService;
@@ -112,6 +115,58 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 			responseParticipantsData.add(participant);
 		}
 		return responseParticipantsData;
+	}
+
+	@Override
+	public List<ParticipantsDto> getCurrEleParicipantByState(long stateId) {
+		
+		List<ParticipantsDto> responseParticipants = new ArrayList<ParticipantsDto>();
+		
+		Date currentDate = new Date();
+		 
+		ElectionDto currentElection = electionService.getCurrentElection(stateId, currentDate.toString());
+		
+		if(currentElection != null ){
+			List<ElectionParticipants> curEleParticipant = electionParticipantDao.getParticipantByEleId(currentElection.getId());
+			
+			for(ElectionParticipants eachParticipant : curEleParticipant){
+				PartyDescription partyName = partyDescriptionDao.findById(eachParticipant.getPartyId());
+				ParticipantsDto participant = new ParticipantsDto();
+				participant.setName(eachParticipant.getName());
+				participant.setPartyName(partyName.getPartyName());
+				responseParticipants.add(participant);
+			}	
+		}
+		
+		return responseParticipants;
+		
+	}
+
+	@Override
+	public List<ParticipantsDto> getCurrEleParicipantByAssembly(long stateId , long assemblyId) {
+		List<ParticipantsDto> responseParticipants = new ArrayList<ParticipantsDto>();
+
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date(); 
+		String currentDate = dateFormat.format(date).toString();
+		System.out.println("date is string formate :"+currentDate);
+		
+		ElectionDto currentElection = electionService.getCurrentElection(stateId, currentDate);
+		
+		if(currentElection != null ){
+			List<ElectionParticipants> curEleParticipant = electionParticipantDao.getParticipantByEleIdAndAssId(currentElection.getId() , assemblyId);
+			
+			for(ElectionParticipants eachParticipant : curEleParticipant){
+				PartyDescription partyName = partyDescriptionDao.findById(eachParticipant.getPartyId());
+				ParticipantsDto participant = new ParticipantsDto();
+				participant.setName(eachParticipant.getName());
+				participant.setPartyName(partyName.getPartyName());
+				responseParticipants.add(participant);
+			}	
+		}
+		
+		return responseParticipants;
 	}
 
 }

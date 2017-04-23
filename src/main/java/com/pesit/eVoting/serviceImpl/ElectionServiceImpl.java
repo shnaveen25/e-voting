@@ -1,6 +1,8 @@
 package com.pesit.eVoting.serviceImpl;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,8 +16,10 @@ import com.pesit.eVoting.dto.ElectionDto;
 import com.pesit.eVoting.notification.MailService;
 import com.pesit.eVoting.service.ElectionService;
 import com.pesit.eVoting.sql.dao.ElectionDAO;
+import com.pesit.eVoting.sql.dao.ElectionPollDAO;
 import com.pesit.eVoting.sql.dao.ElectorDAO;
 import com.pesit.eVoting.sql.domain.Election;
+import com.pesit.eVoting.sql.domain.ElectionPoll;
 import com.pesit.eVoting.sql.domain.Elector;
 
 @Service("ElectionService")
@@ -26,6 +30,9 @@ public class ElectionServiceImpl implements ElectionService {
 
 	@Autowired
 	private ElectorDAO electorDao;
+	
+	@Autowired
+	private ElectionPollDAO electionPollDao;
 
 	@Autowired
 	private MailService mailService;
@@ -34,7 +41,7 @@ public class ElectionServiceImpl implements ElectionService {
 	public String addUpcomingElection(String electionFor, long stateId, String electionDate) {
 
 		Timestamp currentDate = new Timestamp(new Date().getTime());
-
+		
 		Election electionToBeSaved = new Election();
 		electionToBeSaved.setElectionFor(electionFor);
 		electionToBeSaved.setStateId(stateId);
@@ -71,6 +78,7 @@ public class ElectionServiceImpl implements ElectionService {
 		} catch (Exception e) {
 			return e.getMessage();
 		}
+
 
 	}
 
@@ -109,6 +117,20 @@ public class ElectionServiceImpl implements ElectionService {
 		
 		return new ElectionDto(electionDao.findById(id));
 
+	}
+
+	@Override
+	public ElectionDto getCurrentElection(long stateId , String date) {
+		
+		ElectionDto currentElection = null;
+		
+		Election electionformDb =electionDao.findByCurrentElection(stateId, date);
+		
+		if(electionformDb != null )
+			currentElection = new ElectionDto(electionformDb);
+			
+		return currentElection;
+				
 	}
 
 

@@ -20,7 +20,7 @@
     </div>
     
     <div class="one_third" align="right">
-      <h6 class="heading">Tempor orci vestibulum</h6>
+      <h6 class="heading"></h6>
       <figure><a href="#"><img class="borderedbox inspace-10 btmspace-15" src="images/demo/backgrounds/emblem.jpg" alt="" align="right"/></a>
         <figcaption>
           <h6 class="nospace font-x1"><a href="#">Write something later</a></h6>

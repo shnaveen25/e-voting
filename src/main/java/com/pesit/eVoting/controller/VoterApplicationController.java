@@ -36,10 +36,10 @@ public class VoterApplicationController {
 			BindingResult result ,Model model,
 			HttpSession session) {
 		
-		if(result.hasErrors()){
+		if(!result.hasErrors()){
 			System.out.println("VoterAppln : " +votersApplicationsDto);
 			return new ModelAndView("usersView/includeName");
-		}
+		} else {
 		System.out.println("voterApplicationDto : " + votersApplicationsDto);
 
 		long appliedBy = (long) session.getAttribute("userId");
@@ -50,7 +50,7 @@ public class VoterApplicationController {
 
 		model.addAttribute("message", msg);
 
-		return view;
+		return view; }
 	}
 
 	@RequestMapping({ "/getUserApplications", "/editUserApplication" })

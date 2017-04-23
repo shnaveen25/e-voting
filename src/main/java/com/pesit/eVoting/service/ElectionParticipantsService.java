@@ -10,4 +10,8 @@ public interface ElectionParticipantsService {
 	
 	public List<ParticipantsDto> getAllParticipants();
 	
+	public List<ParticipantsDto> getCurrEleParicipantByState(long stateId);
+	
+	public List<ParticipantsDto> getCurrEleParicipantByAssembly(long stateId , long assemblyId);
+	
 }

@@ -2,6 +2,7 @@ package com.pesit.eVoting.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pesit.eVoting.dto.ParticipantsDto;
@@ -44,6 +48,20 @@ public class ElectionParticipantsController {
 			model.addAttribute("errMsg", "No Participant Found to display");
 		}
 		return view;
+	}
+	
+	@RequestMapping("/getElectionParticipants")
+	public @ResponseBody List<ParticipantsDto> showCurrentEleParticipants(HttpServletRequest request){
+		
+		ModelAndView view = new ModelAndView("currentElections");
+		long stateId = Long.parseLong(request.getParameter("stateId"));
+		long assemblyId = Long.parseLong(request.getParameter("assemblyId"));
+		
+		List<ParticipantsDto> participantsDto = electionParticipantService.getCurrEleParicipantByAssembly(stateId, assemblyId);
+		
+		view.addObject("participantsDto", participantsDto);
+		
+		return participantsDto;		
 	}
 
 }

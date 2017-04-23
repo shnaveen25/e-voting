@@ -26,6 +26,10 @@ public class ElectionDto implements Serializable {
 		
 	}
 	
+	public ElectionDto() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		return "ElectionDto [id=" + id + ", stateId=" + stateId + ", electionFor=" + electionFor + ", status=" + status

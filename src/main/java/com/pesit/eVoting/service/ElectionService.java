@@ -13,4 +13,6 @@ public interface ElectionService {
 	public List<ElectionDto> getUpcomingElectionForState(long id);
 	
 	public ElectionDto getElectionById(long id); 
+	
+	public ElectionDto getCurrentElection(long stateId , String date);
 }
