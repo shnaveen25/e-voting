@@ -2,7 +2,8 @@ package com.pesit.eVoting.dto;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
+
+import com.pesit.eVoting.sql.domain.Elector;
 
 public class ElectorDto implements Serializable {
 	
@@ -24,6 +25,32 @@ public class ElectorDto implements Serializable {
 	private String landMark;
 	private String pinCode;
 	private Timestamp createdDate;
+	
+	public ElectorDto() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public ElectorDto(Elector e) {
+		id= e.getId();
+		applicationid = e.getApplicationid();
+		electorId = e.getElectorId();
+		stateId = e.getStateId();
+		districtId = e.getDistrictId();
+		assemblyId = e.getAssemblyId();
+		name= e.getName();
+		dob = e.getDob();
+		gender = e.getGender();
+		mobile = e.getMobile();
+		email = e.getEmail();
+		aadhar = e.getAadhar();
+		area = e.getAddress();
+		landMark = e.getLandMark();
+		pinCode = e.getPinCode();
+		createdDate = e.getCreatedDate();
+		
+	}
+	
+	
 	
 	@Override
 	public String toString() {

@@ -20,6 +20,6 @@ public class AssemblyConstituencyDAO extends BaseDao<AssemblyConstituency> {
 		Criteria crit = getCurrentSession().createCriteria(AssemblyConstituency.class);
 		crit.add(Restrictions.eq("districtId" , districtId));
 		crit.addOrder(Order.asc("assembly"));
-		return (List<AssemblyConstituency>) crit.list();
+		return crit.list();
 	}
 }

@@ -14,8 +14,19 @@ public class ElectorDAO extends BaseDao<Elector>{
 
 	@Transactional
 	public Elector findByAadharNumber(long aadhar){
+		
 		Criteria crit = getCurrentSession().createCriteria(Elector.class);
 		crit.add(Restrictions.eq("aadhar", aadhar));
+		
+		return (Elector) crit.uniqueResult();
+	}
+	
+	@Transactional
+	public Elector findByElectorIdAndPassord(String electorId , String password){
+		
+		Criteria crit = getCurrentSession().createCriteria(Elector.class);
+		crit.add(Restrictions.eq("electorId", electorId));
+		crit.add(Restrictions.eq("password", password));
 		
 		return (Elector) crit.uniqueResult();
 	}

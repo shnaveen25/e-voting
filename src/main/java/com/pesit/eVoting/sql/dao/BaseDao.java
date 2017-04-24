@@ -73,7 +73,7 @@ public class BaseDao<T> {
 	 */
 	//@SuppressWarnings("unchecked")
 	public T findById(Long id) {
-		return (T) getCurrentSession().get(type, id);
+		return getCurrentSession().get(type, id);
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class BaseDao<T> {
 	//@SuppressWarnings("unchecked")
 	public List<T> findAll() {
 		Criteria criteria = getCurrentSession().createCriteria(type);
-		return (List<T>) criteria.list();
+		return criteria.list();
 	}
 
 	/**

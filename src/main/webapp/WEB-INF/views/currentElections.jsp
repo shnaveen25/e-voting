@@ -6,6 +6,10 @@
 <%@ include file="../header/defaultHeader.txt"%>
 
 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script>
@@ -86,7 +90,7 @@
 				url : 'getElectionParticipants',
 				data : {
 					assemblyId : $('#assemblyId').val(),
-					stateId  : $('#stateId').val()
+					stateId : $('#stateId').val()
 				},
 				success : function(responseText) {
 					$('#participantsDto').text(responseText);
@@ -96,13 +100,49 @@
 			});
 		});
 	});
-	
-	function showParticipants(responseText) {
-		if(responseText.length == 0){
+
+	function showParticipants(responseText, callback) {
+		if (responseText.length == 0) {
 			alert("No Current elections... Please visit again later");
-			 $(window.location).attr('href', '/');
+			$(window.location).attr('href', '/');
+		} else {
+			var table = "<tbody>"
+			$(responseText)
+					.each(
+							function(i, item) {
+								table += "<tr><td>"
+										+ item.partyName.toUpperCase()
+										+ "</td>";
+								table += "<td>" + item.name.toUpperCase()
+										+ "</td>";
+								table += "<td><button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#myModal' id='participantId' value="+item.id+">Vote</button></td></tr>";
+							});
+			table += "</tbody>";
+			$("#participants").append(table);
 		}
 	}
+	
+	//Voting
+	$(document).ready(function() {
+		$('#vote').click(function() {
+			console.log('Getting electionParticipants');
+			$.ajax({
+				url : 'voteForParticipant',
+				data : {
+					participantId : $('#participantId').val(),
+					electorId : $('#electorId').val(),
+					password : $('#password').val()
+				},
+				success : function(responseText) {
+					$('#msg').text(responseText);
+					console.log(responseText);
+					//showParticipants(responseText);
+					alert(msg);
+				}
+			});
+		});
+	});
+
 </script>
 
 
@@ -141,16 +181,72 @@
 							<div class="form-group">
 								<div id="assembly"></div>
 							</div>
+							<!-- 			
+							<div class="form-group">
+								<div id="participants"></div>
+							</div>
+							 -->
+
 						</div>
-						<br /> <br /> <br /> 
+						<br /> <br /> <br />
+					</article>
 				</li>
+
+
+				<li>
+					<article>
+						<header>
+							<address>II. List of Participants</address>
+						</header>
+						<div class="comcont">
+							<div class="form-group">
+								<div>
+									<table id="participants">
+										<thead>
+											<tr>
+												<td class="col-lg-5">Party</td>
+												<td class="col-lg-6">Participant name</td>
+												<td class="col-lg-6">Action</td>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+
+						</div>
+					</article>
+				</li>
+
 			</ul>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Provide your Credentials to Vote </h4>
+				</div>
+				<div class="modal-body">
+					<input type="email" class="form-control" name="electorId" id="electorId"
+								placeholder="Elector Id" required/> <br /> 
+					<input type="password" class="form-control" name="password" id="password"
+								placeholder="Password" required/>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="vote">Vote</button>
+				</div>
+			</div>
 
 		</div>
-		
 	</div>
 	</main>
 </div>
+
 
 
 

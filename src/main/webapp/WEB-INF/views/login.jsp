@@ -21,15 +21,15 @@
 					<div class="form-group">
 						<label class="col-lg-2 col-sm-2 control-label"> Email </label>
 						<div class="col-lg-9">
-							<input type="text" class="form-control" name="email"
-								placeholder="Enter Registered Email" />
+							<input type="email" class="form-control" name="email"
+								placeholder="Enter Registered Email" required/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-lg-2 col-sm-2 control-label"> Password </label>
 						<div class="col-lg-9">
 							<input type="password" class="form-control" name="password"
-								placeholder="Password" />
+								placeholder="Enter Password" required/>
 						</div>
 					</div>
 					<div class="text-center">

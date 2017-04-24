@@ -29,7 +29,7 @@ public class VotersApplicationsDAO extends BaseDao<VotersApplications>{
 		Criteria criteria = getCurrentSession().createCriteria(VotersApplications.class);
 		criteria.add(Restrictions.eq("addedBy", id));
 		
-		return (List<VotersApplications>)criteria.list();
+		return criteria.list();
 	}
 	
 	@Transactional
@@ -38,6 +38,6 @@ public class VotersApplicationsDAO extends BaseDao<VotersApplications>{
 		Criteria criteria = getCurrentSession().createCriteria(VotersApplications.class);
 		criteria.add(Restrictions.eq("applicationStatus", "pending"));
 		
-		return (List<VotersApplications>)criteria.list();
+		return criteria.list();
 	}
 }

@@ -26,6 +26,6 @@ public class PartyDescriptionDAO extends BaseDao<PartyDescription>{
 	public List<PartyDescription> getPartyName(){
 		
 		Criteria crit = getCurrentSession().createCriteria(PartyDescription.class);
-		return (List<PartyDescription>) crit.list();
+		return crit.list();
 	}
 }

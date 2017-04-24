@@ -24,6 +24,6 @@ public class AssemblyStatesDAO extends BaseDao<AssemblyStates> {
 		Criteria crit = getCurrentSession().createCriteria(AssemblyStates.class);
 		crit.addOrder(Order.asc("stateName"));
 		
-		return (List<AssemblyStates>) crit.list();
+		return crit.list();
 	}
 }

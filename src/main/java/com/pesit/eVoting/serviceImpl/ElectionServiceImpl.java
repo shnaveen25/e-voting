@@ -1,8 +1,6 @@
 package com.pesit.eVoting.serviceImpl;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +9,7 @@ import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.pesit.eVoting.constants.Constants;
 import com.pesit.eVoting.dto.ElectionDto;
 import com.pesit.eVoting.notification.MailService;
@@ -19,7 +18,6 @@ import com.pesit.eVoting.sql.dao.ElectionDAO;
 import com.pesit.eVoting.sql.dao.ElectionPollDAO;
 import com.pesit.eVoting.sql.dao.ElectorDAO;
 import com.pesit.eVoting.sql.domain.Election;
-import com.pesit.eVoting.sql.domain.ElectionPoll;
 import com.pesit.eVoting.sql.domain.Elector;
 
 @Service("ElectionService")

@@ -172,14 +172,14 @@
 				<label class="col-lg-3 col-sm-2 control-label"> Full Name </label>
 				<div class="col-lg-6">
 					<input type="text" class="form-control" name="name"
-						placeholder="Enter Name" title="Please Enter your officel name" />
+						placeholder="Enter Name" title="Please Enter your officel name" required/>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-3 col-sm-2 control-label"> Email </label>
 				<div class="col-lg-6">
-					<input type="text" class="form-control" name="email"
-						placeholder="Enter Email" title="Please Enter your email" />
+					<input type="email" class="form-control" name="email"
+						placeholder="Enter Email" title="Please Enter your email" required/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -187,14 +187,14 @@
 				<div class="col-lg-6">
 					<input type="text" class="form-control" name="mobile"
 						placeholder="Enter Mobile Number"
-						title="Please enter your mobile number" />
+						title="Please enter your mobile number" minlength="10" maxlength="10" required/>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-3 col-sm-2 control-label"> Date of
 					Birth </label>
 				<div class="col-lg-6">
-					<input type="Date" class="form-control" name="dob" />
+					<input type="Date" class="form-control" name="dob" required/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -223,7 +223,7 @@
 				<div class="col-lg-6">
 					<input type="text" class="form-control" name="participatingPlace"
 						placeholder="Enter Participating Place"
-						title="Please enter participating place" />
+						title="Please enter participating place" required/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -231,14 +231,14 @@
 				<div class="col-lg-6">
 					<input type="text" class="form-control" name="education"
 						placeholder="Enter Education Qualification"
-						title="Please enter education" />
+						title="Please enter education" required/>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-3 col-sm-2 control-label"> Property </label>
 				<div class="col-lg-6">
 					<input type="text" class="form-control" name="property"
-						placeholder="Enter property" title="Please enter property value" />
+						placeholder="Enter property" title="Please enter property value" required/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -246,7 +246,7 @@
 					Number </label>
 				<div class="col-lg-6">
 					<input type="text" class="form-control" name="adhaar"
-						placeholder="Enter Address" title="Please enter adhaar number" />
+						placeholder="Enter Address" title="Please enter adhaar number" minlength="12" maxlength="12" required/>
 				</div>
 			</div>
 			<div class="form-group">
@@ -264,7 +264,7 @@
 				<label class="col-lg-3 col-sm-2 control-label"> Address </label>
 				<div class="col-lg-6">
 					<textarea rows="4" cols="50" class="form-control" name="address"
-						placeholder="Enter Address" title="Please enter address"></textarea>
+						placeholder="Enter Address" title="Please enter address" required></textarea>
 				</div>
 			</div>
 			<div class="text-center">

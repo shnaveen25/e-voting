@@ -13,13 +13,13 @@
 			<label><b>PARTY NAME</b></label> 
 				<input type="text" placeholder="Enter Party name" name="partyName" required> 
 			<label><b>PARTY EMAIL</b></label> 
-				<input type="text" placeholder="Enter Party email" name="partyEmail" required> 
+				<input type="email" placeholder="Enter Party email" name="partyEmail" required> 
 			<label><b>Description</b></label><br>
 				<textarea rows="4" cols="50" placeholder="Enter Party Description" name="partyDescription"> </textarea><br> 
 			<label><b>MEMBERS FOR MP</b></label> 
-				<input type="text" placeholder="Enter the list of MP members with comma seperated" required name="mpMembers"><br> <br>
+				<input type="text" placeholder="Enter the list of MP members with comma seperated" name="mpMembers" required><br> <br>
 			<label><b>MEMBERS FOR MLA</b></label> 
-				<input type="text" placeholder="Enter the list of MLA members with comma seperated" required name="mlaMembers"><br> <br>
+				<input type="text" placeholder="Enter the list of MLA members with comma seperated" name="mlaMembers" required><br> <br>
 			<div class="clearfix">
 				<button type="button" onclick="" class="cancelbtn">Cancel</button>
 				<button type="submit" class="signupbtn">ADD</button>
@@ -46,15 +46,15 @@
 					<label class="col-lg-3 col-sm-2 control-label"> Party Name </label>
 					<div class="col-lg-9">
 						<input type="text" class="form-control" name="partyName" 
-						placeholder="Enter Party Name" title="Please enter name of the party"/>
+						placeholder="Enter Party Name" title="Please enter name of the party" required/>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="col-lg-3 col-sm-2 control-label"> Party Email </label>
 					<div class="col-lg-9">
-						<input type="text" class="form-control" name="partyEmail" 
-						placeholder="Enter party email" title="Please enter party email"/>
+						<input type="email" class="form-control" name="partyEmail" 
+						placeholder="Enter party email" title="Please enter party email" required/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -69,7 +69,7 @@
 					<label class="col-lg-3 col-sm-2 control-label"> MP Members </label>
 					<div class="col-lg-9">
 						<input type="text" class="form-control" name="mpMembers" 
-						placeholder="Enter the list of MP members with comma seperated" title="Enter the list of MP members with comma seperated"/>
+						placeholder="Enter the list of MP members with comma seperated" title="Enter the list of MP members with comma seperated" required/>
 					</div>
 				</div>
 
@@ -77,7 +77,7 @@
 					<label class="col-lg-3 col-sm-2 control-label"> MLA Members </label>
 					<div class="col-lg-9">
 						<input type="text" class="form-control" name="mlaMembers" 
-						placeholder="Enter the list of MLA members with comma seperated" title="Enter the list of MLA members with comma seperated"/>
+						placeholder="Enter the list of MLA members with comma seperated" title="Enter the list of MLA members with comma seperated" required/>
 					</div>
 				</div>
 				<div class="text-center">

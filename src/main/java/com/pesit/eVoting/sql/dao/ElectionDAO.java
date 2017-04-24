@@ -1,10 +1,13 @@
 package com.pesit.eVoting.sql.dao;
 
 import java.util.List;
+
 import javax.transaction.Transactional;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
+
 import com.pesit.eVoting.constants.Constants;
 import com.pesit.eVoting.sql.domain.Election;
 
@@ -18,7 +21,7 @@ public class ElectionDAO extends BaseDao<Election> {
 		
 		crit.add(Restrictions.eq("status" , Constants.UPCOMING_ELECTION));
 		
-		return (List<Election>) crit.list();
+		return crit.list();
 	}
 	
 	@Transactional
@@ -29,7 +32,7 @@ public class ElectionDAO extends BaseDao<Election> {
 		crit.add(Restrictions.eq("stateId" , id));
 		crit.add(Restrictions.eq("status" , Constants.UPCOMING_ELECTION));
 		
-		return (List<Election>) crit.list();
+		return crit.list();
 	}
 	
 	@Transactional

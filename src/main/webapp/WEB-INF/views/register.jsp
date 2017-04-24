@@ -20,35 +20,35 @@
 					<label class="col-lg-3 col-sm-2 control-label"> Full Name </label>
 					<div class="col-lg-9">
 						<input type="text" class="form-control" name="name" 
-						placeholder="Enter Full Name" title="Please Enter your official name"/>
+						placeholder="Enter Full Name" title="Please Enter your official name" required/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-3 col-sm-2 control-label"> Email  </label>
 					<div class="col-lg-9">
-						<input type="text" class="form-control" name="email" 
-						placeholder="Enter Email" title="Please Enter your email"/>
+						<input type="email" class="form-control" name="email" 
+						placeholder="Enter Email" title="Please Enter your email" required/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-3 col-sm-2 control-label"> Password </label>
 					<div class="col-lg-9">
 						<input type="password" class="form-control" name="password"
-						placeholder="Enter Password" title="Please Enter Password" />
+						placeholder="Enter Password" title="Please Enter Password" required/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-3 col-sm-2 control-label">Confirm Password </label>
 					<div class="col-lg-9">
 						<input type="password" class="form-control" name="cpassword"
-						placeholder="Re-Enter Password" title="Please Re-Enter Password" />
+						placeholder="Re-Enter Password" title="Please Re-Enter Password" required/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-3 col-sm-2 control-label"> Mobile </label>
 					<div class="col-lg-9">
 						<input type="text" class="form-control" name="mobile"
-						placeholder="Enter Mobile Number" title="Please enter your mobile number" />
+						placeholder="Enter Mobile Number" title="Please enter your mobile number" minlength="10" maxlength="10" required/>
 					</div>
 				</div>
 				<!-- 

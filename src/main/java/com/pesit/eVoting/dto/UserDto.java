@@ -2,7 +2,6 @@ package com.pesit.eVoting.dto;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class UserDto implements Serializable{
 	

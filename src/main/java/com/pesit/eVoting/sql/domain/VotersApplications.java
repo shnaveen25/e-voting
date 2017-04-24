@@ -2,7 +2,6 @@ package com.pesit.eVoting.sql.domain;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 
 //import java.sql.Timestamp;
 import javax.persistence.Column;

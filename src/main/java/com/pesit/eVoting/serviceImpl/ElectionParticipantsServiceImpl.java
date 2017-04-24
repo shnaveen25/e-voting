@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.pesit.eVoting.constants.Constants;
 import com.pesit.eVoting.dto.ElectionDto;
+import com.pesit.eVoting.dto.ElectorDto;
 import com.pesit.eVoting.dto.ParticipantsDto;
 import com.pesit.eVoting.notification.MailService;
 import com.pesit.eVoting.service.AssemblyConstituencyService;
@@ -23,9 +24,10 @@ import com.pesit.eVoting.service.ElectionParticipantsService;
 import com.pesit.eVoting.service.ElectionService;
 import com.pesit.eVoting.sql.dao.ElectionParticipantsDAO;
 import com.pesit.eVoting.sql.dao.PartyDescriptionDAO;
-import com.pesit.eVoting.sql.domain.Election;
+import com.pesit.eVoting.sql.dao.PublicVoteRecordsDAO;
 import com.pesit.eVoting.sql.domain.ElectionParticipants;
 import com.pesit.eVoting.sql.domain.PartyDescription;
+import com.pesit.eVoting.sql.domain.PublicVoteRecords;
 
 @Service("ElectionParticipants")
 public class ElectionParticipantsServiceImpl implements ElectionParticipantsService {
@@ -48,6 +50,8 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 	@Autowired
 	private ElectionService electionService;
 	
+	@Autowired
+	private PublicVoteRecordsDAO publicVoteRecordsDao;
 
 	@Autowired
 	private MailService mailService;
@@ -160,6 +164,7 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 			for(ElectionParticipants eachParticipant : curEleParticipant){
 				PartyDescription partyName = partyDescriptionDao.findById(eachParticipant.getPartyId());
 				ParticipantsDto participant = new ParticipantsDto();
+				participant.setId(eachParticipant.getId());
 				participant.setName(eachParticipant.getName());
 				participant.setPartyName(partyName.getPartyName());
 				responseParticipants.add(participant);
@@ -168,5 +173,54 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 		
 		return responseParticipants;
 	}
+
+	@Override
+	public String voteForSelectedParticipant(long participantId, ElectorDto elector) {
+
+		ElectionParticipants participantFromDb = electionParticipantDao.getParticipantByIdAndAssId(participantId, elector.getAssemblyId());
+		
+		if(participantFromDb != null){
+			
+			
+			PublicVoteRecords votingData = publicVoteRecordsDao.
+					findByElectionIdAndElectorId(participantFromDb.getElectionId(), elector.getId());
+			
+			if(votingData == null){
+				votingData = new PublicVoteRecords();
+				votingData.setElectionId(participantFromDb.getElectionId());
+				votingData.setElectorId(elector.getId());
+				publicVoteRecordsDao.save(votingData);
+				
+				long recordedVote = participantFromDb.getNoOfVotes();
+				System.out.println("votes from db :"+participantFromDb.getNoOfVotes());
+				participantFromDb.setNoOfVotes(++recordedVote);
+				System.out.println("Updated Votes : "+participantFromDb.getNoOfVotes());
+				electionParticipantDao.saveOrUpdate(participantFromDb);
+				
+				new Thread(() -> {
+
+					try {
+						mailService.sendMailHtml(
+								"E-VOTING: Your vote has been recorded", mailService.getVotiedSuccessBody(elector.getName()),
+								elector.getEmail(), Constants.FROM_MAIL);
+					} catch (MessagingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				}).start();
+
+				
+			} else{
+				return "You have been already casted your vote...";
+			}
+			return Constants.SUCCESS;
+		} else{
+			return "Please vote for your registered assembly only";
+		}
+	}
+	
+	
+
 
 }

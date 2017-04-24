@@ -74,7 +74,7 @@
 			<div class="form-group">
 				<label class="col-lg-3 col-sm-2 control-label">Election Date</label>
 				<div class="col-lg-6">
-					<input type="date" class="form-control" name="electionDate" id="electionDate"/>
+					<input type="date" class="form-control" name="electionDate" id="electionDate" min="23-04-2017"/>
 				</div>
 			</div>
 			<div class="text-center">

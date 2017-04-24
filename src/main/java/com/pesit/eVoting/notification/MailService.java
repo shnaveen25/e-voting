@@ -187,9 +187,9 @@ public class MailService {
 		
 		builder.append("</b> in your respected Assembly dated on <b>" + date + "</b>");
 
-		builder.append("<br>");
-
 		builder.append("<br>Please login with your credential to vote on " + date);
+		
+		builder.append("<br>");
 
 		builder.append("<br>Thank you and Regards,");
 
@@ -197,4 +197,29 @@ public class MailService {
 
 		return builder.toString();
 	}
+	
+	public String getVotiedSuccessBody(String name) {
+
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("<html><body style='max-width: 1024px; margin: 11px auto; width:90%'>");
+
+		builder.append("<div style='border:2px solid #4285f4; padding:10px;'>");
+
+		builder.append("<p><i>Dear <b>"+name+"</b>");
+
+		builder.append("<br> Thank you for participating in eVoting Process");
+
+		builder.append("<br> Your choice has been recorded..");
+
+		builder.append("<br>");
+
+		builder.append("<br>Thank you and Regards,");
+
+		builder.append("<br><a href='http://localhost:3000'>Team eVoting</a><br>");
+
+		return builder.toString();
+
+	} // End method
+
 }

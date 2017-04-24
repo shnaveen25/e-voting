@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.pesit.eVoting.Util.ElectorIdGenerator;
 import com.pesit.eVoting.Util.PasswordUtil;
 import com.pesit.eVoting.constants.Constants;
+import com.pesit.eVoting.dto.ElectorDto;
 import com.pesit.eVoting.notification.MailService;
 import com.pesit.eVoting.service.AssemblyDistrictService;
 import com.pesit.eVoting.service.AssemblyStatesService;
@@ -95,5 +96,21 @@ public class ElectorServiceImpl implements ElectorService{
 			return "Application not found";
 		}
 	}
+
+
+	@Override
+	public ElectorDto authonticateActiveElector(String electorId, String password) {
+		
+		ElectorDto authorizedElector =  null;
+		
+		Elector electorFromDb = electorDao.findByElectorIdAndPassord(electorId, password);
+		
+		if(electorFromDb != null && electorFromDb.getStatus().equals(Constants.ACTIVE)){
+			authorizedElector = new ElectorDto(electorFromDb);
+			return authorizedElector;
+		}
+		return authorizedElector;
+	}
+	
 
 }

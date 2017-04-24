@@ -136,7 +136,7 @@
 									<div class="col-lg-4 ">
 										<input type="text" class="form-control" name="name"
 											placeholder="Enter Your First Name. Special Character/ numbers not allowed." 
-											value="<j:out value="${ApplicationDetails.name}" />"/>
+											value="<j:out value="${ApplicationDetails.name}" />" required/>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label"> Surname
 										(if any)</label>
@@ -150,7 +150,7 @@
 										Birth </label>
 									<div class="col-lg-4">
 										<input type="date" class="form-control" name="dob" value="<j:out value="${ApplicationDetails.dob}" />"
-											title="Please select DOB." />
+											title="Please select DOB." required/>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label"> Gender</label>
 									<div class="col-lg-4">
@@ -167,13 +167,13 @@
 									<div class="col-lg-4">
 										<input type="text" class="form-control" name="mobile"
 											placeholder="Enter Your Mobile Number" 
-											value="<j:out value="${ApplicationDetails.mobile}" />"/>
+											value="<j:out value="${ApplicationDetails.mobile}" />" required/>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label"> Email </label>
 									<div class="col-lg-4">
-										<input type="text" class="form-control" name="email"
+										<input type="email" class="form-control" name="email"
 											placeholder="Enter Your Email"
-											value="<j:out value="${ApplicationDetails.email}" />" />
+											value="<j:out value="${ApplicationDetails.email}" />" required/>
 									</div>
 									<input type="hidden" name="appliedFor"
 											value="including" />
@@ -197,8 +197,8 @@
 										Number </label>
 									<div class="col-lg-10">
 										<input type="text" class="form-control" name="aadhar"
-											placeholder="Please Enter Aadhar Number." 
-											value="<j:out value="${ApplicationDetails.aadhar}" />"/>
+											placeholder="Please Enter Aadhar Number." minlength="12" maxlength="12"
+											value="<j:out value="${ApplicationDetails.aadhar}" />" required/>
 									</div>
 								</div>
 							</div>
@@ -243,8 +243,8 @@
 										Code </label>
 									<div class="col-lg-4">
 										<input type="text" class="form-control" name="pinCode"
-											placeholder="Enter Pin"
-											value="<j:out value="${ApplicationDetails.pinCode}" />"/>
+											placeholder="Enter Pin" minlength="6" maxlength="6"
+											value="<j:out value="${ApplicationDetails.pinCode}" />" required/>
 									</div>
 								</div>
 								

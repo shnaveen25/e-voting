@@ -20,7 +20,7 @@ public class AssemblyDistrictDAO extends BaseDao<AssemblyDistrict> {
 		Criteria crit = getCurrentSession().createCriteria(AssemblyDistrict.class);
 		crit.add(Restrictions.eq("stateId" , stateId));
 		crit.addOrder(Order.asc("districtName"));
-		return (List<AssemblyDistrict>) crit.list();
+		return crit.list();
 	}
 
 }

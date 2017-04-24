@@ -22,10 +22,6 @@ import javax.persistence.Table;
 @Table(name="election_participants")
 public class ElectionParticipants implements Serializable {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -106,6 +102,9 @@ public class ElectionParticipants implements Serializable {
 	
 	@Column(name="created_date")
 	private Timestamp createdDate;
+	
+	@Column(name="no_of_votes")
+	private long noOfVotes;
 
 	@Override
 	public String toString() {
@@ -236,6 +235,15 @@ public class ElectionParticipants implements Serializable {
 	public void setElectionId(long electionId) {
 		this.electionId = electionId;
 	}
+
+	public long getNoOfVotes() {
+		return noOfVotes;
+	}
+
+	public void setNoOfVotes(long noOfVotes) {
+		this.noOfVotes = noOfVotes;
+	}
+	
 	
 	
 }
