@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class PartyDescriptionServiceImpl implements PartyDescriptionService{
 	private PartyDescriptionDAO partyDescriptionDao;
 
 	@Override
+	@Transactional
 	public boolean addParty(PartyDescription addPartyBean) {
 	
 		PartyDescription existingParty = partyDescriptionDao.findByPartyName(addPartyBean.getPartyName());
@@ -54,6 +57,7 @@ public class PartyDescriptionServiceImpl implements PartyDescriptionService{
 	}
 
 	@Override
+	@Transactional
 	public List<PartyDto> viewAllParties() {
 		List<PartyDto> responsePartyData = new ArrayList<PartyDto>();
 		List<PartyDescription> partiesFromDb = partyDescriptionDao.findAll();

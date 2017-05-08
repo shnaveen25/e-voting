@@ -5,6 +5,30 @@
 <!-- Include Header -->
 <%@ include file="../../header/defaultHeader.txt"%>
 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#getNewPassword').click(function() {
+			console.log('Getting Districts');
+			$.ajax({
+				url : 'forgotPassword',
+				data : {
+					email : $('#email').val()
+				},
+				success : function(responseText) {
+					console.log(responseText);
+					alert(responseText);
+				}
+			});
+		});
+	});
+</script>
+
 <div class="wrapper row3">
 	<main class="hoc container clear">
 	<div class="sectiontitle">
@@ -35,7 +59,7 @@
 					<div class="text-center">
 						<div class="form-group">
 							<div class="col-lg-offset-2 col-lg-8">
-								<a href="forgotPassword"> Forgot Password ? </a> <br /> <a
+								<a style='cursor:pointer' data-toggle='modal' data-target='#changePassword'> Forgot Password ? </a> <br /> <a
 									href="register"> New User? Create Login </a> <br /> <br />
 								<button type="submit" class="btn btn-danger">Sign in</button>
 							</div>
@@ -44,6 +68,29 @@
 				</form>
 		</div>
 	</div>
+	
+	<!-- Modal -->
+	<div id="changePassword" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Forgot password...?? </h4>
+				</div>
+				<div class="modal-body">
+					<input type="email" class="form-control" name="email" id="email"
+								placeholder="email" required/> <br /> 
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="getNewPassword">SUBMIT</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
 	</main>
 </div>
 

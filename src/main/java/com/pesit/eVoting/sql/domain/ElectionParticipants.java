@@ -109,10 +109,10 @@ public class ElectionParticipants implements Serializable {
 	@Override
 	public String toString() {
 		return "ElectionParticipants [id=" + id + ", partyId=" + partyId + ", stateId=" + stateId + ", districtId="
-				+ districtId + ", assemblyId=" + assemblyId + ", name=" + name + ", email=" + email + ", post=" + post
-				+ ", mobile=" + mobile + ", dob=" + dob + ", gender=" + gender + ", education=" + education
-				+ ", property=" + property + ", policeRecord=" + policeRecord + ", adhaar=" + adhaar + ", address="
-				+ address + ", createdDate=" + createdDate + "]";
+				+ districtId + ", assemblyId=" + assemblyId + ", electionId=" + electionId + ", name=" + name
+				+ ", email=" + email + ", post=" + post + ", mobile=" + mobile + ", dob=" + dob + ", gender=" + gender
+				+ ", education=" + education + ", property=" + property + ", policeRecord=" + policeRecord + ", adhaar="
+				+ adhaar + ", address=" + address + ", createdDate=" + createdDate + ", noOfVotes=" + noOfVotes + "]";
 	}
 
 

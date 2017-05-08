@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class ElectorServiceImpl implements ElectorService{
 
 	
 	@Override
+	@Transactional
 	public String registerVoter(long id) {
 		
 		VotersApplications applicationDetails=  voterApplicationDao.findById(id);

@@ -13,6 +13,7 @@ public class ElectionDto implements Serializable {
 	private String status;
 	private String electionDate;
 	private Timestamp createdDate;
+	private String stateName;
 	
 	
 	public ElectionDto(Election ele) {
@@ -70,6 +71,14 @@ public class ElectionDto implements Serializable {
 	}
 	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	public String getStateName() {
+		return stateName;
+	}
+
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
 	}
 	
 	

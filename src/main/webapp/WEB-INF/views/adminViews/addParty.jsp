@@ -64,7 +64,7 @@
 						placeholder="Enter party description" title="Enter party description"></textarea>
 					</div>
 				</div>
-
+<!-- 
 				<div class="form-group">
 					<label class="col-lg-3 col-sm-2 control-label"> MP Members </label>
 					<div class="col-lg-9">
@@ -80,7 +80,8 @@
 						placeholder="Enter the list of MLA members with comma seperated" title="Enter the list of MLA members with comma seperated" required/>
 					</div>
 				</div>
-				<div class="text-center">
+				
+ -->				<div class="text-center">
 					<div class="form-group">
 						<div class="col-lg-offset-2 col-lg-8">
 							<button type="submit" class="btn btn-danger">Submit</button>

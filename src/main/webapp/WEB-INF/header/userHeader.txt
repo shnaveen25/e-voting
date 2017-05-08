@@ -23,7 +23,7 @@
 <div class="fl_right">
       <ul>
         <li><a href="#"><img src="images/demo/logout.jpg"></a></li>
-        <li><a href="logout">Log Out</a></li>
+        <li><a href="userLogout">Log Out</a></li>
       </ul>
     </div>
 </div>
@@ -48,8 +48,7 @@
       </li>
       </li>
       <li><a href="#">Application Status</a>
-      <li><a href="#">Change Password</a>
-      <li><a href="#">Vote</a></li>
+      <li><a href="changePassword">Change Password</a>
       <li><a href=""></a></li>
     </li>
     </ul>

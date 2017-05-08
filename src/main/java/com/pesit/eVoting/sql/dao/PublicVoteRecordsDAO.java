@@ -6,7 +6,6 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
-import com.pesit.eVoting.sql.domain.Election;
 import com.pesit.eVoting.sql.domain.PublicVoteRecords;
 
 @Component

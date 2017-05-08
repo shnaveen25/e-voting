@@ -3,6 +3,8 @@ package com.pesit.eVoting.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +42,7 @@ public class AssemblyConstituencyServiceImpl implements AssemblyConstituencyServ
 	}
 
 	@Override
+	@Transactional
 	public String getAssemblysById(long id) {
 		
 		AssemblyConstituency assembliesFroDb = assemblyConstituencyDAO.findById(id);

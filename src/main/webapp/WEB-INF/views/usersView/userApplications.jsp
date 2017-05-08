@@ -169,14 +169,19 @@
 									<td><j:out value="${application.email}" /></td>
 									<td><j:out value="${application.mobile}" /></td>
 									<td><j:out value="${application.aadhar}" /></td>
-									<td><a
+									<td>
+										<j:choose>
+										<j:when test="${application.applicationStatus == 'pending' }">
+										<a
 										href="editUserApplication?id=<j:out value="${application.id}"/>">Edit</a>
-										
-										<j:if test="${application.applicationStatus == 'pending' }">
 										/
 										<a
 										href="deleteUserApplication?id=<j:out value="${application.id}"/>">Delete</a>
-										</j:if>
+										</j:when>
+										<j:otherwise>
+											Accepted
+										</j:otherwise>
+										</j:choose>
 										</td>
 								</tr>
 							</j:forEach>

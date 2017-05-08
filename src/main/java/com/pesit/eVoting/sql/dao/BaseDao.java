@@ -5,36 +5,30 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
  * This class is base class for all the data access object classes
  * 
- * @author 
+ * @author
  *
  * @param <T>
  *            is class which extends the base class functionality
  */
 public class BaseDao<T> {
 
-	
-	//@PersistenceContext
 	@Resource
-	EntityManager entityManager;
-	
-	//@Resource
-	//protected SessionFactory sessionFactory;
-
+	protected SessionFactory sessionFactory;
 
 	private Class<T> type;
 
 	/**
 	 * This constructor sets the child class type
 	 */
-	//@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public BaseDao() {
 		Type t = getClass().getGenericSuperclass();
 		ParameterizedType pt = (ParameterizedType) t;
@@ -45,8 +39,7 @@ public class BaseDao<T> {
 	 * @return session needed for transaction
 	 */
 	public Session getCurrentSession() {
-		return entityManager.unwrap(Session.class);
-		//return sessionFactory.getCurrentSession();
+		return sessionFactory.getCurrentSession();
 	}
 
 	/**
@@ -71,19 +64,19 @@ public class BaseDao<T> {
 	 *            is primary key for object
 	 * @return object(row of table) of which matched identity
 	 */
-	//@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public T findById(Long id) {
-		return getCurrentSession().get(type, id);
+		return (T) getCurrentSession().get(type, id);
 	}
 
 	/**
 	 * 
 	 * @return all the (rows of table) object (list)
 	 */
-	//@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
 		Criteria criteria = getCurrentSession().createCriteria(type);
-		return criteria.list();
+		return (List<T>) criteria.list();
 	}
 
 	/**

@@ -58,7 +58,7 @@ public class VotersApplicationsDto implements Serializable {
 		districtId = application.getDistrictId();
 		assemblyId = application.getAssemblyId();
 		name = application.getName();
-		//dob = application.getDob();
+		dob = application.getDob();
 		gender = application.getGender();
 		mobile = application.getMobile();
 		email = application.getEmail();

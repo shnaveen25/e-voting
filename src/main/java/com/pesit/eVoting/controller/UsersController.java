@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pesit.eVoting.constants.Constants;
@@ -76,5 +77,35 @@ public class UsersController {
 	public String showUserHome() {
 		// Check Session
 		return "usersView/userHome";
+	}
+	
+	@RequestMapping("/changePassword")
+	public String showChangePasswordView(){
+		//chk session
+		return "usersView/changePassword";
+	}
+	
+	@RequestMapping("/processChangePassword")
+	public @ResponseBody String changeUserPassword(HttpServletRequest request, HttpSession session){
+		
+		long id = (long) session.getAttribute("userId");
+		
+		if(id != 0){
+			String oldPassword = request.getParameter("oldPassword");
+			String newPassword = request.getParameter("newPassword");
+			
+			return userService.changePassword(id, oldPassword, newPassword);
+		} else {
+			//Change ..............................
+			return null;
+		}
+		
+	}
+	
+	@RequestMapping("/forgotPassword")
+	public @ResponseBody String forgotPassword(HttpServletRequest request){
+		String email = request.getParameter("email");
+		
+		return userService.forgotPassword(email);
 	}
 }

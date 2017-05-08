@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pesit.eVoting.dto.ElectorDto;
 import com.pesit.eVoting.dto.ParticipantsDto;
 import com.pesit.eVoting.service.ElectionParticipantsService;
-import com.pesit.eVoting.service.ElectionService;
 import com.pesit.eVoting.service.ElectorService;
 
 @Controller
@@ -70,24 +69,38 @@ public class ElectionParticipantsController {
 	}
 
 	@RequestMapping("/voteForParticipant")
-	public @ResponseBody ModelAndView voteForParticipant(HttpServletRequest request, Model model) {
-
-		ModelAndView view = new ModelAndView("currentElection");
+	public @ResponseBody String voteForParticipant(HttpServletRequest request, Model model) {
+		
 		long participantId = Long.parseLong(request.getParameter("participantId"));
 		String electorId = request.getParameter("electorId");
 		String password = request.getParameter("password");
+		
+		System.out.println("participant Id "+participantId);
 
 		ElectorDto authorizedElector = electorService.authonticateActiveElector(electorId, password);
 
 		if (authorizedElector != null) {
-			String msg = electionParticipantService.voteForSelectedParticipant(participantId, authorizedElector);
-			System.out.println("Voting result :"+msg);
-			view.addObject("msg", msg);
+			return electionParticipantService.voteForSelectedParticipant(participantId, authorizedElector);
+			/*System.out.println("Voting result :"+msg);
+			view.addObject("msg", msg);*/
 			
 		} else {
-			view.addObject("msg", "You have been Inactivated..!! Please contact admin..");
+			/*view.addObject("msg", "You have been Inactivated..!! Please contact admin..");*/
+			return "You have been Inactivated..!! Please contact admin..";
 		}
-		return view;
+//		return view;
+	}
+	
+	@RequestMapping("/getElectionResults")
+	public @ResponseBody List<ParticipantsDto> showElectionResults(HttpServletRequest request){
+		
+		long eleId = Long.parseLong(request.getParameter("eleId"));
+		long asmbId = Long.parseLong(request.getParameter("asmbId"));
+		
+		System.out.println("User has been requseted for eleId : "+eleId+" AssId : "+asmbId);
+		
+		
+		return electionParticipantService.getNoOfVotes(eleId, asmbId);
 	}
 
 }

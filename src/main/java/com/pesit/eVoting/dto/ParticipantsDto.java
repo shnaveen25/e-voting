@@ -31,7 +31,7 @@ public class ParticipantsDto implements Serializable {
 	private String address;
 	private Timestamp createdDate;
 	private String partyName;
-	private long onOfVotes;
+	private long noOfVotes;
 	
 	@Override
 	public String toString() {
@@ -167,13 +167,15 @@ public class ParticipantsDto implements Serializable {
 		this.electionId = electionId;
 	}
 
-	public long getOnOfVotes() {
-		return onOfVotes;
+	public long getNoOfVotes() {
+		return noOfVotes;
 	}
 
-	public void setOnOfVotes(long onOfVotes) {
-		this.onOfVotes = onOfVotes;
-	}	
+	public void setNoOfVotes(long noOfVotes) {
+		this.noOfVotes = noOfVotes;
+	}
+
+
 	
 	
 }

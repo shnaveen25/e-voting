@@ -1,5 +1,7 @@
 package com.pesit.eVoting.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,5 +55,15 @@ public class MainController {
 	@RequestMapping("/showFutureElections")
 	public String showFutureElectionsView() {
 		return "futureElections";
+	}
+	
+	@RequestMapping({"/logout" , "/userLogout"})
+	public ModelAndView processLogout(Model model , HttpServletRequest request){
+		model.addAttribute("errMsg", "Thank you..!! Visit Again");
+		
+		if(request.getRequestURI().equals("/logout"))
+			return new ModelAndView("login");
+		else
+			return new ModelAndView("usersView/userLogin");
 	}
 }

@@ -50,4 +50,6 @@ public class ElectionParticipantsDAO extends BaseDao<ElectionParticipants>{
 		
 		return  (ElectionParticipants) crit.uniqueResult();
 	}*/
+	
+	
 }

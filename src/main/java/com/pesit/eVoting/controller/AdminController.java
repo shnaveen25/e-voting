@@ -49,10 +49,8 @@ public class AdminController {
 		return "adminViews/adminHome";
 	}
 	
-	@RequestMapping("/logout")
-	public ModelAndView processLogout(Model model){
-		model.addAttribute("errMsg", "Thank you..!! Visit Again");
-		return new ModelAndView("login");
+	@RequestMapping("/getPastElectionView")
+	public String showPastElectionView(){
+		return "adminViews/pastElections";
 	}
-	
 }

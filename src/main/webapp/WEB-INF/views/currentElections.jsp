@@ -13,6 +13,7 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script>
+var participantId ;
 	$(document).ready(function() {
 		$('#stateId').change(function() {
 			console.log('Getting Districts');
@@ -115,29 +116,35 @@
 										+ "</td>";
 								table += "<td>" + item.name.toUpperCase()
 										+ "</td>";
-								table += "<td><button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#myModal' id='participantId' value="+item.id+">Vote</button></td></tr>";
+								table += "<td><button type='button' class='saveId btn btn-info btn-sm' data-toggle='modal' data-target='#myModal' participantId="+item.id+">Vote</button></td></tr>";
 							});
 			table += "</tbody>";
 			$("#participants").append(table);
+			
+			$('.saveId').click(function() {
+				
+				participantId = $(this).attr('participantId');
+				
+				console.log('PArtcipant Id ' ,participantId );
+			});
 		}
 	}
 	
 	//Voting
 	$(document).ready(function() {
 		$('#vote').click(function() {
-			console.log('Getting electionParticipants');
+			console.log('Getting electionParticipants' , participantId);
 			$.ajax({
 				url : 'voteForParticipant',
 				data : {
-					participantId : $('#participantId').val(),
+					participantId : participantId,
 					electorId : $('#electorId').val(),
 					password : $('#password').val()
 				},
 				success : function(responseText) {
-					$('#msg').text(responseText);
-					console.log(responseText);
-					//showParticipants(responseText);
-					alert(msg);
+					console.log('Server response' , responseText);
+					alert(responseText);
+					window.location.reload();
 				}
 			});
 		});

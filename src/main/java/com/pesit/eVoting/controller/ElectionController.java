@@ -59,8 +59,27 @@ public class ElectionController {
 		List<ElectionDto> electionDto = electionService.getUpcomingElectionForState(stateId);
 		
 		return electionDto;
-		
-		
-		
 	}
+	
+	@RequestMapping("/getUpcomingElection")
+	public @ResponseBody List<ElectionDto> getAllUpcomingOrOnGoingElections(){
+		
+		return electionService.getUpcomingOrOnGoingElection();
+ 
+	}
+	
+	@RequestMapping("/getPastElections")
+	public @ResponseBody List<ElectionDto> getAllpAstElections(){
+		return electionService.getPastElections();
+	}
+	
+	@RequestMapping("/updateElectionStatus")
+	public @ResponseBody String updateElectionStatus(HttpServletRequest request){
+		
+		long id = Long.parseLong(request.getParameter("id"));
+		String status = request.getParameter("status");
+		
+		return electionService.startOrStopElection(id, status);
+	}
+	
 }

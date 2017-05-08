@@ -17,4 +17,6 @@ public interface ElectionParticipantsService {
 	
 	public String voteForSelectedParticipant(long participantId , ElectorDto elector);
 	
+	public List<ParticipantsDto> getNoOfVotes(long eleId , long stateId);
+	
 }

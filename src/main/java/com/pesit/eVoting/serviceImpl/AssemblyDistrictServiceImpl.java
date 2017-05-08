@@ -3,6 +3,8 @@ package com.pesit.eVoting.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +52,7 @@ public class AssemblyDistrictServiceImpl implements AssemblyDistrictService {
 	}
 
 	@Override
+	@Transactional
 	public String getAssemblyDistrictById(long id) {
 		
 		AssemblyDistrict district = assemblyDistrictDao.findById(id);

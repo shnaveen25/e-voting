@@ -4,11 +4,16 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 
+import org.hibernate.loader.custom.Return;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,10 +51,10 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 
 	@Autowired
 	private AssemblyConstituencyService assemblyConstituency;
-	
+
 	@Autowired
 	private ElectionService electionService;
-	
+
 	@Autowired
 	private PublicVoteRecordsDAO publicVoteRecordsDao;
 
@@ -57,6 +62,7 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 	private MailService mailService;
 
 	@Override
+	@Transactional
 	public void addParticipant(ParticipantsDto participant) {
 
 		Timestamp currentDate = new Timestamp(new Date().getTime());
@@ -84,13 +90,13 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 		String district = assemblyDistricte.getAssemblyDistrictById(participant.getDistrictId());
 		String assembly = assemblyConstituency.getAssemblysById(participant.getAssemblyId());
 		ElectionDto election = electionService.getElectionById(participant.getElectionId());
-		
+
 		new Thread(() -> {
 
 			try {
-				mailService.sendMailHtml(
-						"E-VOTING: Application Status", mailService.getParticipantRegisteredMail(participant.getName(),
-								state, district, assembly, participant.getPost(), election.getElectionDate()),
+				mailService.sendMailHtml("E-VOTING: Application Status",
+						mailService.getParticipantRegisteredMail(participant.getName(), state, district, assembly,
+								participant.getPost(), election.getElectionDate()),
 						participant.getEmail(), Constants.FROM_MAIL);
 			} catch (MessagingException e1) {
 				// TODO Auto-generated catch block
@@ -102,6 +108,7 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 	}
 
 	@Override
+	@Transactional
 	public List<ParticipantsDto> getAllParticipants() {
 		List<ParticipantsDto> responseParticipantsData = new ArrayList<ParticipantsDto>();
 		List<ElectionParticipants> participantsFromDb = electionParticipantDao.findAll();
@@ -122,87 +129,92 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 	}
 
 	@Override
+	@Transactional
 	public List<ParticipantsDto> getCurrEleParicipantByState(long stateId) {
-		
+
 		List<ParticipantsDto> responseParticipants = new ArrayList<ParticipantsDto>();
-		
+
 		Date currentDate = new Date();
-		 
+
 		ElectionDto currentElection = electionService.getCurrentElection(stateId, currentDate.toString());
-		
-		if(currentElection != null ){
-			List<ElectionParticipants> curEleParticipant = electionParticipantDao.getParticipantByEleId(currentElection.getId());
-			
-			for(ElectionParticipants eachParticipant : curEleParticipant){
+
+		if (currentElection != null) {
+			List<ElectionParticipants> curEleParticipant = electionParticipantDao
+					.getParticipantByEleId(currentElection.getId());
+
+			for (ElectionParticipants eachParticipant : curEleParticipant) {
 				PartyDescription partyName = partyDescriptionDao.findById(eachParticipant.getPartyId());
 				ParticipantsDto participant = new ParticipantsDto();
 				participant.setName(eachParticipant.getName());
 				participant.setPartyName(partyName.getPartyName());
 				responseParticipants.add(participant);
-			}	
+			}
 		}
-		
+
 		return responseParticipants;
-		
+
 	}
 
 	@Override
-	public List<ParticipantsDto> getCurrEleParicipantByAssembly(long stateId , long assemblyId) {
+	@Transactional
+	public List<ParticipantsDto> getCurrEleParicipantByAssembly(long stateId, long assemblyId) {
 		List<ParticipantsDto> responseParticipants = new ArrayList<ParticipantsDto>();
 
-		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date(); 
+		Date date = new Date();
 		String currentDate = dateFormat.format(date).toString();
-		System.out.println("date is string formate :"+currentDate);
-		
+		System.out.println("date is string formate :" + currentDate);
+
 		ElectionDto currentElection = electionService.getCurrentElection(stateId, currentDate);
-		
-		if(currentElection != null ){
-			List<ElectionParticipants> curEleParticipant = electionParticipantDao.getParticipantByEleIdAndAssId(currentElection.getId() , assemblyId);
-			
-			for(ElectionParticipants eachParticipant : curEleParticipant){
+
+		if (currentElection != null) {
+			List<ElectionParticipants> curEleParticipant = electionParticipantDao
+					.getParticipantByEleIdAndAssId(currentElection.getId(), assemblyId);
+
+			for (ElectionParticipants eachParticipant : curEleParticipant) {
 				PartyDescription partyName = partyDescriptionDao.findById(eachParticipant.getPartyId());
 				ParticipantsDto participant = new ParticipantsDto();
 				participant.setId(eachParticipant.getId());
 				participant.setName(eachParticipant.getName());
 				participant.setPartyName(partyName.getPartyName());
 				responseParticipants.add(participant);
-			}	
+			}
 		}
-		
+
 		return responseParticipants;
 	}
 
 	@Override
+	@Transactional
 	public String voteForSelectedParticipant(long participantId, ElectorDto elector) {
 
-		ElectionParticipants participantFromDb = electionParticipantDao.getParticipantByIdAndAssId(participantId, elector.getAssemblyId());
-		
-		if(participantFromDb != null){
-			
-			
-			PublicVoteRecords votingData = publicVoteRecordsDao.
-					findByElectionIdAndElectorId(participantFromDb.getElectionId(), elector.getId());
-			
-			if(votingData == null){
+		ElectionParticipants participantFromDb = electionParticipantDao.getParticipantByIdAndAssId(participantId,
+				elector.getAssemblyId());
+
+		if (participantFromDb != null) {
+
+			PublicVoteRecords votingData = publicVoteRecordsDao
+					.findByElectionIdAndElectorId(participantFromDb.getElectionId(), elector.getId());
+
+			if (votingData == null) {
 				votingData = new PublicVoteRecords();
 				votingData.setElectionId(participantFromDb.getElectionId());
 				votingData.setElectorId(elector.getId());
-				publicVoteRecordsDao.save(votingData);
-				
+				publicVoteRecordsDao.saveOrUpdate(votingData);
+
 				long recordedVote = participantFromDb.getNoOfVotes();
-				System.out.println("votes from db :"+participantFromDb.getNoOfVotes());
+				System.out.println("votes from db :" + participantFromDb.getNoOfVotes());
 				participantFromDb.setNoOfVotes(++recordedVote);
-				System.out.println("Updated Votes : "+participantFromDb.getNoOfVotes());
-				electionParticipantDao.saveOrUpdate(participantFromDb);
-				
+				System.out.println("Updated Votes : " + participantFromDb.getNoOfVotes());
+				System.out.println("Updating data :" + participantFromDb);
+				electionParticipantDao.update(participantFromDb);
+
 				new Thread(() -> {
 
 					try {
-						mailService.sendMailHtml(
-								"E-VOTING: Your vote has been recorded", mailService.getVotiedSuccessBody(elector.getName()),
-								elector.getEmail(), Constants.FROM_MAIL);
+						mailService.sendMailHtml("E-VOTING: Your vote has been recorded",
+								mailService.getVotiedSuccessBody(elector.getName()), elector.getEmail(),
+								Constants.FROM_MAIL);
 					} catch (MessagingException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -210,17 +222,43 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 
 				}).start();
 
-				
-			} else{
+			} else {
 				return "You have been already casted your vote...";
 			}
 			return Constants.SUCCESS;
-		} else{
+		} else {
 			return "Please vote for your registered assembly only";
 		}
 	}
-	
-	
 
+	@Override
+	@Transactional
+	public List<ParticipantsDto> getNoOfVotes(long electionId, long assemblyId) {
+		
+		List<ParticipantsDto> responseData = new ArrayList<ParticipantsDto>();
+		
+		List<ElectionParticipants> participantsFromDb = electionParticipantDao.getParticipantByEleIdAndAssId(electionId,
+				assemblyId);
+		
+		if(participantsFromDb != null){
+			for(ElectionParticipants eachParticipant :participantsFromDb) {
+				ParticipantsDto participantWithVotes = new ParticipantsDto();
+				PartyDescription party = partyDescriptionDao.findById(eachParticipant.getPartyId());
+				participantWithVotes.setName(eachParticipant.getName());
+				participantWithVotes.setNoOfVotes(eachParticipant.getNoOfVotes());
+				participantWithVotes.setPartyName(party.getPartyName());
+				responseData.add(participantWithVotes);
+			}
+			
+			Collections.sort(responseData, new Comparator<ParticipantsDto>() {
+				@Override
+				public int compare(ParticipantsDto p1, ParticipantsDto p2) {
+					return (int) (p2.getNoOfVotes() - p1.getNoOfVotes());
+				}
+			});
+		}
+		System.out.println("No of votes : "+responseData);
+		return responseData;
+	}
 
 }

@@ -217,15 +217,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label">
-					Participating Place </label>
-				<div class="col-lg-6">
-					<input type="text" class="form-control" name="participatingPlace"
-						placeholder="Enter Participating Place"
-						title="Please enter participating place" required/>
-				</div>
-			</div>
+
 			<div class="form-group">
 				<label class="col-lg-3 col-sm-2 control-label"> Education </label>
 				<div class="col-lg-6">

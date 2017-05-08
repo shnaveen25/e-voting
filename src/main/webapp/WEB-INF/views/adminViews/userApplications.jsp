@@ -103,7 +103,7 @@
 								<div class="form-group">
 									<Label class="col-lg-3 col-sm-2 control-label">	Date of Birth</Label>
 									<div class="col-lg-9">
-										${ApplicationDetails.name}
+										${ApplicationDetails.dob}
 									</div>
 								</div>
 								<!-- 
