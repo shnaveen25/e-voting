@@ -62,7 +62,7 @@
       </li>
       <li><a href="">Party Description</a></li>
      <li><a href="getCurrentElectionView">Cast Your Voter</a></li>
-      <li><a href="#">Reports</a></li>
+      <li><a href="viewElectionResults">Election Results</a></li>
     </ul>
     </nav>
 </div>

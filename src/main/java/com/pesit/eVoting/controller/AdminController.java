@@ -53,4 +53,9 @@ public class AdminController {
 	public String showPastElectionView(){
 		return "adminViews/pastElections";
 	}
+	
+	@RequestMapping("/getAllVoters")
+	public String showVotersViewPage(){
+		return "adminViews/registeredVoters";
+	}
 }

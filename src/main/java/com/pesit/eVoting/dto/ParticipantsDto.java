@@ -31,6 +31,11 @@ public class ParticipantsDto implements Serializable {
 	private String address;
 	private Timestamp createdDate;
 	private String partyName;
+	private String stateName;
+	private String districtName;
+	private String assemblyName;
+	private String electionDate;
+	private String electionFor;
 	private long noOfVotes;
 	
 	@Override
@@ -175,6 +180,48 @@ public class ParticipantsDto implements Serializable {
 		this.noOfVotes = noOfVotes;
 	}
 
+	public String getStateName() {
+		return stateName;
+	}
+
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
+	}
+
+	public String getDistrictName() {
+		return districtName;
+	}
+
+	public void setDistrictName(String districtName) {
+		this.districtName = districtName;
+	}
+
+	public String getAssemblyName() {
+		return assemblyName;
+	}
+
+	public void setAssemblyName(String assemblyName) {
+		this.assemblyName = assemblyName;
+	}
+
+	public String getElectionDate() {
+		return electionDate;
+	}
+
+	public void setElectionDate(String electionDate) {
+		this.electionDate = electionDate;
+	}
+
+	public String getElectionFor() {
+		return electionFor;
+	}
+
+	public void setElectionFor(String electionFor) {
+		this.electionFor = electionFor;
+	}
+
+	
+	
 
 	
 	

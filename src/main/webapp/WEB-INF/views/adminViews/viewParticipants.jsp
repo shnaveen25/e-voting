@@ -21,7 +21,10 @@
 					<th>Party Name</th>
 					<th>Post</th>
 					<th>Email</th>
-					<th>Adhaar</th>
+					<th>State</th>
+					<th>district</th>
+					<th>Assembly</th>
+					<th>Participating election</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -31,7 +34,10 @@
 						<td><j:out value="${participants.partyName}"/></td>
 						<td><j:out value="${participants.post}"/></td>
 						<td><j:out value="${participants.email}"/></td>
-						<td><j:out value="${participants.adhaar}"/></td>
+						<td><j:out value="${participants.stateName}"/></td>
+						<td><j:out value="${participants.districtName}"/></td>
+						<td><j:out value="${participants.assemblyName}"/></td>
+						<td><j:out value="${participants.electionFor}"/> On <j:out value="${participants.electionDate}"/></td>
 					</tr>
 				</j:forEach>
 			</tbody>

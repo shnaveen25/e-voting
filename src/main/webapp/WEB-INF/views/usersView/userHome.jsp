@@ -47,8 +47,8 @@
         </article>
       </li>
       <li class="one_quarter">
-        <article class="inverse"><a href="#"><i class="fa fa-3x fa-pencil-square-o"></i></a>
-          <h6 class="heading font-x1"><a href="#">Modifying</a></h6>
+        <article class="inverse"><a href="modifyUserApplication"><i class="fa fa-3x fa-pencil-square-o"></i></a>
+          <h6 class="heading font-x1"><a href="modifyUserApplication">Modifying</a></h6>
           <p>For Modifying Your Name in Electoral Roll</p>
         </article>
       </li>

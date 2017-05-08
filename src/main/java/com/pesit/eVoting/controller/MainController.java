@@ -66,4 +66,10 @@ public class MainController {
 		else
 			return new ModelAndView("usersView/userLogin");
 	}
+	
+	@RequestMapping("/viewElectionResults")
+	public String showElectionResults(){
+		return "pastElectionResults";
+		
+	}
 }

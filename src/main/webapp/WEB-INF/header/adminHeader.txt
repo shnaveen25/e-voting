@@ -61,7 +61,7 @@
           <li><a href="#">Transposing Name in Electoral Roll</a></li> 	 	 	 	
         </ul>
       </li>
-      <li><a href="#">Voters</a></li>
+      <li><a href="getAllVoters">Voters</a></li>
       <li><a href=""></a></li>
     </li>
     </ul>

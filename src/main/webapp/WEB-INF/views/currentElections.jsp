@@ -149,6 +149,22 @@ var participantId ;
 			});
 		});
 	});
+	
+	$(document).ready(function() {
+		$('#getNewPassword').click(function() {
+			console.log('Getting Districts');
+			$.ajax({
+				url : 'getElectorNewPassword',
+				data : {
+					email : $('#email').val()
+				},
+				success : function(responseText) {
+					console.log(responseText);
+					alert(responseText);
+				}
+			});
+		});
+	});
 
 </script>
 
@@ -243,9 +259,35 @@ var participantId ;
 								placeholder="Elector Id" required/> <br /> 
 					<input type="password" class="form-control" name="password" id="password"
 								placeholder="Password" required/>
+					<div class="text-center"><a style='cursor:pointer' data-toggle='modal' data-target='#changePassword'> Forgot Password ? </a></div>
 				</div>
+				
+				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal" id="vote">Vote</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	
+	<!-- Modal -->
+	<div id="changePassword" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Forgot password...?? </h4>
+				</div>
+				<div class="modal-body">
+					<input type="email" class="form-control" name="email" id="email"
+								placeholder="email" required/> <br /> 
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="getNewPassword">SUBMIT</button>
 				</div>
 			</div>
 

@@ -1,5 +1,7 @@
 package com.pesit.eVoting.sql.dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
@@ -29,5 +31,23 @@ public class ElectorDAO extends BaseDao<Elector>{
 		crit.add(Restrictions.eq("password", password));
 		
 		return (Elector) crit.uniqueResult();
+	}
+	
+	@Transactional
+	public Elector findByEmail(String email){
+		
+		Criteria crit = getCurrentSession().createCriteria(Elector.class);
+		crit.add(Restrictions.eq("email", email));
+		
+		return (Elector) crit.uniqueResult();
+	}
+	
+	@Transactional
+	public List<Elector> findAllElectorByAssId(long assId){
+		
+		Criteria crit = getCurrentSession().createCriteria(Elector.class);
+		crit.add(Restrictions.eq("assemblyId", assId));
+		
+		return (List<Elector>) crit.list();
 	}
 }

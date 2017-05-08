@@ -108,4 +108,9 @@ public class UsersController {
 		
 		return userService.forgotPassword(email);
 	}
+	
+	@RequestMapping("/modifyUserApplication")
+	public String showModifyApplnView(){
+		return "usersView/ModifyOrDeletApplication";
+	}
 }

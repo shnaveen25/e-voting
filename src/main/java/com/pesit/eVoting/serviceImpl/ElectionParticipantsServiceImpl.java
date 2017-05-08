@@ -115,13 +115,23 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 
 		for (ElectionParticipants indudivalParticipant : participantsFromDb) {
 			PartyDescription partyName = partyDescriptionDao.findById(indudivalParticipant.getPartyId());
-
+			String state = assemblyStateService.getAssemblyStatesById(indudivalParticipant.getStateId());
+			String district = assemblyDistricte.getAssemblyDistrictById(indudivalParticipant.getDistrictId());
+			String assembly = assemblyConstituency.getAssemblysById(indudivalParticipant.getAssemblyId());
+			ElectionDto election= electionService.getElectionById(indudivalParticipant.getElectionId());
+			
+			
 			ParticipantsDto participant = new ParticipantsDto();
 			participant.setName(indudivalParticipant.getName());
 			participant.setPartyName(partyName.getPartyName());
 			participant.setEmail(indudivalParticipant.getEmail());
 			participant.setAdhaar(indudivalParticipant.getAdhaar());
 			participant.setPost(indudivalParticipant.getPost());
+			participant.setStateName(state);
+			participant.setDistrictName(district);
+			participant.setAssemblyName(assembly);
+			participant.setElectionDate(election.getElectionDate());
+			participant.setElectionFor(election.getElectionFor());
 
 			responseParticipantsData.add(participant);
 		}

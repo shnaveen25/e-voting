@@ -1,9 +1,7 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="x"%>
-<%@taglib prefix="j" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- Include Header -->
+<%@ include file="../header/defaultHeader.txt"%>
 
-<!-- Header -->
-<%@ include file="../../header/adminHeader.txt"%>
-
+<!-- Body -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script
@@ -75,8 +73,8 @@
 		});
 
 		$('#getElectionResults').click(function() {
-
-			console.log('Election results for ', eleId);
+			
+			console.log('Election results for ' , eleId);
 			$.ajax({
 				url : 'getElectionResults',
 				data : {
@@ -127,22 +125,20 @@
 		selection += '</div><br /> <br />'
 		$("#assembly").html(selection);
 	}
-
+	
 	function showElectionResult(responseText) {
 		console.log("Response Data", responseText);
 		var table = "<tbody>";
-		$(responseText).each(function(i, item) {
-			if (i == 0) {
-				table += "<tr><td><font color='red'><i class='fa fa-trophy'></i>  " + item.partyName.toUpperCase() + "</font></td>";
-				table += "<td><font color='red'>" + item.name.toUpperCase() + "</font></td>";
-				table += "<td><font color='red'>" + item.noOfVotes + "</font></td></tr>";
-			} else {
-				table += "<tr><td>" + item.partyName.toUpperCase() + "</td>";
-				table += "<td>" + item.name.toUpperCase() + "</td>";
-				table += "<td>" + item.noOfVotes + "</td></tr>";
-			}
-
-		});
+		$(responseText)
+				.each(
+						function(i, item) {
+							table += "<tr><td>" + item.partyName.toUpperCase()
+									+ "</td>";
+							table += "<td>" + item.name.toUpperCase()
+									+ "</td>";
+							table += "<td>" + item.noOfVotes
+									+ "</td>";
+						});
 		table += "</tbody>";
 		$("#eleResult").append(table);
 	}
@@ -177,7 +173,7 @@
 					</div>
 				</article>
 			</li>
-
+			
 			<li>
 				<article>
 					<header>
@@ -237,5 +233,7 @@
 
 
 
-<!-- Footer -->
-<%@ include file="../../footer/adminFooter.txt"%>
+
+
+<!-- Include Footer -->
+<%@ include file="../footer/defaultFooter.txt"%>
