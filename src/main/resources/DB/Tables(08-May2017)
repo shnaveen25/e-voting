@@ -1,0 +1,202 @@
+#SHOW CREATE TABLE tablename; (ignore this line)
+
+Table Name : admin
+
+CREATE TABLE `admin` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `name` varchar(50) DEFAULT NULL,
+ `email` varchar(50) NOT NULL,
+ `password` varchar(15) NOT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1
+
+-------------------------------------------------------------------------------------------------------
+
+Table Name : assembly_constituency
+
+
+CREATE TABLE `assembly_constituency` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `district_id` int(11) NOT NULL,
+ `assembly` varchar(50) NOT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `assembly` (`assembly`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1
+
+-------------------------------------------------------------------------------------------------------
+
+Table Name : assembly_district
+
+CREATE TABLE `assembly_district` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `state_id` int(11) NOT NULL,
+ `district_name` varchar(50) NOT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `district_name` (`district_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1
+
+
+-------------------------------------------------------------------------------------------------------
+
+
+Table Name : assembly_states
+
+CREATE TABLE `assembly_states` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `state_name` varchar(45) NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1
+
+-------------------------------------------------------------------------------------------------------
+
+Table Name : election
+
+CREATE TABLE `election` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `state_id` int(11) NOT NULL,
+ `election_for` varchar(45) NOT NULL,
+ `election_date` date NOT NULL,
+ `status` varchar(45) NOT NULL,
+ `created_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1
+
+
+-------------------------------------------------------------------------------------------------------
+
+Table Name : election_participants
+
+
+CREATE TABLE `election_participants` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `party_Id` int(100) NOT NULL,
+ `state_id` int(11) NOT NULL,
+ `district_id` int(11) NOT NULL,
+ `assembly_id` int(11) NOT NULL,
+ `election_id` int(11) NOT NULL,
+ `name` varchar(100) NOT NULL,
+ `email` varchar(100) NOT NULL,
+ `dob` timestamp NULL DEFAULT NULL,
+ `gender` varchar(10) DEFAULT NULL,
+ `post` varchar(102) NOT NULL,
+ `education` varchar(100) NOT NULL,
+ `property` varchar(100) NOT NULL,
+ `police_record` varchar(10) NOT NULL,
+ `adhaar_num` varchar(45) NOT NULL,
+ `address` varchar(100) DEFAULT NULL,
+ `created_date` timestamp NULL DEFAULT NULL,
+ `mobile` varchar(45) DEFAULT NULL,
+ `no_of_votes` bigint(20) DEFAULT '0',
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `email` (`email`,`adhaar_num`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1
+
+-------------------------------------------------------------------------------------------------------
+
+Table Name : elector
+
+
+CREATE TABLE `elector` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `application_id` int(11) NOT NULL,
+ `elector_id` varchar(50) NOT NULL,
+ `password` varchar(45) NOT NULL,
+ `state_id` int(11) NOT NULL,
+ `district_id` int(11) NOT NULL,
+ `assembly_id` int(11) NOT NULL,
+ `name` varchar(45) NOT NULL,
+ `dob` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ `gender` varchar(10) NOT NULL,
+ `mobile` varchar(45) NOT NULL,
+ `email` varchar(45) NOT NULL,
+ `aadhar` varchar(45) NOT NULL,
+ `address` varchar(100) NOT NULL,
+ `land_mark` varchar(45) NOT NULL,
+ `pin_code` varchar(15) NOT NULL,
+ `status` varchar(20) NOT NULL,
+ `created_date` timestamp NULL DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `elector_id` (`elector_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1
+
+
+
+-------------------------------------------------------------------------------------------------------
+
+Table Name : party_description
+
+
+CREATE TABLE `party_description` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `party_name` varchar(100) NOT NULL,
+ `party_description` varchar(256) DEFAULT NULL,
+ `mp_members` varchar(256) DEFAULT NULL,
+ `mla_members` varchar(256) DEFAULT NULL,
+ `email` varchar(256) NOT NULL,
+ `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `party_name` (`party_name`,`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1
+
+
+-------------------------------------------------------------------------------------------------------
+
+Table Name : public_vote_records
+
+
+CREATE TABLE `public_vote_records` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `election_id` int(11) DEFAULT NULL,
+ `elector_id` int(11) DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1
+
+
+-------------------------------------------------------------------------------------------------------
+
+Table Name : users
+	
+CREATE TABLE `users` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `name` varchar(45) NOT NULL,
+ `email` varchar(45) DEFAULT NULL,
+ `password` varchar(20) NOT NULL,
+ `mobile` varchar(45) NOT NULL,
+ `created_date` timestamp NULL DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1
+
+
+
+-------------------------------------------------------------------------------------------------------
+
+Table Name : voters_applications
+
+
+CREATE TABLE `voters_applications` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `applied_by` int(11) NOT NULL,
+ `state_id` int(11) NOT NULL,
+ `district_id` int(11) NOT NULL,
+ `assembly_id` int(11) NOT NULL,
+ `name` varchar(45) NOT NULL,
+ `dob` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ `gender` varchar(10) NOT NULL,
+ `mobile` varchar(45) NOT NULL,
+ `email` varchar(45) NOT NULL,
+ `aadhar` varchar(45) NOT NULL,
+ `address` varchar(100) NOT NULL,
+ `land_mark` varchar(45) NOT NULL,
+ `pin_code` varchar(15) NOT NULL,
+ `application_status` varchar(45) NOT NULL,
+ `comment` varchar(100) DEFAULT NULL,
+ `created_date` timestamp NULL DEFAULT NULL,
+ `applied_for` varchar(45) NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1
+
+--------------------------------------------------------------------------------------------------------
+
+
