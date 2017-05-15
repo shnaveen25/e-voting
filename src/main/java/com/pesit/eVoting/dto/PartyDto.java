@@ -3,8 +3,6 @@ package com.pesit.eVoting.dto;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.pesit.eVoting.sql.domain.PartyDescription;
 
 /**

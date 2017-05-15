@@ -40,6 +40,7 @@
 						});
 		table += "</tbody>";
 		$("#showElectionResult").hide();
+		$("#showBtn").hide();
 		$("#pastElections").append(table);
 
 		$('.getStates').click(function() {
@@ -73,6 +74,10 @@
 					showAssimblies(assemblies);
 				}
 			});
+		});
+		
+		$('#assembly').change(function() {
+			$("#showBtn").show();
 		});
 
 		$('#getElectionResults').click(function() {
@@ -228,7 +233,7 @@
 						<div id="assembly"></div>
 					</div>
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer" id="showBtn">
 					<button type="button" class="btn btn-default" data-dismiss="modal"
 						id="getElectionResults">SUBMIT</button>
 				</div>

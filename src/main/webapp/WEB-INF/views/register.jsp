@@ -27,9 +27,10 @@
 				},
 				success : function(responseText) {
 					console.log(responseText);
-					if(responseText ==  'success')
+					if(responseText ==  'success'){
 						alert("Registration success..Please Login")
 						$(window.location).attr('href', 'userLogin');
+					}
 					else
 						alert(responseText);
 				}
@@ -84,7 +85,7 @@
 					<label class="col-lg-3 col-sm-2 control-label"> Mobile </label>
 					<div class="col-lg-9">
 						<input type="text" class="form-control" id="mobile"
-						placeholder="Enter Mobile Number" title="Please enter your mobile number" minlength="10" maxlength="10" required/>
+						placeholder="Enter Mobile Number" title="Please enter your mobile number" max="10" min="10" required/>
 					</div>
 				</div>
 				<div class="text-center">

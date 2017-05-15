@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pesit.eVoting.constants.Constants;
 import com.pesit.eVoting.dto.VotersApplicationsDto;
 import com.pesit.eVoting.service.VotersApplicationsService;
 

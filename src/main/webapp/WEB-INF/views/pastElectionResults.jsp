@@ -37,6 +37,9 @@
 
 						});
 		table += "</tbody>";
+		$("#showElectionResult").hide();
+		$("#showBtn").hide();
+		
 		$("#pastElections").append(table);
 
 		$('.getStates').click(function() {
@@ -70,6 +73,10 @@
 					showAssimblies(assemblies);
 				}
 			});
+		});
+		
+		$('#assembly').change(function() {
+			$("#showBtn").show();
 		});
 
 		$('#getElectionResults').click(function() {
@@ -127,6 +134,12 @@
 	}
 	
 	function showElectionResult(responseText) {
+		
+		if(responseText.length == 0){
+			alert("No Results found for selected assembly")
+			window.location.reload();
+		}
+		
 		console.log("Response Data", responseText);
 		var table = "<tbody>";
 		$(responseText)
@@ -143,6 +156,7 @@
 							}
 						});
 		table += "</tbody>";
+		$("#showElectionResult").show();
 		$("#eleResult").append(table);
 	}
 </script>
@@ -177,7 +191,7 @@
 				</article>
 			</li>
 			
-			<li>
+			<li id="showElectionResult">
 				<article>
 					<header>
 						<address>Result for the selected election</address>
@@ -221,7 +235,7 @@
 						<div id="assembly"></div>
 					</div>
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer" id="showBtn">
 					<button type="button" class="btn btn-default" data-dismiss="modal"
 						id="getElectionResults">SUBMIT</button>
 				</div>

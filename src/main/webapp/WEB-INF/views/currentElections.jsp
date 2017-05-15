@@ -13,8 +13,11 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script>
+
 var participantId ;
 	$(document).ready(function() {
+		$("#showCandiadets").hide();
+	
 		$('#stateId').change(function() {
 			console.log('Getting Districts');
 			$.ajax({
@@ -119,6 +122,7 @@ var participantId ;
 								table += "<td><button type='button' class='saveId btn btn-info btn-sm' data-toggle='modal' data-target='#myModal' participantId="+item.id+">Vote</button></td></tr>";
 							});
 			table += "</tbody>";
+			$("#showCandiadets").show();
 			$("#participants").append(table);
 			
 			$('.saveId').click(function() {
@@ -216,7 +220,7 @@ var participantId ;
 				</li>
 
 
-				<li>
+				<li id="showCandiadets">
 					<article>
 						<header>
 							<address>II. List of Participants</address>
