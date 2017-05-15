@@ -7,7 +7,7 @@ import com.pesit.eVoting.dto.ParticipantsDto;
 
 public interface ElectionParticipantsService {
 	
-	public void addParticipant(ParticipantsDto participant);
+	public String addParticipant(ParticipantsDto participant);
 	
 	public List<ParticipantsDto> getAllParticipants();
 	

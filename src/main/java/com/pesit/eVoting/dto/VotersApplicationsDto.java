@@ -66,6 +66,7 @@ public class VotersApplicationsDto implements Serializable {
 		area = application.getAddress();
 		landMark = application.getLandMark();
 		pinCode = application.getPinCode();
+		appliedFor = application.getAppliedFor();
 		applicationStatus = application.getApplicationStatus();
 		createdDate = application.getCreatedDate();
 	}

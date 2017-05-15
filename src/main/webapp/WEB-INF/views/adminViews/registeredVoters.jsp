@@ -10,6 +10,7 @@
 			url : 'getAllStates',
 			success : function(responseText) {
 				console.log(responseText);
+				$("#showElectors").hide();
 				showStates(responseText);
 			}
 		})
@@ -149,6 +150,7 @@
 								
 								});
 			table += "</tbody>";
+			$("#showElectors").show();
 			$("#electors").append(table);
 			
 			$('.changeStatus').click(function(){
@@ -173,6 +175,7 @@
 <!-- Body -->
 <div class="wrapper row3">
 	<main class="hoc clear">
+	<h4 class="text-center">Electors List</h4>
 	<div id="comments">
 		<ul>
 			<li>
@@ -197,7 +200,7 @@
 				</article>
 			</li>
 
-			<li>
+			<li id="showElectors">
 				<article>
 					<header>
 						<address>II. List of Electors</address>

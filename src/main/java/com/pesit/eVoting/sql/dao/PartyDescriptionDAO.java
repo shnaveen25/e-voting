@@ -28,4 +28,16 @@ public class PartyDescriptionDAO extends BaseDao<PartyDescription>{
 		Criteria crit = getCurrentSession().createCriteria(PartyDescription.class);
 		return crit.list();
 	}
+	
+	@Transactional
+	public PartyDescription findByEmail(String email) {
+		
+		Criteria crit = getCurrentSession().createCriteria(PartyDescription.class);
+		crit.add(Restrictions.eq("email" , email));
+		
+		return (PartyDescription) crit.uniqueResult();
+	}
+	
+	
+	
 }

@@ -38,16 +38,9 @@
   <nav id="mainav" class="hoc clear"> 
     <ul class="clear">
       <li class="active"><a href="userHome">Home</a></li>
-      <li><a class="drop" href="#">Submitted Application</a>
-        <ul>
-          <li><a href="getUserApplications">Including Your Name in Electoral Roll</a></li>
-          <li><a href="#">Deleting Your Name From Electoral Roll</a></li>
-          <li><a href="#">Modifying Your Name in Electoral Roll</a></li>
-          <li><a href="#">Transposing Your Name in Electoral Roll</a></li> 	 	 	 	
-        </ul>
+      <li><a href="getUserApplications">Submitted Application</a>
+ 
       </li>
-      </li>
-      <li><a href="#">Application Status</a>
       <li><a href="changePassword">Change Password</a>
       <li><a href=""></a></li>
     </li>

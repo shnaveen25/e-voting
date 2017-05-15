@@ -1,13 +1,16 @@
 package com.pesit.eVoting.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pesit.eVoting.dto.UserDto;
+
 
 /**
  * 
@@ -19,6 +22,9 @@ import com.pesit.eVoting.dto.UserDto;
 @Controller
 //@RequestMapping("/")
 public class MainController {
+	
+	@Autowired
+	private HttpSession session;
 	
 	@RequestMapping("/")
 	public String home(){
@@ -59,8 +65,8 @@ public class MainController {
 	
 	@RequestMapping({"/logout" , "/userLogout"})
 	public ModelAndView processLogout(Model model , HttpServletRequest request){
-		model.addAttribute("errMsg", "Thank you..!! Visit Again");
-		
+		session.removeAttribute("email");
+		session.invalidate();
 		if(request.getRequestURI().equals("/logout"))
 			return new ModelAndView("login");
 		else

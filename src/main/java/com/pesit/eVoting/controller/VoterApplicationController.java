@@ -4,17 +4,17 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pesit.eVoting.constants.Constants;
 import com.pesit.eVoting.dto.VotersApplicationsDto;
 import com.pesit.eVoting.service.VotersApplicationsService;
 
@@ -29,28 +29,20 @@ public class VoterApplicationController {
 
 	@Autowired
 	private VotersApplicationsService voterApplicationService;
+	
+	@Autowired
+	private HttpSession session;
 
 	@RequestMapping("/registerVoterApplication")
-	public ModelAndView addVoterApplication(
-			@ModelAttribute("voterApplicationDto") @Valid VotersApplicationsDto votersApplicationsDto, 
-			BindingResult result ,Model model,
-			HttpSession session) {
-		
-		if(!result.hasErrors()){
-			System.out.println("VoterAppln : " +votersApplicationsDto);
-			return new ModelAndView("usersView/includeName");
-		} else {
-		System.out.println("voterApplicationDto : " + votersApplicationsDto);
+	public @ResponseBody String addVoterApplication(@RequestBody VotersApplicationsDto votersApplicationsDto) {
+				
+			System.out.println("voterApplicationDto : " + votersApplicationsDto);
 
-		long appliedBy = (long) session.getAttribute("userId");
+			long appliedBy = (long) session.getAttribute("userId");
 
-		ModelAndView view = new ModelAndView("usersView/userHome");
+			String msg = voterApplicationService.registerForVoterApplication(votersApplicationsDto, appliedBy);
 
-		String msg = voterApplicationService.registerForVoterApplication(votersApplicationsDto, appliedBy);
-
-		model.addAttribute("message", msg);
-
-		return view; }
+			return msg;
 	}
 
 	@RequestMapping({ "/getUserApplications", "/editUserApplication" })
@@ -122,10 +114,34 @@ public class VoterApplicationController {
 	@RequestMapping("/rejectVoterApplication")
 	public String voterApplicationRejected(@RequestParam(value = "applicationId", required = false) Long applicationId,
 			@RequestParam(value = "comment", required = false) String comment) {
-		//System.out.println("Rejected Application : "+applicationId);
-		
-		voterApplicationService.updateApplicationStatus(applicationId, comment , "rejected");
+		// System.out.println("Rejected Application : "+applicationId);
+
+		voterApplicationService.updateApplicationStatus(applicationId, comment, "rejected");
 		return "forward:/viewUserApplications";
 
 	}
+
+	@RequestMapping("/editApplication")
+	public @ResponseBody String editRequestElectorApplication(@RequestBody VotersApplicationsDto votersApplicationsDto,
+			HttpSession session) {
+
+		long appliedBy = (long) session.getAttribute("userId");
+
+		return voterApplicationService.editRequestElectorApplication(votersApplicationsDto, appliedBy);
+	}
+	
+	@RequestMapping("/requestDeleteVoterApplication")
+	public @ResponseBody String applyToDeleteVoterAppln(HttpServletRequest request){
+		
+		long aadhar = Long.parseLong(request.getParameter("aadhar"));
+		
+		try{
+			return voterApplicationService.deleteUserApplication(aadhar);
+		
+		}catch (Exception e) {
+			return "Internal Server Error "+e;
+		}
+		
+	}
+
 }

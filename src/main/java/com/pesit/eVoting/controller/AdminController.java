@@ -1,12 +1,12 @@
 package com.pesit.eVoting.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pesit.eVoting.constants.Constants;
 import com.pesit.eVoting.service.AdminService;
@@ -29,33 +29,60 @@ public class AdminController {
 	@Autowired
 	private HttpServletRequest request;
 	
+	@Autowired
+	private HttpSession session;
+	
 	@RequestMapping("/processLogin")
-	public ModelAndView processAdminLogin(Model model) {
+	public @ResponseBody String processAdminLogin() {
 	
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
 		if(!adminService.loginAdmin(email , password).equals(Constants.LOGIN_FAILED)) {
-			return  new ModelAndView("adminViews/adminHome");
+			session.setAttribute("email", email);
+			session.setAttribute("role", Constants.ADMIN);
+			return Constants.SUCCESS;
 		} else {
-			model.addAttribute("errMsg","Invalide Username/Password");
-			return  new ModelAndView("login");
+			return  "Invalide Username/Password";
 		}
 	
 	}
 	
 	@RequestMapping("/adminHome")
 	public String showAdminHome(){
-		return "adminViews/adminHome";
+		if(session.getAttribute("email") != null && session.getAttribute("role").equals(Constants.ADMIN))
+			return "adminViews/adminHome";
+		else
+			return "login";
 	}
 	
 	@RequestMapping("/getPastElectionView")
 	public String showPastElectionView(){
-		return "adminViews/pastElections";
+		if(session.getAttribute("email") != null && session.getAttribute("role").equals(Constants.ADMIN))
+			return "adminViews/pastElections";
+		else
+			return "login";
 	}
 	
 	@RequestMapping("/getAllVoters")
 	public String showVotersViewPage(){
-		return "adminViews/registeredVoters";
+		if(session.getAttribute("email") != null && session.getAttribute("role").equals(Constants.ADMIN))
+			return "adminViews/registeredVoters";
+		else
+			return "login";
+	}
+	
+	@RequestMapping("/addParty")
+	public String showAddParty() {
+		if(session.getAttribute("email") != null && session.getAttribute("role").equals(Constants.ADMIN))
+			return "adminViews/addParty";
+		else
+			return "login";
+	}
+	
+	@RequestMapping("/addParticipantView")
+	public String showAddParticipantView(){
+			return "adminViews/addParticipant";
+		
 	}
 }

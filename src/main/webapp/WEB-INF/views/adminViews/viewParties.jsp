@@ -19,8 +19,6 @@
 					<th>Name</th>
 					<th>Email</th>
 					<th>Description</th>
-					<th>MP's</th>
-					<th>MLA's</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,8 +27,6 @@
 						<td><j:out value="${party.partyName}"/></td>
 						<td><j:out value="${party.partyEmail}"/></td>
 						<td><j:out value="${party.partyDescription}"/></td>
-						<td><j:out value="${party.mpMembers}"/></td>
-						<td><j:out value="${party.mlaMembers}"/></td>
 					</tr>
 				</j:forEach>
 			</tbody>

@@ -2,24 +2,22 @@ package com.pesit.eVoting.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pesit.eVoting.dto.AssemblyStatesDto;
 import com.pesit.eVoting.dto.ElectionDto;
-import com.pesit.eVoting.dto.ParticipantsDto;
 import com.pesit.eVoting.dto.PartyDto;
 import com.pesit.eVoting.service.AssemblyStatesService;
 import com.pesit.eVoting.service.ElectionService;
 import com.pesit.eVoting.service.PartyDescriptionService;
-import com.pesit.eVoting.sql.domain.PartyDescription;
 
 @Controller
 public class PartyDescriptionController {
@@ -32,47 +30,20 @@ public class PartyDescriptionController {
 	
 	@Autowired
 	private ElectionService electionService;
-	
-	/**
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("/addParty")
-	public ModelAndView showAddParty(Model model) {
-		PartyDto partyBean = new PartyDto();
-		model.addAttribute("addParty", partyBean);
-		return new ModelAndView("adminViews/addParty");
-	}
 
 	/**
+	 * A Service API to save party details
 	 * 
 	 * @param addPartyDto
-	 * @param result
-	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/addPartyDescription")
-	public ModelAndView processAddParty(@ModelAttribute("addParty") @Valid PartyDto addPartyDto, BindingResult result,
-			Model model) {
-		if (result.hasErrors())
-			return new ModelAndView("adminViews/addParty");
-
-		PartyDescription partyDescription = new PartyDescription();
-		partyDescription.setPartyName(addPartyDto.getPartyName());
-		partyDescription.setPartyDescription(addPartyDto.getPartyDescription());
-		partyDescription.setEmail(addPartyDto.getPartyEmail());
-		partyDescription.setMpMembers(addPartyDto.getMpMembers());
-		partyDescription.setMlaMembers(addPartyDto.getMlaMembers());
-
-		boolean process = paertyDescriptionService.addParty(partyDescription);
-
-		if (process) {
-			model.addAttribute("message", "Party Has been added Successifully");
-			return new ModelAndView("adminViews/adminHome");
-		} else {
-			model.addAttribute("message", "Party already added...");
-			return new ModelAndView("adminViews/adminHome");
+	public @ResponseBody String saveParty(@RequestBody PartyDto addPartyDto) {
+		System.out.println("Data for adding party : "+addPartyDto);
+		try{
+			return paertyDescriptionService.addParty(addPartyDto);
+		}catch (Exception e) {
+			return "Internal server error "+e;
 		}
 	}
 
@@ -86,7 +57,6 @@ public class PartyDescriptionController {
 		
 		ModelAndView view = new ModelAndView("adminViews/addParticipant");
 		
-		ParticipantsDto participantsrDto = new ParticipantsDto();
 		List<PartyDto> partyName = paertyDescriptionService.getParty();
 		List<AssemblyStatesDto> assemblyStateDto = assemblyStatesService.getAllStates();
 		List<ElectionDto> elections = electionService.getUpcomingElections();
@@ -95,14 +65,19 @@ public class PartyDescriptionController {
 		view.addObject("partyList", partyName);
 		view.addObject("election" , elections);
 		
-		model.addAttribute("participant", participantsrDto);
 		return view;
 		
 	}
 
-	@RequestMapping("/viewParties")
-	public ModelAndView showListOfParties(Model model) {
-		ModelAndView view = new ModelAndView("adminViews/viewParties");
+	@RequestMapping({"/viewParties" , "/showAllParties"})
+	public ModelAndView showListOfParties(Model model, HttpServletRequest request) {
+		ModelAndView view = null;
+		System.out.println(request.getRequestURI());
+		if(request.getRequestURI().equals("/showAllParties")) 
+			view = new ModelAndView("viewParties");
+		else
+			view = new ModelAndView("adminViews/viewParties");
+	
 		List<PartyDto> parties = paertyDescriptionService.viewAllParties();
 		
 		if(parties.size() > 0) {
@@ -111,6 +86,28 @@ public class PartyDescriptionController {
 			model.addAttribute("errMsg", "No Parties Found to display");
 		}
 		return view;
+	}
+	
+	/**
+	 * 
+	 * The service API which returns the list of parties for which 
+	 * the participant hasn't been added for the selected assembly
+	 * 
+	 * @author 
+	 */
+	@RequestMapping("/getPartyWithNoParticipant")
+	public @ResponseBody List<PartyDto> getPartys(HttpServletRequest request){
+		
+		long assemblyId = Long.parseLong(request.getParameter("assemblyId"));
+		long electionId = Long.parseLong(request.getParameter("electionId"));
+		
+		try{
+			return paertyDescriptionService.getNoParticipantParties(assemblyId , electionId);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	
 }

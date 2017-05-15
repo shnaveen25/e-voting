@@ -1,12 +1,41 @@
-<%@taglib prefix="j" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="x"%>
+<!-- Header -->
+<%@ include file="../../header/adminHeader.txt"%>
 
-
+<!-- Body -->
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script>
 	$(document).ready(function() {
-		$('#stateId').change(function() {
+		$.ajax({
+			url : 'getAllStates',
+			success : function(responseText) {
+				console.log('States ', responseText)
+				showStates(responseText);
+			}
+		});
+	});
+
+	function showStates(responseText) {
+		var selection = '<label class="col-lg-3 col-sm-2 control-label">State</label>';
+		selection += '<div class="col-lg-6">';
+
+		selection += '<select name="stateId" id="stateId" class="form-control" title="Select State in order to proceed">';
+		selection += '<option value=0>Select State</option>';
+		$(responseText).each(
+				function(i, item) {
+					console.log('Iterating ', item.assembly);
+					selection = selection + '<option value='+ item.id+'>'
+							+ item.stateName + '</option>';
+
+				});
+		selection = selection + '</select>'
+		selection += '</div><br /> <br />'
+		$("#state").html(selection);
+		$("#participantForm").hide();
+	}
+
+	$(document).ready(function() {
+		$('#state').change(function() {
 			console.log('Getting Districts');
 			$.ajax({
 				url : 'getDistricts',
@@ -38,9 +67,10 @@
 			});
 		});
 	});
-	
+
 	$(document).ready(function() {
-		$('#assembly').change(function() {
+		$('#assembly').change(function(event) {
+			event.preventDefault();
 			console.log('Getting elections');
 			$.ajax({
 				url : 'getElectionDate',
@@ -91,7 +121,7 @@
 		selection += '</div><br /> <br />'
 		$("#assembly").html(selection);
 	}
-	
+
 	function showElections(elections) {
 		var selection = '<label class="col-lg-3 col-sm-2 control-label">Election Date</label>';
 		selection += '<div class="col-lg-6">';
@@ -102,173 +132,287 @@
 				function(i, item) {
 					console.log('Iterating ', item.elections);
 					selection = selection + '<option value='+ item.id+'>'
-							+ item.electionDate+ '</option>';
+							+ item.electionDate + '</option>';
 
 				});
 		selection = selection + '</select>'
 		selection += '</div><br /> <br />'
 		$("#elections").html(selection);
 	}
+
+	//Get the parties
+	$(document).ready(function() {
+		$('#elections').change(function() {
+			console.log('Getting ElectionDates');
+			$.ajax({
+				url : 'getPartyWithNoParticipant',
+				data : {
+					assemblyId : $('#assemblyId').val(),
+					electionId : $('#electionId').val()
+				},
+				success : function(responseData) {
+					console.log(responseData);
+					showParties(responseData);
+				}
+			});
+		});
+	});
+
+	function showParties(responseData) {
+		var selection = '<label class="col-lg-3 col-sm-2 control-label">Party</label>';
+		selection += '<div class="col-lg-6">';
+
+		selection += '<select name="partyId" id="partyId" class="form-control" title="Select party date in order to proceed">';
+		selection += '<option value=0>Select Party</option>';
+		$(responseData).each(
+				function(i, item) {
+					console.log('Iterating ', item.elections);
+					selection = selection + '<option value='+ item.id+'>'
+							+ item.partyName + '</option>';
+
+				});
+		selection = selection + '</select>'
+		selection += '</div><br /> <br />'
+		$("#parties").html(selection);
+
+	}
+	$(document).ready(function() {
+		$('#parties').change(function() {
+			$("#participantForm").show();
+		});
+	});
+	
+
+	//Ajax call to perform add participant operation
+	$(document).ready(function() {
+		$('#addParticipant').click(function(event) {
+			event.preventDefault();
+			var data = {
+				partyId : $('#partyId').val(),
+				stateId : $('#stateId').val(),
+				districtId : $('#districtId').val(),
+				assemblyId : $('#assemblyId').val(),
+				electionId : $('#electionId').val(),
+				name : $('#name').val(),
+				email : $('#email').val(),
+				mobile : $('#mobile').val(),
+				dob : $('#dob').val(),
+				gender : $('#gender').val(),
+				post : $('#post').val(),
+				education : $('#education').val(),
+				property : $('#property').val(),
+				adhaar : $('#adhaar').val(),
+				policeRecord : $('#policeRecord').val(),
+				address : $('#address').val(),
+			};
+			console.log('Adding participant with fallowing data ' , data);
+			$.ajax({
+				url : 'addParticipant',
+				data : JSON.stringify(data),
+				type : 'POST',
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(responseText) {
+					console.log("Response after calling addParticipant API",responseText);	
+					if(responseText == 'success'){
+						alert("participant has been added successifully");
+						$(window.location).attr('href', 'viewParticipants');
+					}
+					else{
+						alert(responseText);
+					}
+				}
+			}); 
+		});
+	});
 </script>
 
+<div class="wrapper row3">
+	<main class="hoc clear">
+	<div class="content">
+	<h4 class="text-center">Participant Details</h4>
+		<div id="comments">
+			<ul>
+				<li>
+					<article>
+						<header>
+							<address>I. Election Details</address>
+						</header>
+						<div class="form-group">
+							<div id="state"></div>
+						</div>
+						<div class="form-group">
+							<div id="districts"></div>
+						</div>
 
+						<div class="form-group">
+							<div id="assembly"></div>
+						</div>
 
-<!-- Header -->
-<%@ include file="../../header/adminHeader.txt"%>
+						<div class="form-group">
+							<div id="elections"></div>
+						</div>
 
-<!-- Body -->
-<div class="wrapper row3 text-center">
-	<div class="col-lg-30">
-		<header class="panel-heading">
-			<h4>
-				<b>Member Description Form</b>
-			</h4>
-		</header>
-		<font color="Red"> ${errMsg}</font>
-		<x:form class="form-horizontal animate" action="addParticipant"
-			modelAttribute="participant">
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Party
-				</label>
-				<div class="col-lg-6">
-					<select name="partyId" class="form-control">
-						<option value="0">Select Party</option>
-						<j:forEach items="${partyList}" var="party">
-							<option value=<j:out value="${party.id}"/>>
-								<j:out value="${party.partyName}" />
-							</option>
-						</j:forEach>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label">State
-				</label>
-				<div class="col-lg-6">
-					<select name="stateId" id="stateId" class="form-control"
-						title="Select State in order to proceed">
-						<option value="0">Select State</option>
-						<j:forEach items="${assemblyStateDto}" var="state">
-							<option value=<j:out value="${state.id}"/>>
-								<j:out value="${state.stateName}" />
-							</option>
-						</j:forEach>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<div id="districts"></div>
-			</div>
+						<div class="form-group">
+							<div id="parties"></div>
+						</div>
+					</article>
+				</li>
+				<li id="participantForm">
+					<article>
+						<header>
+							<address>II. Participant Details</address>
+						</header>
+						<div class="form-group">
+							<label class="col-lg-2 col-sm-2 control-label"> Full Name
+							</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control" name="name" id="name"
+									placeholder="Enter Name" title="Please Enter your officel name"
+									required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 col-sm-2 control-label"> Email </label>
+							<div class="col-lg-4">
+								<input type="email" class="form-control" name="email" id="email"
+									placeholder="Enter Email" title="Please Enter your email"
+									required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 col-sm-2 control-label"> Mobile </label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control" name="mobile"
+									id="mobile" placeholder="Enter Mobile Number"
+									title="Please enter your mobile number" minlength="10"
+									maxlength="10" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 col-sm-2 control-label"> Date of
+								Birth </label>
+							<div class="col-lg-4">
+								<input type="Date" class="form-control" name="dob" id="dob"
+									required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 col-sm-2 control-label"> Gender </label>
+							<div class="col-lg-4">
+								<select name="gender" id="gender" class="form-control">
+									<option value="male">Male</option>
+									<option value="female">Female</option>
+									<option value="other">Other</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 col-sm-2 control-label">
+								Participating For </label>
+							<div class="col-lg-4">
+								<select name="post" id="post" class="form-control">
+									<option value="mla">MLA</option>
+									<option value="mp">MP</option>
+								</select>
+							</div>
+						</div>
 
-			<div class="form-group">
-				<div id="assembly"></div>
-			</div>
-			
-			<div class="form-group">
-				<div id="elections"></div>
-			</div>
-			
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Full Name </label>
-				<div class="col-lg-6">
-					<input type="text" class="form-control" name="name"
-						placeholder="Enter Name" title="Please Enter your officel name" required/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Email </label>
-				<div class="col-lg-6">
-					<input type="email" class="form-control" name="email"
-						placeholder="Enter Email" title="Please Enter your email" required/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Mobile </label>
-				<div class="col-lg-6">
-					<input type="text" class="form-control" name="mobile"
-						placeholder="Enter Mobile Number"
-						title="Please enter your mobile number" minlength="10" maxlength="10" required/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Date of
-					Birth </label>
-				<div class="col-lg-6">
-					<input type="Date" class="form-control" name="dob" required/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Gender </label>
-				<div class="col-lg-6">
-					<select name="gender" class="form-control">
-						<option value="male">Male</option>
-						<option value="female">Female</option>
-						<option value="other">Other</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label">
-					Participating For </label>
-				<div class="col-lg-6">
-					<select name="post" class="form-control">
-						<option value="mla">MLA</option>
-						<option value="mp">MP</option>
-					</select>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Education </label>
-				<div class="col-lg-6">
-					<input type="text" class="form-control" name="education"
-						placeholder="Enter Education Qualification"
-						title="Please enter education" required/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Property </label>
-				<div class="col-lg-6">
-					<input type="text" class="form-control" name="property"
-						placeholder="Enter property" title="Please enter property value" required/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Adhaar
-					Number </label>
-				<div class="col-lg-6">
-					<input type="text" class="form-control" name="adhaar"
-						placeholder="Enter Address" title="Please enter adhaar number" minlength="12" maxlength="12" required/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Police
-					Record </label>
-				<div class="col-lg-6">
-					<select name="policeRecord" class="form-control">
-						<option value="Select State">Select Option</option>
-						<option value="yes">Yes</option>
-						<option value="no">No</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-lg-3 col-sm-2 control-label"> Address </label>
-				<div class="col-lg-6">
-					<textarea rows="4" cols="50" class="form-control" name="address"
-						placeholder="Enter Address" title="Please enter address" required></textarea>
-				</div>
-			</div>
-			<div class="text-center">
-				<div class="form-group">
-					<div class="col-lg-offset-2 col-lg-8">
-						<button type="submit" class="btn btn-danger">Submit</button>
-					</div>
-				</div>
-			</div>
-		</x:form>
+						<div class="form-group">
+							<label class="col-lg-2 col-sm-2 control-label"> Education
+							</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control" name="education"
+									id="education" placeholder="Enter Education Qualification"
+									title="Please enter education" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 col-sm-2 control-label"> Property
+							</label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control" name="property"
+									id="property" placeholder="Enter property"
+									title="Please enter property value" required />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 col-sm-2 control-label"> Adhaar
+								Number </label>
+							<div class="col-lg-4">
+								<input type="text" class="form-control" name="adhaar"
+									id="adhaar" placeholder="Enter Address"
+									title="Please enter adhaar number" minlength="12"
+									maxlength="12" required />
+								<!-- <font color="red">Note: You
+									cannot have a two participant on same Aadhar Number</font> -->
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 col-sm-2 control-label"> Police
+								Record </label>
+							<div class="col-lg-4">
+								<select name="policeRecord" id="policeRecord"
+									class="form-control">
+									<option value="Select State">Select Option</option>
+									<option value="yes">Yes</option>
+									<option value="no" selected>No</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-2 col-sm-2 control-label"> Address </label>
+							<div class="col-lg-4">
+								<textarea rows="4" cols="50" class="form-control" name="address"
+									id="address" placeholder="Enter Address"
+									title="Please enter address" required></textarea>
+							</div>
+						</div>
+						<div class="text-center">
+							<div class="form-group">
+								<div class="col-lg-offset-2 col-lg-8">
+									<button type="submit" class="btn btn-danger"
+										id="addParticipant">ADD</button>
+								</div>
+							</div>
+						</div>
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+					</article>
+				</li>
+			</ul>
+		</div>
 	</div>
+	</main>
 </div>
+
+
+
+
+
+
+
 
 
 <!-- Footer -->

@@ -7,10 +7,9 @@
 
 <!-- Body -->
 <div class="wrapper row3">
-	<main class="hoc clear">
-	<j:choose>
+	<main class="hoc clear"> <j:choose>
 		<j:when test="${ApplicationDetails != null}">
-		<br/>
+			<br />
 			<h4 class="text-center">Application Details</h4>
 			<div id="comments">
 				<ul>
@@ -21,30 +20,30 @@
 							</header>
 							<div class="comcont">
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	State</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.stateName}
+									<Label class="col-lg-3 col-sm-2 control-label"> State</Label>
+									<div class="col-lg-9">${ApplicationDetails.stateName}</div>
+								</div>
+
+								<div class="form-group">
+									<Label class="col-lg-3 col-sm-2 control-label">
+										District</Label>
+									<div class="col-lg-9">${ApplicationDetails.districtName}
 									</div>
 								</div>
 
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	District</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.districtName}
+									<Label class="col-lg-3 col-sm-2 control-label">
+										Assembly Constituency</Label>
+									<div class="col-lg-9">${ApplicationDetails.assemblyName}
 									</div>
 								</div>
-
-								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Assembly Constituency</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.assemblyName}
-									</div>
-								</div>
-								<br /> <br /><br /> <br /><br />
+								<br /> <br />
+								<br /> <br />
+								<br />
 							</div>
 						</article>
 					</li>
-					
+
 					<li>
 						<article>
 							<header>
@@ -52,17 +51,14 @@
 							</header>
 							<div class="comcont">
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Name</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.name}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Name</Label>
+									<div class="col-lg-9">${ApplicationDetails.name}</div>
 								</div>
 
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Date of Birth</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.name}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Date of
+										Birth</Label>
+									<div class="col-lg-9">${ApplicationDetails.dob}</div>
 								</div>
 								<!-- 
 								<div class="form-group">
@@ -73,30 +69,29 @@
 								</div>
 								 -->
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Mobile</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.mobile}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Mobile</Label>
+									<div class="col-lg-9">${ApplicationDetails.mobile}</div>
 								</div>
-								
+
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Email</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.email}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Email</Label>
+									<div class="col-lg-9">${ApplicationDetails.email}</div>
 								</div>
-								
+
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Aadhar</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.aadhar}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Aadhar</Label>
+									<div class="col-lg-9">${ApplicationDetails.aadhar}</div>
 								</div>
-								<br /> <br /><br /> <br /><br /><br /> <br /><br /> <br /><br />
+								<br /> <br />
+								<br /> <br />
+								<br />
+								<br /> <br />
+								<br /> <br />
+								<br />
 							</div>
 						</article>
 					</li>
-					
+
 					<li>
 						<article>
 							<header>
@@ -105,27 +100,25 @@
 							</header>
 							<div class="comcont">
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Address</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.area}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Address</Label>
+									<div class="col-lg-9">${ApplicationDetails.area}</div>
 								</div>
 
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Land Mark</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.landMark}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Land
+										Mark</Label>
+									<div class="col-lg-9">${ApplicationDetails.landMark}</div>
 								</div>
 
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Pin</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.pinCode}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Pin</Label>
+									<div class="col-lg-9">${ApplicationDetails.pinCode}</div>
 								</div>
-								
-								<br /> <br /><br /> <br /><br /><br />
+
+								<br /> <br />
+								<br /> <br />
+								<br />
+								<br />
 							</div>
 						</article>
 					</li>
@@ -142,14 +135,15 @@
 								<th>Name</th>
 								<th>Email</th>
 								<th>Mobile</th>
-								<th>Aadhar</th>
+								<th>Applied For</th>
+								<th>Status</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<j:forEach items="${applicationList}" var="application">
 								<tr>
-								<!--  	<j:choose>
+									<!--  	<j:choose>
 										<j:when test="${application.applicationStatus == 'pending' }">
 											<td><a
 												href="getUserApplications?id=<j:out value="${application.id}"/>">
@@ -163,26 +157,39 @@
 									
 								-->
 									<td><a
-											href="getUserApplications?id=<j:out value="${application.id}"/>">
-											<j:out value="${application.name}" /></a>
-									</td>
+										href="getUserApplications?id=<j:out value="${application.id}"/>">
+											<j:out value="${application.name.toUpperCase()}" />
+									</a></td>
 									<td><j:out value="${application.email}" /></td>
 									<td><j:out value="${application.mobile}" /></td>
-									<td><j:out value="${application.aadhar}" /></td>
-									<td>
-										<j:choose>
-										<j:when test="${application.applicationStatus == 'pending' }">
-										<a
-										href="editUserApplication?id=<j:out value="${application.id}"/>">Edit</a>
+									<td><j:out value="${application.appliedFor.toUpperCase()}" /></td>
+									<td><j:out value="${application.applicationStatus.toUpperCase()}" /></td>
+									<td><j:choose>
+											<j:when test="${application.applicationStatus == 'pending' }">
+												<a
+													href="editUserApplication?id=<j:out value="${application.id}"/>">Edit</a>
+
+												<j:if
+													test="${application.appliedFor == 'including' }">
 										/
 										<a
-										href="deleteUserApplication?id=<j:out value="${application.id}"/>">Delete</a>
-										</j:when>
-										<j:otherwise>
+														href="deleteUserApplication?id=<j:out value="${application.id}"/>">Delete</a>
+												</j:if>
+											</j:when>
+											<j:when
+												test="${application.applicationStatus == 'rejected' }">
+												<a
+													href="editUserApplication?id=<j:out value="${application.id}"/>">Re-Apply</a>
+										
+										<j:if test="${application.applicationStatus == 'including' }">
+										/
+										<a
+													href="deleteUserApplication?id=<j:out value="${application.id}"/>">Delete</a>
+										</j:if></j:when>
+											<j:otherwise>
 											Accepted
 										</j:otherwise>
-										</j:choose>
-										</td>
+										</j:choose></td>
 								</tr>
 							</j:forEach>
 						</tbody>

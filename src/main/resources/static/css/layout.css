@@ -202,11 +202,12 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 
 /* Tables
 --------------------------------------------------------------------------------------------------------------- */
-table, th, td{border:5px solid; border-collapse:collapse; vertical-align:top;}
+table, th, td{border:5px solid; border-collapse:collapse; vertical-align:top; }
 table, th{table-layout:auto;}
 table{width:80%; margin-bottom:10px;}
 th, td{padding:5px 8px;}
 td{border-width:0 1px;}
+thead{text-transform:uppercase}
 
 
 /* Gallery

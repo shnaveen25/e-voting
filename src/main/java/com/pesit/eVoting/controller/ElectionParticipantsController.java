@@ -3,13 +3,11 @@ package com.pesit.eVoting.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,17 +25,26 @@ public class ElectionParticipantsController {
 
 	@Autowired
 	private ElectorService electorService;
-
+	
+	/**
+	 * 
+	 * The API to add the participant.
+	 * 
+	 * @author 
+	 * @param participantDto
+	 * @return
+	 */
 	@RequestMapping("/addParticipant")
-	public ModelAndView addParticipant(@ModelAttribute("participant") @Valid ParticipantsDto participantDto,
-			Model model, BindingResult result) {
-		if (result.hasErrors())
-			return new ModelAndView("adminView/memberDesc2");
+	public @ResponseBody String addParticipant(@RequestBody ParticipantsDto participantDto) {
 
-		System.out.println("The Entered participant details : " + participantDto);
-		electionParticipantService.addParticipant(participantDto);
-		model.addAttribute("message", "participant Has been added");
-		return new ModelAndView("adminViews/adminHome");
+		//System.out.println("The Entered participant details : " + participantDto);
+		try{
+			return electionParticipantService.addParticipant(participantDto);
+		}catch (Exception e) {
+			return "Internal server error while performing operation "+e;
+		}
+		
+		
 	}
 
 	@RequestMapping("/viewParticipants")

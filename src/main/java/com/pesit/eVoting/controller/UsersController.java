@@ -2,16 +2,12 @@ package com.pesit.eVoting.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.pesit.eVoting.constants.Constants;
 import com.pesit.eVoting.dto.UserDto;
@@ -25,92 +21,88 @@ public class UsersController {
 
 	@Autowired
 	private HttpServletRequest request;
-	/*
-	@Autowired
+	
+	 
+	@Autowired 
 	private HttpSession session;
-	*/
-
+	
 	@RequestMapping("/processUserRegistration")
-	public ModelAndView RegisterUser(@ModelAttribute("userDto") @Valid UserDto user, BindingResult result,
-			Model model) {
-		//System.out.println("User from ontroller " + user);
-
-		if (result.hasErrors())
-			return new ModelAndView("register");
-
-		// Validate user input
-
-		String msg = userService.registerUser(user);
-		if (msg == Constants.SUCCESS) {
-			model.addAttribute("errMsg", "Success...!! Please Login with your Crediantials");
-			return new ModelAndView("login");
-		} else {
-			model.addAttribute("errMsg", msg);
-			return new ModelAndView("register");
+	public @ResponseBody String RegisterUser(@RequestBody UserDto user) {
+		
+		System.out.println("User from controller " + user);
+		
+		try{
+			return  userService.registerUser(user);
+		}catch (Exception e) {
+			// TODO: handle exception
+			return "Internal server error :"+e;
 		}
+		
+		
 	}
 
 	@RequestMapping("/processUserLogin")
-	public ModelAndView userLogin(Model model , HttpSession session) {
+	public @ResponseBody String  userLogin() {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-
-		//System.out.println("Username : " + email + " Password : " + password);
+		
 		UserDto loggedInUser = userService.authonticateUser(email, password);
-		System.out.println("LoggedInUser :"+loggedInUser);
+		System.out.println("Loged in user "+loggedInUser);
 		if (loggedInUser != null) {
 			session.setAttribute("userId", loggedInUser.getId());
 			session.setAttribute("userName", loggedInUser.getName());
-			session.setAttribute("userEmail", loggedInUser.getEmail());
-			System.out.println("UserId: "+session.getAttribute("userId"));
-			System.out.println("UserName: "+session.getAttribute("userName"));
-			model.addAttribute("userName", session.getAttribute("userName"));
-			return new ModelAndView("usersView/userHome");
+			session.setAttribute("email", loggedInUser.getEmail());
+			System.out.println("stored id from session "+session.getAttribute("userId"));
+			return Constants.SUCCESS;
 		} else {
-			model.addAttribute("errMsg", "Invalide Username/Password");
-			return new ModelAndView("usersView/userLogin");
+			return "Invalide Username/Password";
 		}
 
 	}
 
 	@RequestMapping("/userHome")
 	public String showUserHome() {
-		// Check Session
-		return "usersView/userHome";
+		System.out.println("userSession" +session.getAttribute("email"));
+		if(session.getAttribute("email") != null)
+			return "usersView/userHome";
+		return "usersView/userLogin";
 	}
-	
+
 	@RequestMapping("/changePassword")
-	public String showChangePasswordView(){
-		//chk session
-		return "usersView/changePassword";
+	public String showChangePasswordView() {
+		if(session.getAttribute("email") != null)
+			return "usersView/changePassword";
+		return "usersView/userLogin";
 	}
-	
+
 	@RequestMapping("/processChangePassword")
-	public @ResponseBody String changeUserPassword(HttpServletRequest request, HttpSession session){
-		
+	public @ResponseBody String changeUserPassword(HttpServletRequest request, HttpSession session) {
+
 		long id = (long) session.getAttribute("userId");
-		
-		if(id != 0){
+
+		if (id != 0) {
 			String oldPassword = request.getParameter("oldPassword");
 			String newPassword = request.getParameter("newPassword");
-			
+
 			return userService.changePassword(id, oldPassword, newPassword);
 		} else {
-			//Change ..............................
+			// Change ..............................
 			return null;
 		}
-		
+
 	}
-	
+
 	@RequestMapping("/forgotPassword")
-	public @ResponseBody String forgotPassword(HttpServletRequest request){
+	public @ResponseBody String forgotPassword(HttpServletRequest request) {
 		String email = request.getParameter("email");
-		
+
 		return userService.forgotPassword(email);
 	}
-	
+
 	@RequestMapping("/modifyUserApplication")
-	public String showModifyApplnView(){
-		return "usersView/ModifyOrDeletApplication";
+	public String showModifyApplnView() {
+		if(session.getAttribute("email") != null)
+			return "usersView/ModifyOrDeletApplication";
+		return "usersView/userLogin";
 	}
 }

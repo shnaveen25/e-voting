@@ -12,6 +12,15 @@ import com.pesit.eVoting.sql.domain.ElectionParticipants;
 
 @Component
 public class ElectionParticipantsDAO extends BaseDao<ElectionParticipants>{
+	
+	@Transactional
+	public ElectionParticipants getParticipantByAdhar(long adhaar){
+		
+		Criteria crit = getCurrentSession().createCriteria(ElectionParticipants.class);
+		crit.add(Restrictions.eq("adhaar", adhaar));
+		
+		return (ElectionParticipants) crit.uniqueResult();
+	}
 
 	@Transactional
 	public List<ElectionParticipants> getParticipantByEleId(long electionId){
@@ -21,17 +30,7 @@ public class ElectionParticipantsDAO extends BaseDao<ElectionParticipants>{
 		
 		return crit.list();
 	}
-	
-	@Transactional
-	public List<ElectionParticipants> getParticipantByEleIdAndAssId(long electionId , long assemblyId){
-		
-		Criteria crit = getCurrentSession().createCriteria(ElectionParticipants.class);
-		crit.add(Restrictions.eq("electionId", electionId));
-		crit.add(Restrictions.eq("assemblyId", assemblyId));
-		
-		return crit.list();
-	}
-	
+
 	@Transactional
 	public ElectionParticipants getParticipantByIdAndAssId(long participantId , long assemblyId){
 		
@@ -50,6 +49,46 @@ public class ElectionParticipantsDAO extends BaseDao<ElectionParticipants>{
 		
 		return  (ElectionParticipants) crit.uniqueResult();
 	}*/
+	
+	@Transactional
+	public List<ElectionParticipants> getParticipantByEleIdAndAssId(long electionId , long assemblyId){
+		
+		Criteria crit = getCurrentSession().createCriteria(ElectionParticipants.class);
+		crit.add(Restrictions.eq("electionId", electionId));
+		crit.add(Restrictions.eq("assemblyId", assemblyId));
+		
+		return crit.list();
+	}
+	
+	@Transactional
+	public List<ElectionParticipants> getParticipantByEleIdAndDistId(long electionId , long districtId){
+		
+		Criteria crit = getCurrentSession().createCriteria(ElectionParticipants.class);
+		crit.add(Restrictions.eq("electionId", electionId));
+		crit.add(Restrictions.eq("districtId", districtId));
+		
+		return crit.list();
+	}
+	
+	@Transactional
+	public List<ElectionParticipants> getParticipantByEleIdAndStatetId(long electionId , long stateId){
+		
+		Criteria crit = getCurrentSession().createCriteria(ElectionParticipants.class);
+		crit.add(Restrictions.eq("electionId", electionId));
+		crit.add(Restrictions.eq("stateId", stateId));
+		
+		return crit.list();
+	}
+	
+	@Transactional
+	public List<ElectionParticipants> getParticipantByAssId(long assemblyId){
+		
+		Criteria crit = getCurrentSession().createCriteria(ElectionParticipants.class);
+		crit.add(Restrictions.eq("assemblyId", assemblyId));
+		
+		return (List<ElectionParticipants>) crit.list(); 
+	}
+	
 	
 	
 }

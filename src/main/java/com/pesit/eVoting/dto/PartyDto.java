@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.pesit.eVoting.sql.domain.PartyDescription;
+
 /**
  * 
  * @author
@@ -17,7 +19,6 @@ public class PartyDto implements Serializable {
 
 	private long id;
 	
-	@NotEmpty
 	private String partyName;
 	
 	private String partyDescription;
@@ -29,6 +30,18 @@ public class PartyDto implements Serializable {
 	private String partyEmail;
 	
 	private Timestamp createdDate;
+	
+	public PartyDto() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public PartyDto(PartyDescription party){
+		id = party.getId();
+		partyName = party.getPartyName();
+		partyDescription = party.getPartyDescription();
+		partyEmail = party.getEmail();
+		createdDate = party.getCreatedDate();
+	}
 	
 	@Override
 	public int hashCode() {

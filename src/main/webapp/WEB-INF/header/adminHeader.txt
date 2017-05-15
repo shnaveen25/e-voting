@@ -37,9 +37,8 @@
       <li class="active"><a href="adminHome">Home</a></li>
       <li><a class="drop" href="#">Elections</a>
         <ul>
-          <li><a href="">Present</a></li>
           <li><a href="/getPastElectionView">Past</a></li>
-          <li><a href="/addFutureElections">Future</a></li>
+          <li><a href="/addFutureElections">Current/Future</a></li>
         </ul>
       </li>
       <li><a class="drop" href="#">Party</a>
@@ -50,16 +49,10 @@
     </li>
       <li><a class="drop" href="#">Participants</a>
         <ul>
-          <li><a href="/showAddParticipantView">Add Participants</a></li>
+          <li><a href="/addParticipantView">Add Participants</a></li>
           <li><a href="/viewParticipants">View Participants</a></li>
       </ul>
-      <li><a class="drop" href="#">Application</a>
-        <ul>
-          <li><a href="viewUserApplications">Including Name in Electoral Roll</a></li>
-          <li><a href="#">Deleting Name From Electoral Roll</a></li>
-          <li><a href="#">Modifying Name in Electoral Roll</a></li>
-          <li><a href="#">Transposing Name in Electoral Roll</a></li> 	 	 	 	
-        </ul>
+      <li><a href="viewUserApplications">Application</a>
       </li>
       <li><a href="getAllVoters">Voters</a></li>
       <li><a href=""></a></li>

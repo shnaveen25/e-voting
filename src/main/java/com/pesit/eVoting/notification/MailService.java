@@ -134,6 +134,8 @@ public class MailService {
 		builder.append("<br>Password : <b>" + password + "</b>");
 
 		builder.append("<br>Please keep elector id number and password for voting ");
+		
+		builder.append("<br>");
 
 		builder.append("<br>Thank you and Regards,");
 
@@ -141,7 +143,43 @@ public class MailService {
 
 		return builder.toString();
 	}
+	
+	public String getApplicationRejectBody(String name , String comment) {
 
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("<html><body style='max-width: 1024px; margin: 11px auto; width:90%'>");
+
+		builder.append("<div style='border:2px solid #4285f4; padding:10px;'>");
+
+		builder.append("<p><i>Dear <b>"+name+"</b>");
+
+		builder.append("<br>Your applcation hac been rejected by admin with the bellow reason");
+
+		builder.append("<br>");
+		
+		builder.append("Reason :<b> " + comment + "</b><br>");
+
+		builder.append("<br>Thank you and Regards,");
+		
+
+		builder.append("<br><a href='http://localhost:3000'>Team eVoting</a><br>");
+
+		return builder.toString();
+
+	}
+	
+
+	/**
+	 * 
+	 * @param name
+	 * @param state
+	 * @param district
+	 * @param assembly
+	 * @param post
+	 * @param date
+	 * @return
+	 */
 	public String getParticipantRegisteredMail(String name, String state, String district, String assembly,
 			String post , String date) {
 		StringBuilder builder = new StringBuilder();
@@ -249,6 +287,38 @@ public class MailService {
 		return builder.toString();
 
 	} // End method
+	
+	
+	/**
+	 * Composes a mail body to send OTP 
+	 * 
+	 * @param name
+	 * @param oTP
+	 * @return
+	 */
+	public String getOTPBody(String name , String oTP) {
+
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("<html><body style='max-width: 1024px; margin: 11px auto; width:90%'>");
+
+		builder.append("<div style='border:2px solid #4285f4; padding:10px;'>");
+
+		builder.append("<p><i>Dear <b>"+name+"</b>");
+
+		builder.append("<br> As per your request we have generated your OTP, for your selected operation");
+
+		builder.append("<br> OTP : "+oTP);
+		
+		builder.append("<br>");
+		
+		builder.append("<br>Thank you and Regards,");
+
+		builder.append("<br><a href='http://localhost:3000'>Team eVoting</a><br>");
+
+		return builder.toString();
+
+	}
 	
 
 }

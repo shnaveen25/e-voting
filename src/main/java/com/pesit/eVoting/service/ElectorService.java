@@ -17,4 +17,8 @@ public interface ElectorService extends Serializable {
 	
 	public String activeOrInactiveElector(long id);
 
+	public String getOTP(String electorId);
+	
+	public ElectorDto getElectorProfileByEleId(String electorId);
+
 }

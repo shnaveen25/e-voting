@@ -50,12 +50,13 @@ public class ElectionDAO extends BaseDao<Election> {
 	}
 	
 	@Transactional
-	public List<Election> findByStateUpcomingElection(long id){
+	public List<Election> findByStateUpcomingElection(long id, String date){
 		
 		Criteria crit = getCurrentSession().createCriteria(Election.class);
 		
 		crit.add(Restrictions.eq("stateId" , id));
 		crit.add(Restrictions.eq("status" , Constants.UPCOMING_ELECTION));
+		crit.add(Restrictions.ge("electionDate" ,date));
 		
 		return crit.list();
 	}

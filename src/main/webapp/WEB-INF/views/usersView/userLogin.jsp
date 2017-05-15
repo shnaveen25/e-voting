@@ -14,7 +14,7 @@
 <script>
 	$(document).ready(function() {
 		$('#getNewPassword').click(function() {
-			console.log('Getting Districts');
+			console.log('Generation new password');
 			$.ajax({
 				url : 'forgotPassword',
 				data : {
@@ -27,6 +27,28 @@
 			});
 		});
 	});
+	
+	$(document).ready(function() {
+		$('#signIn').click(function(e) {
+			e.preventDefault();
+			console.log('User login is underprocess');
+			$.ajax({
+				url : 'processUserLogin',
+				data : {
+					email : $('#email').val(),
+					password : $('#password').val()
+				},
+				success : function(responseText) {
+					console.log(responseText);
+					if(responseText ==  'success')
+						//alert(responseText);
+						$(window.location).attr('href', 'userHome');
+					else
+						alert(responseText);
+				}
+			});
+		});
+	});
 </script>
 
 <div class="wrapper row3">
@@ -35,24 +57,23 @@
 		<div class="col-lg-15">
 			<header class="panel-heading">
 				<h4>
-					<b>Login</b>
+					<b>User Login</b>
 				</h4>
 			</header>
 			<div class="panel-body"></div>
 			<font color="Red"> ${errMsg}</font>
-				<form class="form-horizontal" role="form" action="processUserLogin"
-					method="post">
+				<form class="form-horizontal">
 					<div class="form-group">
 						<label class="col-lg-2 col-sm-2 control-label"> Email </label>
 						<div class="col-lg-9">
-							<input type="email" class="form-control" name="email"
+							<input type="email" class="form-control" id="email"
 								placeholder="Enter Registered Email" required/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-lg-2 col-sm-2 control-label"> Password </label>
 						<div class="col-lg-9">
-							<input type="password" class="form-control" name="password"
+							<input type="password" class="form-control" id="password"
 								placeholder="Password" required/>
 						</div>
 					</div>
@@ -61,7 +82,7 @@
 							<div class="col-lg-offset-2 col-lg-8">
 								<a style='cursor:pointer' data-toggle='modal' data-target='#changePassword'> Forgot Password ? </a> <br /> <a
 									href="register"> New User? Create Login </a> <br /> <br />
-								<button type="submit" class="btn btn-danger">Sign in</button>
+								<button type="submit" class="btn btn-danger" id="signIn">Sign in</button>
 							</div>
 						</div>
 					</div>

@@ -77,6 +77,51 @@
 		selection += '</div><br /> <br />'
 		$("#assembly").html(selection);
 	}
+	
+	//Ajax call to perform voter name include operation
+	$(document).ready(function() {
+		$('#addVoterAppl').click(function(event) {
+			event.preventDefault();
+			var data = {
+				stateId : $('#stateId').val(),
+				districtId : $('#districtId').val(),
+				assemblyId : $('#assemblyId').val(),
+				name : $('#name').val(),
+				surName : $('#surName').val(),
+				dob : $('#dob').val(),
+				gender : $('#gender').val(),
+				mobile : $('#mobile').val(),
+				email : $('#email').val(),
+				appliedFor : $('#appliedFor').val(),
+				id : $('#id').val(),
+				aadhar : $('#aadhar').val(),
+				area : $('#area').val(),
+				street : $('#street').val(),
+				landMark : $('#landMark').val(),
+				pinCode : $('#pinCode').val(),
+				
+			};
+			console.log('Adding Voter Applocation with fallowing data ' , data);
+			 $.ajax({
+				url : 'registerVoterApplication',
+				data : JSON.stringify(data),
+				type : 'POST',
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(responseText) {
+					console.log("Response after calling addParticipant API",responseText);	
+					if(responseText == 'success'){
+						alert("Application has been submitted successifully");
+						$(window.location).attr('href', 'userHome');
+					}
+					else{
+						alert(responseText);
+					}
+				}
+			});  
+		});
+	});
 </script>
 
 
@@ -85,8 +130,7 @@
 	<main class="hoc clear">
 	<div class="content">
 		<div id="comments">
-			<x:form modelAttribute="voterApplicationDto"
-				action="registerVoterApplication">
+			<form>
 				<h4 class="text-center">Application for inclusion of name in
 					Electoral Roll</h4>
 				<ul>
@@ -134,14 +178,14 @@
 								<div class="form-group">
 									<label class="col-lg-2 col-sm-2 control-label"> Name </label>
 									<div class="col-lg-4 ">
-										<input type="text" class="form-control" name="name"
+										<input type="text" class="form-control" name="name" id="name"
 											placeholder="Enter Your First Name. Special Character/ numbers not allowed." 
 											value="<j:out value="${ApplicationDetails.name}" />" required/>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label"> Surname
 										(if any)</label>
 									<div class="col-lg-4">
-										<input type="text" class="form-control" name="surName"
+										<input type="text" class="form-control" name="surName" id="surName"
 											placeholder="Your Surname / Lastname. Special Character/ numbers not allowed." />
 									</div>
 								</div>
@@ -149,12 +193,12 @@
 									<label class="col-lg-2 col-sm-2 control-label"> Date of
 										Birth </label>
 									<div class="col-lg-4">
-										<input type="date" class="form-control" name="dob" value="<j:out value="${ApplicationDetails.dob}" />"
+										<input type="date" class="form-control" name="dob" id="dob" value="<j:out value="${ApplicationDetails.dob}" />"
 											title="Please select DOB." required/>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label"> Gender</label>
 									<div class="col-lg-4">
-										<select name="gender" class="form-control" value="<j:out value="${ApplicationDetails.gender}" />">
+										<select name="gender" id="gender" class="form-control" value="<j:out value="${ApplicationDetails.gender}" />">
 											<option value="male">Male</option>
 											<option value="female">Female</option>
 											<option value="other">Other</option>
@@ -165,19 +209,19 @@
 									<label class="col-lg-2 col-sm-2 control-label"> Mobile
 									</label>
 									<div class="col-lg-4">
-										<input type="text" class="form-control" name="mobile"
+										<input type="text" class="form-control" name="mobile" id="mobile"
 											placeholder="Enter Your Mobile Number" 
 											value="<j:out value="${ApplicationDetails.mobile}" />" required/>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label"> Email </label>
 									<div class="col-lg-4">
-										<input type="email" class="form-control" name="email"
+										<input type="email" class="form-control" name="email" id="email"
 											placeholder="Enter Your Email"
 											value="<j:out value="${ApplicationDetails.email}" />" required/>
 									</div>
-									<input type="hidden" name="appliedFor"
+									<input type="hidden" name="appliedFor" id="appliedFor"
 											value="including" />
-									<input type="hidden" class="form-control" name="id"
+									<input type="hidden" class="form-control" name="id" id="id"
 											value="<j:out value="${ApplicationDetails.id}" />" />
 								</div>
 							</div>
@@ -196,9 +240,10 @@
 									<label class="col-lg-2 col-sm-2 control-label"> Aadhar
 										Number </label>
 									<div class="col-lg-10">
-										<input type="text" class="form-control" name="aadhar"
+										<input type="text" class="form-control" name="aadhar" id="aadhar"
 											placeholder="Please Enter Aadhar Number." minlength="12" maxlength="12"
-											value="<j:out value="${ApplicationDetails.aadhar}" />" required/>
+											value="<j:out value="${ApplicationDetails.aadhar}" />" required/> 
+											<font color="red">Note: You cannot have a two application on same Aadhar Number</font>
 									</div>
 								</div>
 							</div>
@@ -219,15 +264,15 @@
 									<label class="col-lg-2 col-sm-2 control-label">
 										Area/Street 1 </label>
 									<div class="col-lg-4">
-										<textarea rows="4" cols="50" class="form-control" name="area"
+										<textarea rows="4" cols="50" class="form-control" name="area" id="area"
 											placeholder="Please Enter details of your place of residence."
-											value="<j:out value="${ApplicationDetails.area}" />"></textarea>
+											><j:out value="${ApplicationDetails.area}" /></textarea>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label">
 										Area/Street 2 </label>
 									<div class="col-lg-4">
 										<textarea rows="4" cols="50" class="form-control"
-											name="street"
+											name="street" id="street"
 											placeholder="Please Enter details of your place of residence."></textarea>
 									</div>
 								</div>
@@ -235,30 +280,33 @@
 									<label class="col-lg-2 col-sm-2 control-label"> Land
 										Mark </label>
 									<div class="col-lg-4 ">
-										<input type="text" class="form-control" name="landMark"
+										<input type="text" class="form-control" name="landMark" id="landMark"
 											placeholder="Enter Land Mark." 
 											value="<j:out value="${ApplicationDetails.landMark}" />"/>
 									</div>
 									<label class="col-lg-2 col-sm-2 control-label"> Pin
 										Code </label>
 									<div class="col-lg-4">
-										<input type="text" class="form-control" name="pinCode"
+										<input type="text" class="form-control" name="pinCode" id="pinCode"
 											placeholder="Enter Pin" minlength="6" maxlength="6"
 											value="<j:out value="${ApplicationDetails.pinCode}" />" required/>
 									</div>
 								</div>
 								
+								<div class="text-center">
 								<div class="form-group">
-									<input type="submit" value="Submit" name="submit"> <br />
-									<input type="button" value="Back" name="back">
-								</div>								
+									<div class="col-lg-offset-2 col-lg-8">
+										<button type="submit" class="btn btn-danger" id="addVoterAppl">SUBMIT</button>
+									</div>
+								</div>
+							</div>							
 							</div>
 							<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 							<br /> <br />
 						</article>
 					</li>
 				</ul>
-			</x:form>
+			</form>
 		</div>
 	</div>
 	<div class="clear"></div>

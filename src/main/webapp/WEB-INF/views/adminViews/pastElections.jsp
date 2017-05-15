@@ -39,6 +39,7 @@
 
 						});
 		table += "</tbody>";
+		$("#showElectionResult").hide();
 		$("#pastElections").append(table);
 
 		$('.getStates').click(function() {
@@ -129,6 +130,10 @@
 	}
 
 	function showElectionResult(responseText) {
+		if(responseText.length == 0){
+			alert("No Results found for selected assembly")
+			window.location.reload();
+		}
 		console.log("Response Data", responseText);
 		var table = "<tbody>";
 		$(responseText).each(function(i, item) {
@@ -144,6 +149,7 @@
 
 		});
 		table += "</tbody>";
+		$("#showElectionResult").show();
 		$("#eleResult").append(table);
 	}
 </script>
@@ -178,7 +184,7 @@
 				</article>
 			</li>
 
-			<li>
+			<li id="showElectionResult">
 				<article>
 					<header>
 						<address>Result for the selected election</address>

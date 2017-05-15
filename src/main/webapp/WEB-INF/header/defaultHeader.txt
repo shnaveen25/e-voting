@@ -23,8 +23,7 @@
   <div id="topbar" class="hoc clear"> 
    <div class="fl_left">
       <ul>
-        <li><i class="fa fa-phone"></i> 1800-111-403 </li>
-        <li><i class="fa fa-envelope-o"></i> complaints@eci.gov.in</li>
+        <li><i class="fa fa-envelope-o"></i> evoting.pes@gmail.com</li>
       </ul>
     </div>	
     <div class="fl_right">
@@ -53,16 +52,17 @@
   <nav id="mainav" class="hoc clear"> 
     <ul class="clear">
       <li class="active"><a href="/">Home</a></li>
-      <li><a class="drop" href="#">Elections</a>
+     <li><a class="drop" href="#">Elections</a>
         <ul>
-          <li><a href="showPresentElections">Present</a></li>
-          <li><a href="showPastElections">Past</a></li>
-          <li><a href="showFutureElections">Future</a></li>
+          <li><a href="getCurrentElectionView">Present<br/>(Cast Your Vote)</a></li>
+          <li><a href="viewElectionResults">Past<br/>(See Election Results)</a></li>
+          <li><a href="showFutureElections">Future<br/>(Upcoming Elections) </a></li>
         </ul>
-      </li>
-      <li><a href="">Party Description</a></li>
+      </li>  
+      <li><a href="showAllParties">Party Description</a></li>
+     <!-- <li><a href="showFutureElections">Up coming Elections</a></li>
      <li><a href="getCurrentElectionView">Cast Your Voter</a></li>
-      <li><a href="viewElectionResults">Election Results</a></li>
+      <li><a href="viewElectionResults">Election Results</a></li> -->
     </ul>
     </nav>
 </div>

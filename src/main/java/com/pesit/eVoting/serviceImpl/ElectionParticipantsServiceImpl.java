@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -13,7 +12,6 @@ import java.util.List;
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
-import org.hibernate.loader.custom.Return;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +61,13 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 
 	@Override
 	@Transactional
-	public void addParticipant(ParticipantsDto participant) {
+	public String addParticipant(ParticipantsDto participant) {
+
+		ElectionParticipants isParticipantExists = electionParticipantDao
+				.getParticipantByAdhar(participant.getAdhaar());
+
+		if (isParticipantExists != null)
+			return "Participant with the same Aadhar has already exist";
 
 		Timestamp currentDate = new Timestamp(new Date().getTime());
 		ElectionParticipants electionParticipant = new ElectionParticipants();
@@ -99,11 +103,12 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 								participant.getPost(), election.getElectionDate()),
 						participant.getEmail(), Constants.FROM_MAIL);
 			} catch (MessagingException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
 		}).start();
+
+		return Constants.SUCCESS;
 
 	}
 
@@ -118,9 +123,8 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 			String state = assemblyStateService.getAssemblyStatesById(indudivalParticipant.getStateId());
 			String district = assemblyDistricte.getAssemblyDistrictById(indudivalParticipant.getDistrictId());
 			String assembly = assemblyConstituency.getAssemblysById(indudivalParticipant.getAssemblyId());
-			ElectionDto election= electionService.getElectionById(indudivalParticipant.getElectionId());
-			
-			
+			ElectionDto election = electionService.getElectionById(indudivalParticipant.getElectionId());
+
 			ParticipantsDto participant = new ParticipantsDto();
 			participant.setName(indudivalParticipant.getName());
 			participant.setPartyName(partyName.getPartyName());
@@ -244,14 +248,14 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 	@Override
 	@Transactional
 	public List<ParticipantsDto> getNoOfVotes(long electionId, long assemblyId) {
-		
+
 		List<ParticipantsDto> responseData = new ArrayList<ParticipantsDto>();
-		
+
 		List<ElectionParticipants> participantsFromDb = electionParticipantDao.getParticipantByEleIdAndAssId(electionId,
 				assemblyId);
-		
-		if(participantsFromDb != null){
-			for(ElectionParticipants eachParticipant :participantsFromDb) {
+
+		if (participantsFromDb != null) {
+			for (ElectionParticipants eachParticipant : participantsFromDb) {
 				ParticipantsDto participantWithVotes = new ParticipantsDto();
 				PartyDescription party = partyDescriptionDao.findById(eachParticipant.getPartyId());
 				participantWithVotes.setName(eachParticipant.getName());
@@ -259,7 +263,7 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 				participantWithVotes.setPartyName(party.getPartyName());
 				responseData.add(participantWithVotes);
 			}
-			
+
 			Collections.sort(responseData, new Comparator<ParticipantsDto>() {
 				@Override
 				public int compare(ParticipantsDto p1, ParticipantsDto p2) {
@@ -267,8 +271,80 @@ public class ElectionParticipantsServiceImpl implements ElectionParticipantsServ
 				}
 			});
 		}
-		System.out.println("No of votes : "+responseData);
+		System.out.println("No of votes : " + responseData);
+		// call getStateWinner with the state Id if first element who is the
+		// winner of the election
+		//getStateWinner();
 		return responseData;
+	}
+
+	@Transactional
+	public List<?> getStateWinner() {
+		// let
+		/*
+		 * int electionId = 9;
+		 * 
+		 * //find all participants belonging to election
+		 * List<ElectionParticipants> participants =
+		 * electionParticipantDao.getParticipantByEleId(electionId);
+		 * 
+		 * System.out.println("All participants for the election");
+		 * System.out.println(participants);
+		 * 
+		 * for(int i = 0 ; i < participants.size() ; i++ ){ //get Each State
+		 * while(participants.get(i).getStateId() ==
+		 * participants.get(i+1).getStateId()){
+		 * 
+		 * }
+		 * 
+		 * }
+		 * 
+		 * return null;
+		 */
+
+		long stateId = 1;
+		int electionId = 9;
+
+		List<PartyDescription> allParties = partyDescriptionDao.findAll();
+
+		List<ElectionParticipants> districtWinner = new ArrayList<ElectionParticipants>();
+
+		List<ElectionParticipants> stateWinner = new ArrayList<ElectionParticipants>();
+
+		List<ElectionParticipants> participantsformState = electionParticipantDao
+				.getParticipantByEleIdAndStatetId(electionId, stateId);
+
+		for (ElectionParticipants eachState : participantsformState) {
+
+			List<ElectionParticipants> participantsFromDistrict = electionParticipantDao
+					.getParticipantByEleIdAndDistId(electionId, eachState.getDistrictId());
+
+			for (ElectionParticipants eachDistrict : participantsFromDistrict) {
+				List<ElectionParticipants> participantFromAssembly = new ArrayList<ElectionParticipants>();
+
+				participantFromAssembly = electionParticipantDao.getParticipantByEleIdAndAssId(electionId,
+						eachDistrict.getAssemblyId());
+				if(participantFromAssembly != null){
+					// Sorts all records gotten from assembly. the first one will be
+					// the winner from assembly
+					Collections.sort(participantFromAssembly, new Comparator<ElectionParticipants>() {
+						@Override
+						public int compare(ElectionParticipants p1, ElectionParticipants p2) {
+							return (int) (p2.getNoOfVotes() - p1.getNoOfVotes());
+						}
+					});
+					districtWinner.add(participantFromAssembly.get(0));
+					System.out.println("Districtwinnwr" + participantFromAssembly.get(0));
+				}
+			}
+		}
+
+		for (PartyDescription eachParty : allParties) {
+			int count = Collections.frequency(districtWinner, eachParty.getId());
+			System.out.println("Count..." + count);
+		}
+
+		return null;
 	}
 
 }

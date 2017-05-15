@@ -30,19 +30,27 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public String registerUser(UserDto user) {
 
-		Timestamp currentDate = new Timestamp(new Date().getTime());
-		Users userDetail = new Users();
-		userDetail.setName(user.getName());
-		userDetail.setEmail(user.getEmail());
-		userDetail.setPassword(user.getPassword());
-		userDetail.setMobile(user.getMobile());
-		userDetail.setCreatedDate(currentDate);
-		try {
-			userDao.save(userDetail);
-		} catch (Exception e) {
-			return e.getMessage();
-		}
-		return Constants.SUCCESS;
+		 Users userDetail = userDao.findByEmail(user.getEmail());
+		 
+		 if(userDetail == null){
+		
+			Timestamp currentDate = new Timestamp(new Date().getTime());
+			userDetail = new Users();
+			userDetail.setName(user.getName());
+			userDetail.setEmail(user.getEmail());
+			userDetail.setPassword(user.getPassword());
+			userDetail.setMobile(user.getMobile());
+			userDetail.setCreatedDate(currentDate);
+			try {
+				userDao.save(userDetail);
+				return Constants.SUCCESS;
+			} catch (Exception e) {
+				return e.getMessage();
+			}
+		 } else {
+			 return "Email already registered with us..!!";
+		 }
+		
 	}
 
 	@Override
@@ -54,7 +62,7 @@ public class UserServiceImpl implements UserService {
 		if (isExistingUser != null) {
 			user.setId(isExistingUser.getId());
 			user.setName(isExistingUser.getName());
-			user.setPassword(isExistingUser.getPassword());
+			user.setEmail(isExistingUser.getEmail());
 			return user;
 		}
 		return null;

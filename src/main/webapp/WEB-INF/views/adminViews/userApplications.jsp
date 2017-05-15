@@ -19,12 +19,12 @@
 					$('#assemblyDistrictsDto').text(responseText);
 					console.log(responseText);
 					alert("Application Accepted");
-					 $(window.location).attr('href', 'adminHome');
+					$(window.location).attr('href', 'adminHome');
 				}
 			});
 		});
 	});
-	
+
 	$(document).ready(function() {
 		$('#reject').click(function() {
 			console.log('Application Rejected');
@@ -36,21 +36,18 @@
 				},
 				success : function(responseText) {
 					$('#assemblyDistrictsDto').text(responseText);
-					alert("Applicaton has been Rejected");
-					 $(window.location).attr('href', 'adminHome');
+					alert("Applicaton has been RejeEDITINGcted");
+					$(window.location).attr('href', 'adminHome');
 				}
 			});
 		});
 	});
-
-	
 </script>
 <!-- Body -->
 <div class="wrapper row3">
-	<main class="hoc clear">
-	<j:choose>
+	<main class="hoc clear"> <j:choose>
 		<j:when test="${ApplicationDetails != null}">
-		<br/>
+			<br />
 			<h4 class="text-center">Application Details</h4>
 			<div id="comments">
 				<ul>
@@ -61,50 +58,46 @@
 							</header>
 							<div class="comcont">
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	State</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.stateName}
+									<Label class="col-lg-3 col-sm-2 control-label"> State</Label>
+									<div class="col-lg-9">${ApplicationDetails.stateName}</div>
+								</div>
+
+								<div class="form-group">
+									<Label class="col-lg-3 col-sm-2 control-label">
+										District</Label>
+									<div class="col-lg-9">${ApplicationDetails.districtName}
 									</div>
 								</div>
 
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	District</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.districtName}
+									<Label class="col-lg-3 col-sm-2 control-label">
+										Assembly Constituency</Label>
+									<div class="col-lg-9">${ApplicationDetails.assemblyName}
 									</div>
 								</div>
-
-								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Assembly Constituency</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.assemblyName}
-									</div>
-								</div>
-								<br /> <br /><br /> <br /><br />
+								<br /> <br /> <br /> <br /> <br />
 							</div>
 						</article>
 					</li>
-					
+
 					<li>
 						<article>
 							<header>
 								<address>II. Applicant's Details</address>
 							</header>
 							<div class="comcont">
-								<input type="hidden" id="applicationId" value='<j:out value="${ApplicationDetails.id}"></j:out>'/>
-								
+								<input type="hidden" id="applicationId"
+									value='<j:out value="${ApplicationDetails.id}"></j:out>' />
+
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Name</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.name}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Name</Label>
+									<div class="col-lg-9">${ApplicationDetails.name}</div>
 								</div>
 
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Date of Birth</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.dob}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Date of
+										Birth</Label>
+									<div class="col-lg-9">${ApplicationDetails.dob}</div>
 								</div>
 								<!-- 
 								<div class="form-group">
@@ -115,30 +108,25 @@
 								</div>
 								 -->
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Mobile</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.mobile}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Mobile</Label>
+									<div class="col-lg-9">${ApplicationDetails.mobile}</div>
 								</div>
-								
+
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Email</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.email}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Email</Label>
+									<div class="col-lg-9">${ApplicationDetails.email}</div>
 								</div>
-								
+
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Aadhar</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.aadhar}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Aadhar</Label>
+									<div class="col-lg-9">${ApplicationDetails.aadhar}</div>
 								</div>
-								<br /> <br /><br /> <br /><br /><br /> <br /><br /> <br /><br />
+								<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+								<br /> <br />
 							</div>
 						</article>
 					</li>
-					
+
 					<li>
 						<article>
 							<header>
@@ -147,26 +135,21 @@
 							</header>
 							<div class="comcont">
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Address</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.area}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Address</Label>
+									<div class="col-lg-9">${ApplicationDetails.area}</div>
 								</div>
 
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Land Mark</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.landMark}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Land
+										Mark</Label>
+									<div class="col-lg-9">${ApplicationDetails.landMark}</div>
 								</div>
 
 								<div class="form-group">
-									<Label class="col-lg-3 col-sm-2 control-label">	Pin</Label>
-									<div class="col-lg-9">
-										${ApplicationDetails.pinCode}
-									</div>
+									<Label class="col-lg-3 col-sm-2 control-label"> Pin</Label>
+									<div class="col-lg-9">${ApplicationDetails.pinCode}</div>
 								</div>
-								<br /> <br /><br /> <br /><br /><br />
+								<br /> <br /> <br /> <br /> <br /> <br />
 							</div>
 						</article>
 					</li>
@@ -178,23 +161,22 @@
 							</header>
 							<div class="comcont">
 								<div class="form-group">
-									<label class="col-lg-2 col-sm-2 control-label">
-										Comment </label>
+									<label class="col-lg-2 col-sm-2 control-label"> Comment
+									</label>
 									<div class="col-lg-4">
-										<textarea rows="4" cols="50" class="form-control" name="comment"
-											id="comment" placeholder="Add your comment."
-										></textarea>
+										<textarea rows="4" cols="50" class="form-control"
+											name="comment" id="comment" placeholder="Add your comment."></textarea>
 									</div>
 								</div>
 								<div class="text-center">
-								<div class="form-group">
-									<div class="col-lg-offset-2 col-lg-8">
-										<button type="submit" class="btn btn-danger" id="accept">Accept</button>
-										<button type="submit" class="btn btn-danger" id="reject">Reject</button>
+									<div class="form-group">
+										<div class="col-lg-offset-2 col-lg-8">
+											<button type="submit" class="btn btn-danger" id="accept">Accept</button>
+											<button type="submit" class="btn btn-danger" id="reject">Reject</button>
+										</div>
 									</div>
 								</div>
-								</div>
-								<br /> <br /><br /> <br /><br /> <br /><br /> <br />
+								<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
 							</div>
 						</article>
 				</ul>
@@ -209,7 +191,7 @@
 								<th>Name</th>
 								<th>Email</th>
 								<th>Mobile</th>
-								<th>Aadhar</th>
+								<th>Applied For</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -219,10 +201,10 @@
 									<td><j:out value="${application.name}" /></td>
 									<td><j:out value="${application.email}" /></td>
 									<td><j:out value="${application.mobile}" /></td>
-									<td><j:out value="${application.aadhar}" /></td>
+									<td><j:out value="${application.appliedFor.toUpperCase()}" /></td>
 									<td><a
 										href="viewUserApplications?id=<j:out value="${application.id}"/>">View</a>
-									</td>
+
 								</tr>
 							</j:forEach>
 						</tbody>

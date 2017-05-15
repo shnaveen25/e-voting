@@ -25,5 +25,10 @@ public interface Constants {
 	
 	public String INCLUDING = "including";
 	public String EDITING = "editing";
+	public String PENDING = "pending";
+	public String DELETING = "deleting";
+	
+	public String ADMIN = "admin";
+	public String USER = "user";
 }
 

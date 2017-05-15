@@ -11,43 +11,51 @@ import org.springframework.stereotype.Component;
 import com.pesit.eVoting.sql.domain.Elector;
 
 @Component
-public class ElectorDAO extends BaseDao<Elector>{
-	
+public class ElectorDAO extends BaseDao<Elector> {
 
 	@Transactional
-	public Elector findByAadharNumber(long aadhar){
-		
+	public Elector findByAadharNumber(long aadhar) {
+
 		Criteria crit = getCurrentSession().createCriteria(Elector.class);
 		crit.add(Restrictions.eq("aadhar", aadhar));
-		
+
 		return (Elector) crit.uniqueResult();
 	}
-	
+
 	@Transactional
-	public Elector findByElectorIdAndPassord(String electorId , String password){
-		
+	public Elector findByElectorIdAndPassord(String electorId, String password) {
+
 		Criteria crit = getCurrentSession().createCriteria(Elector.class);
 		crit.add(Restrictions.eq("electorId", electorId));
 		crit.add(Restrictions.eq("password", password));
-		
+
 		return (Elector) crit.uniqueResult();
 	}
-	
+
 	@Transactional
-	public Elector findByEmail(String email){
-		
+	public Elector findByEmail(String email) {
+
 		Criteria crit = getCurrentSession().createCriteria(Elector.class);
 		crit.add(Restrictions.eq("email", email));
-		
+
 		return (Elector) crit.uniqueResult();
 	}
-	
+
 	@Transactional
-	public List<Elector> findAllElectorByAssId(long assId){
-		
+	public List<Elector> findAllElectorByAssId(long assId) {
+
 		Criteria crit = getCurrentSession().createCriteria(Elector.class);
 		crit.add(Restrictions.eq("assemblyId", assId));
-		
+
 		return (List<Elector>) crit.list();
+	}
+
+	@Transactional
+	public Elector findByElectorID(String electorId) {
+
+		Criteria crit = getCurrentSession().createCriteria(Elector.class);
+		crit.add(Restrictions.eq("electorId", electorId));
+
+		return (Elector) crit.uniqueResult();
 	}
 }

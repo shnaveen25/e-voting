@@ -132,12 +132,15 @@
 		$(responseText)
 				.each(
 						function(i, item) {
-							table += "<tr><td>" + item.partyName.toUpperCase()
-									+ "</td>";
-							table += "<td>" + item.name.toUpperCase()
-									+ "</td>";
-							table += "<td>" + item.noOfVotes
-									+ "</td>";
+							if (i == 0) {
+								table += "<tr><td><font color='red'><i class='fa fa-trophy'></i>  " + item.partyName.toUpperCase() + "</font></td>";
+								table += "<td><font color='red'>" + item.name.toUpperCase() + "</font></td>";
+								table += "<td><font color='red'>" + item.noOfVotes + "</font></td></tr>";
+							} else {
+								table += "<tr><td>" + item.partyName.toUpperCase() + "</td>";
+								table += "<td>" + item.name.toUpperCase() + "</td>";
+								table += "<td>" + item.noOfVotes + "</td></tr>";
+							}
 						});
 		table += "</tbody>";
 		$("#eleResult").append(table);

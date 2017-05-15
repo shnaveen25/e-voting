@@ -141,8 +141,12 @@ public class ElectionServiceImpl implements ElectionService {
 	public List<ElectionDto> getUpcomingElectionForState(long id) {
 
 		List<ElectionDto> electionList = new ArrayList<ElectionDto>();
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String currentDate = dateFormat.format(date).toString();
 
-		List<Election> electionsFromDb = electionDao.findByStateUpcomingElection(id);
+		List<Election> electionsFromDb = electionDao.findByStateUpcomingElection(id,currentDate);
 
 		for (Election eachElection : electionsFromDb) {
 			ElectionDto election = new ElectionDto(eachElection);

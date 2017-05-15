@@ -1,34 +1,72 @@
 <!-- Include Header -->
 <%@ include file="../header/defaultHeader.txt"%>
 
-<!-- Body -->
-<div class="wrapper row3">
-	<main class="hoc container clear">
-	<div class="content">
-		<div id="gallery">
-			<figure>
-				<header class="heading">Present Elections</header>
-				<ul class="nospace clear">
-					<li class="one_quarter first"><a href="#"><img
-							src="static/images/demo/backgrounds/up.jpg" alt=""></a>
-					<figcaption>Uttar Pradesh Election</figcaption></li>
-					<li class="one_quarter"><a href="#"><img
-							src="static/images/demo/backgrounds/Harish-Rawat.jpg" alt=""></a>
-					<figcaption>Uttarakhand Election</figcaption></li>
-					<li class="one_quarter"><a href="#"><img
-							src="static/images/demo/backgrounds/goa.jpg" alt=""></a>
-					<figcaption>Goa Election</figcaption></li>
-					<li class="one_quarter"><a href="#"><img
-							src="static/images/demo/backgrounds/parkash-badal.jpg" alt=""></a>
-					<figcaption>Punjab Election</figcaption></li>
-					<li class="one_quarter first"><a href="#"><img
-							src="static/images/demo/backgrounds/okramibobisingh.jpg" alt=""></a>
-					<figcaption>Manipur Election</figcaption></li>
-				</ul>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script>
+	$(document).ready(function() {
+		$.ajax({
+			url : 'getUpcomingElection',
+			success : function(responseText) {
 
-			</figure>
-		</div>
-		<div class="clear"></div>
+				showUpcomingElectionData(responseText);
+			}
+		});
+	});
+
+	function showUpcomingElectionData(responseText) {
+		console.log("Response Data", responseText);
+		var table = "<tbody>";
+		$(responseText)
+				.each(
+						function(i, item) {
+							table += "<tr><td>" + item.stateName.toUpperCase()
+									+ "</td>";
+							table += "<td>" + item.electionFor.toUpperCase()
+									+ "</td>";
+							table += "<td>" + item.electionDate.toUpperCase()
+									+ "</td></tr>";
+						});
+		table += "</tbody>";
+		$("#upcomingElections").append(table);
+	}
+</script>
+
+
+
+
+<!-- Body -->
+<div class="wrapper row3 text-center">
+	<main class="hoc clear">
+	<h4 class="text-center">Elections</h4>
+	<div id="comments">
+		<ul>
+			<li>
+				<article>
+					<header>
+						<address>Up Coming Elections</address>
+					</header>
+					<div class="comcont">
+						<div class="form-group">
+							<div>
+								<table id="upcomingElections">
+									<thead>
+										<tr>
+											<td class="col-lg-3">State</td>
+											<td class="col-lg-3">Election For</td>
+											<td class="col-lg-3">Election date</td>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</article>
+			</li>
+
+		</ul>
+	</div>
+
 	</main>
 </div>
 

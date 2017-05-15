@@ -5,8 +5,8 @@
 <div class="wrapper row3">
 	<main class="hoc container clear">
 	<div class="sectiontitle">
-		<h6 class="heading">No Vote to be left behind</h6>
-		<p>!!!!!!!!!!!!!!!write something</p>
+		<h6 class="heading">Welcome to the E-Voting Portal</h6>
+		<p></p>
 	</div>
 	<div class="group">
 		<div class="one_half first">
@@ -16,18 +16,16 @@
 			<ul class="nospace group">
 				<li class="one_half first">
 					<article>
-						<a href="#"><i class="icon btmspace-30 fa fa-joomla"></i></a>
-						<h6 class="heading font-x1">Iaculis nam nulla</h6>
-						<p>Lacinia quis ornare a eros aliquam leo curabitur pretium
-							enim et mauris duis elit&hellip;</p>
+						<a href="getCurrentElectionView"><i class="icon btmspace-30 fa fa-joomla"></i></a>
+						<h6 class="heading font-x1">Cast Your Vote</h6>
+						<p>Click to cast you vote in secure. Your selection will not be recorded</p>
 					</article>
 				</li>
 				<li class="one_half">
 					<article>
-						<a href="#"><i class="icon btmspace-30 fa fa-institution"></i></a>
-						<h6 class="heading font-x1">Augue faucibus nec</h6>
-						<p>Fusce malesuada neque non odio class aptent taciti sociosqu
-							ad litora torquent per&hellip;</p>
+						<a href="viewElectionResults"><i class="icon btmspace-30 fa fa-institution"></i></a>
+						<h6 class="heading font-x1">Election Results</h6>
+						<p>Check out who won the election for based out Assembly</p>
 					</article>
 				</li>
 			</ul>

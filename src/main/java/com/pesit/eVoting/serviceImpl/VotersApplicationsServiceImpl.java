@@ -22,6 +22,11 @@ import com.pesit.eVoting.service.VotersApplicationsService;
 import com.pesit.eVoting.sql.dao.VotersApplicationsDAO;
 import com.pesit.eVoting.sql.domain.VotersApplications;
 
+/**
+ * 
+ * @author
+ *
+ */
 @Service("VotersApplications")
 public class VotersApplicationsServiceImpl implements VotersApplicationsService {
 
@@ -47,31 +52,33 @@ public class VotersApplicationsServiceImpl implements VotersApplicationsService 
 		VotersApplications isAadharExist = voterApplicationDao.findByAadhar(voterApplicationDto.getAadhar());
 		VotersApplications isExistingApplication = voterApplicationDao.findById(voterApplicationDto.getId());
 
-		if(isAadharExist != null && isAadharExist.getAadhar() != isExistingApplication.getAadhar()){
-			return "Application already exist...!!";
-		}
+		/*if(isAadharExist != null && isAadharExist.getAadhar() != isExistingApplication.getAadhar()){
+			
+		}*/
 		
 		Timestamp currentDate = new Timestamp(new Date().getTime());
 		if (isExistingApplication == null) {
+			if(isAadharExist != null)
+				return "Application already exist...!!";
+			
 			isExistingApplication = new VotersApplications();
 			isExistingApplication.setStateId(voterApplicationDto.getStateId());
 			isExistingApplication.setDistrictId(voterApplicationDto.getDistrictId());
 			isExistingApplication.setAssemblyId(voterApplicationDto.getAssemblyId());
 			isExistingApplication.setCreatedDate(currentDate);
 			isExistingApplication.setAppliedFor(Constants.INCLUDING);
-		} else {
-			isExistingApplication.setAppliedFor(Constants.EDITING);
-		}
+		} 
 		isExistingApplication.setApplicationStatus("pending");
 		isExistingApplication.setName(voterApplicationDto.getName() + " " + voterApplicationDto.getSurName());
 		isExistingApplication.setDob(voterApplicationDto.getDob());
 		isExistingApplication.setGender(voterApplicationDto.getGender());
 		isExistingApplication.setMobile(voterApplicationDto.getMobile());
 		isExistingApplication.setEmail(voterApplicationDto.getEmail());
-		isExistingApplication.setAadhar(voterApplicationDto.getAadhar());
+		isExistingApplication.setAadhar(voterApplicationDto.getAadhar() );
 		isExistingApplication.setAddress(voterApplicationDto.getArea() + " , " + voterApplicationDto.getStreet());
 		isExistingApplication.setLandMark(voterApplicationDto.getLandMark());
 		isExistingApplication.setPinCode(voterApplicationDto.getPinCode());
+		isExistingApplication.setAddedBy(appliedBy);
 
 		voterApplicationDao.saveOrUpdate(isExistingApplication);
 
@@ -159,6 +166,17 @@ public class VotersApplicationsServiceImpl implements VotersApplicationsService 
 		return responseApplications;
 	}
 
+	/**
+	 * 
+	 * The service method is called when user clicks for a reject button
+	 * of a voter application. 
+	 * 
+	 * @author 
+	 * @param id
+	 * @param comment
+	 * @param status
+	 * 
+	 */
 	@Override
 	@Transactional
 	public void updateApplicationStatus(long id, String comment, String status) {
@@ -168,6 +186,64 @@ public class VotersApplicationsServiceImpl implements VotersApplicationsService 
 		applicationFromDb.setApplicationStatus(status);
 		applicationFromDb.setComment(comment);
 		voterApplicationDao.saveOrUpdate(applicationFromDb);
+		
+		if(status.equals("rejected")){
+			new Thread(() -> {
+	
+				try {
+					mailService.sendMailHtml("E-VOTING: Application Status", mailService
+							.getApplicationRejectBody(applicationFromDb.getName(), applicationFromDb.getComment()),
+							applicationFromDb.getEmail(), Constants.FROM_MAIL);
+				} catch (MessagingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	
+			}).start();
+		}
 
+	}
+
+	@Override
+	@Transactional
+	public String editRequestElectorApplication(VotersApplicationsDto voterApplicationDto, long appliedBy) {
+		
+		VotersApplications isExistingApplication = voterApplicationDao.findByAadhar(voterApplicationDto.getAadhar());
+		
+		if(isExistingApplication  != null ){
+			isExistingApplication.setName(voterApplicationDto.getName());
+			isExistingApplication.setDob(voterApplicationDto.getDob());
+			isExistingApplication.setGender(voterApplicationDto.getGender());
+			isExistingApplication.setMobile(voterApplicationDto.getMobile());
+			isExistingApplication.setEmail(voterApplicationDto.getEmail());
+			isExistingApplication.setAddress(voterApplicationDto.getArea());
+			isExistingApplication.setLandMark(voterApplicationDto.getLandMark());
+			isExistingApplication.setPinCode(voterApplicationDto.getPinCode());
+			isExistingApplication.setAddedBy(appliedBy);
+			isExistingApplication.setAppliedFor(Constants.EDITING);
+			isExistingApplication.setApplicationStatus(Constants.PENDING);
+			
+			voterApplicationDao.saveOrUpdate(isExistingApplication);
+			
+			return "Application has been submited..";
+		}
+		return "NO Aplication Found";
+	}
+
+	@Override
+	@Transactional
+	public String requestToDeletElector(long aadhar) {
+		
+		VotersApplications isExistingApplication = voterApplicationDao.findByAadhar(aadhar);
+		
+		if(isExistingApplication  != null ){;
+			isExistingApplication.setAppliedFor(Constants.DELETING);
+			isExistingApplication.setApplicationStatus(Constants.PENDING);
+			
+			voterApplicationDao.saveOrUpdate(isExistingApplication);
+			
+			return "Deleting request has been submited..";
+		}
+		return "NO Aplication Found";
 	}
 }
