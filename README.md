@@ -17,9 +17,3 @@ This README would normally document whatever steps are necessary to get your app
 * Database configuration
 * How to run tests
 * Deployment instructions
-
-### Who do I talk to? ###
-
-* Naveen S Heroorkar
-* sh.naveen25@gmail.com
-* 9886239696
